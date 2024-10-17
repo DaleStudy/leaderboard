@@ -1,3 +1,5 @@
+import { css } from "../styled-system/css";
+
 export default function Leaderboard() {
   const names = [
     "DaleSeo",
@@ -12,14 +14,27 @@ export default function Leaderboard() {
 
   return (
     <div>
-      <h1>Leaderboard</h1>
+      <h1 className={css({ fontSize: "2rem", fontWeight: "bold" })}>
+        Leaderboard
+      </h1>
+
       <p>Go to random member's</p>
       <ul>
         <li>
-          <a href={`/members/${member}/progress`}>progress</a>
+          <a
+            className={css({ textDecoration: "underline", color: "darkblue" })}
+            href={`/members/${member}/progress`}
+          >
+            progress
+          </a>
         </li>
         <li>
-          <a href={`/members/${member}/certificate`}>certificate</a>
+          <a
+            className={css({ textDecoration: "underline", color: "darkblue" })}
+            href={`/members/${member}/certificate`}
+          >
+            certificate
+          </a>
         </li>
       </ul>
     </div>

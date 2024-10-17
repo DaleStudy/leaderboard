@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Certificate from "./certificate";
 import ErrorPage from "./error-page";
+import "./index.css";
 import Leaderboard from "./leaderboard";
 import Progress from "./progress";
 
