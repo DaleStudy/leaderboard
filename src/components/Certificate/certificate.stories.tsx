@@ -2,8 +2,6 @@ import React from "react";
 import Certificate from "./certificate";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
-export default {};
-
 const username = "testUser";
 const pathname = `/members/${username}/certificate`;
 
@@ -16,3 +14,5 @@ const Template = () => (
 );
 
 export const Default = Template.bind({});
+
+export default {};
