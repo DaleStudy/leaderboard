@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 
-export default function Certificate() {
+const Certificate = () => {
   const { username } = useParams();
   const { pathname } = useLocation();
 
@@ -28,8 +28,10 @@ export default function Certificate() {
       </main>
     </div>
   );
-}
+};
 
 const invisiblePrint = css({
   "@media print": { display: "none" },
 });
+
+export default Certificate;
