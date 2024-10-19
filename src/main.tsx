@@ -1,11 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Certificate from "./certificate";
-import ErrorPage from "./error-page";
+import Certificate from "./components/certificate/certificate";
+import ErrorPage from "./components/error-page/error-page";
+import Leaderboard from "./components/leaderboard/leaderboard";
+import Progress from "./components/progress/progress";
 import "./index.css";
-import Leaderboard from "./leaderboard";
-import Progress from "./progress";
 
 const router = createBrowserRouter([
   {
