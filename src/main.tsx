@@ -14,11 +14,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/members/:username/progress",
+    path: "/progress",
     element: <Progress />,
   },
   {
-    path: "/members/:username/certificate",
+    path: "/certificate",
     element: <Certificate />,
   },
 ]);
