@@ -8,7 +8,7 @@ vi.mock("react-router-dom");
 
 test("displays the title and message", () => {
   vi.mocked(useRouteError).mockReturnValue({
-    statusText: faker.lorem.text(),
+    statusText: faker.lorem.sentence(),
     message: faker.lorem.sentence(),
   });
 
@@ -21,7 +21,7 @@ test("displays the title and message", () => {
 });
 
 test("displays the status text when available", () => {
-  const statusText = faker.lorem.text();
+  const statusText = faker.lorem.sentence();
   const message = faker.lorem.sentence();
 
   vi.mocked(useRouteError).mockReturnValue({ statusText, message });
