@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import tanstackPluginQuery from "@tanstack/eslint-plugin-query";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -13,8 +14,9 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      eslintPluginPrettierRecommended,
       eslintPluginStorybook,
+      tanstackPluginQuery,
+      eslintPluginPrettierRecommended,
       eslintConfigPrettier,
     ],
     files: ["**/*.{ts,tsx}"],
