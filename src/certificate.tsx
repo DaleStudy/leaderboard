@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function Certificate() {
-  const { username } = useParams();
+  const [searchParams] = useSearchParams();
 
-  return <div>{username}'s certificate</div>;
+  const member = searchParams.get("member");
+
+  return <div>{member}'s certificate</div>;
 }

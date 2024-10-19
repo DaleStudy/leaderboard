@@ -23,7 +23,7 @@ export default function Leaderboard() {
         <li>
           <a
             className={css({ textDecoration: "underline", color: "darkblue" })}
-            href={`/members/${member}/progress`}
+            href={`/progress?member=${member}`}
           >
             progress
           </a>
@@ -31,7 +31,7 @@ export default function Leaderboard() {
         <li>
           <a
             className={css({ textDecoration: "underline", color: "darkblue" })}
-            href={`/members/${member}/certificate`}
+            href={`/certificate?member=${member}`}
           >
             certificate
           </a>
