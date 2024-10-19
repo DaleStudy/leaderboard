@@ -1,4 +1,4 @@
-import { css } from "../styled-system/css";
+import { css } from "../../../styled-system/css";
 
 export default function Leaderboard() {
   const names = [
