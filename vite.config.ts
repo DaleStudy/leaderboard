@@ -7,8 +7,16 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: ["./vitest.setup.ts"],
+    environment: "happy-dom",
+    setupFiles: ["./src/vitest.setup.ts"],
+    coverage: {
+      include: ["src/**/*.ts?(x)"],
+      thresholds: {
+        lines: 10,
+        functions: 20,
+        statements: 10,
+        branches: 30,
+      },
+    },
   },
 });
