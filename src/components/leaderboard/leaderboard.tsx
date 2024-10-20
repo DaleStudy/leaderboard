@@ -35,7 +35,7 @@ export default function Leaderboard() {
       {isViteSvgLoading && <p>Loading...</p>}
       {viteSvg && <img src={viteSvg} alt="Vite" />}
 
-      <h1 className={css({ fontSize: "2rem", fontWeight: "bold" })}>
+      <h1>
         Leaderboard
       </h1>
 
@@ -43,7 +43,6 @@ export default function Leaderboard() {
       <ul>
         <li>
           <a
-            className={css({ textDecoration: "underline", color: "darkblue" })}
             href={`/progress?member=${member}`}
           >
             progress
@@ -51,7 +50,6 @@ export default function Leaderboard() {
         </li>
         <li>
           <a
-            className={css({ textDecoration: "underline", color: "darkblue" })}
             href={`/certificate?member=${member}`}
           >
             certificate
