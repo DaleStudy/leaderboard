@@ -7,7 +7,7 @@ import Certificate from "./certificate";
 const username = "testUser";
 const pathname = `/members/${username}/certificate`;
 
-describe("Certificate Page", () => {
+describe("<Certificate />", () => {
   beforeEach(() =>
     render(
       <MemoryRouter initialEntries={[pathname]}>
@@ -21,17 +21,17 @@ describe("Certificate Page", () => {
     ),
   );
 
-  test("render the correct title", () => {
+  test("render title", () => {
     const heading = screen.getByRole("heading", { level: 2 });
     expect(heading).toHaveTextContent(`${username}님의 수료증`);
   });
 
-  test("render the correct content", () => {
+  test("render content", () => {
     const content = screen.getByText("귀하는 어쩌구 저쩌구");
     expect(content).toBeInTheDocument();
   });
 
-  test("render the correct print button", () => {
+  test("render print button", () => {
     const printButton = screen.getByRole("button", { name: "출력" });
     expect(printButton).toBeInTheDocument();
   });
@@ -43,7 +43,7 @@ describe("Certificate Page", () => {
     expect(window.print).toHaveBeenCalledOnce();
   });
 
-  test("render LinkedIn share link with the correct URL", () => {
+  test("render LinkedIn link", () => {
     const linkedInLink = screen.getByRole("link", {
       name: "링크드인에 공유하기",
     });
