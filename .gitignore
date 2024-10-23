@@ -29,3 +29,6 @@ styled-system
 
 # Tests
 coverage
+
+# TypeScript
+*.tsbuildinfo
