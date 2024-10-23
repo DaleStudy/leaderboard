@@ -8,7 +8,8 @@ describe("<Certificate />", () => {
   const username = "testUser";
   const pathname = `/members/${username}/certificate`;
 
-  beforeEach(() =>
+  beforeEach(() => {
+    vi.spyOn(window, "print").mockImplementation(() => {});
     render(
       <MemoryRouter initialEntries={[pathname]}>
         <Routes>
@@ -18,8 +19,8 @@ describe("<Certificate />", () => {
           />
         </Routes>
       </MemoryRouter>,
-    ),
-  );
+    );
+  });
 
   test("render title", () => {
     const heading = screen.getByRole("heading", { level: 2 });
@@ -37,7 +38,6 @@ describe("<Certificate />", () => {
   });
 
   test("calls window.print when the print button is clicked", async () => {
-    vi.spyOn(window, "print").mockImplementation(() => {});
     const printButton = screen.getByRole("button", { name: "출력" });
     await userEvent.click(printButton);
     expect(window.print).toHaveBeenCalledOnce();
