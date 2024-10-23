@@ -4,10 +4,10 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Certificate from "./certificate";
 
-const username = "testUser";
-const pathname = `/members/${username}/certificate`;
-
 describe("<Certificate />", () => {
+  const username = "testUser";
+  const pathname = `/members/${username}/certificate`;
+
   beforeEach(() =>
     render(
       <MemoryRouter initialEntries={[pathname]}>
