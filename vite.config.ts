@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "happy-dom",
-    setupFiles: ["./src/vitest.setup.ts"],
+    setupFiles: ["./vitest.setup.ts"],
     coverage: {
       include: ["src/**/*.ts?(x)"],
       thresholds: {

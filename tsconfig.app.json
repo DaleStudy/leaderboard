@@ -23,7 +23,7 @@
   "include": [
     "src",
     /* Vitest */
-    "src/vitest.setup.ts",
+    "vitest.setup.ts",
     /* PandaCSS */
     "styled-system"
   ]
