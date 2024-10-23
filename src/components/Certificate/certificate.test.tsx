@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -22,29 +22,29 @@ describe("<Certificate />", () => {
     );
   });
 
-  test("render title", () => {
+  it("render title", () => {
     const heading = screen.getByRole("heading", { level: 2 });
     expect(heading).toHaveTextContent(`${username}님의 수료증`);
   });
 
-  test("render content", () => {
+  it("render content", () => {
     const content = screen.getByText("귀하는 어쩌구 저쩌구");
     expect(content).toBeInTheDocument();
   });
 
-  test("render print button", () => {
+  it("render print button", () => {
     const printButton = screen.getByRole("button", { name: "출력" });
     expect(printButton).toBeInTheDocument();
   });
 
-  test("calls window.print when the print button is clicked", async () => {
+  it("calls window.print when the print button is clicked", async () => {
     const printButton = screen.getByRole("button", { name: "출력" });
     const user = userEvent.setup();
     await user.click(printButton);
     expect(window.print).toHaveBeenCalledOnce();
   });
 
-  test("render LinkedIn link", () => {
+  it("render LinkedIn link", () => {
     const linkedInLink = screen.getByRole("link", {
       name: "링크드인에 공유하기",
     });
