@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 
-const Certificate = () => {
+export default function Certificate() {
   const { username } = useParams();
   const { pathname } = useLocation();
 
@@ -13,25 +13,21 @@ const Certificate = () => {
   const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${username}&organizationId=104834174&certUrl=${pathname}`;
 
   return (
-    <div>
-      <main>
-        <section>
-          <h2>{username}님의 수료증</h2>
-          <article>
-            <p>귀하는 어쩌구 저쩌구</p>
-          </article>
-        </section>
-        <section className={invisiblePrint}>
-          <button onClick={() => window.print()}>출력</button>
-          <a href={linkedInURL}>링크드인에 공유하기</a>
-        </section>
-      </main>
-    </div>
+    <main>
+      <section>
+        <h2>{username}님의 수료증</h2>
+        <article>
+          <p>귀하는 어쩌구 저쩌구</p>
+        </article>
+      </section>
+      <section className={invisiblePrint}>
+        <button onClick={() => window.print()}>출력</button>
+        <a href={linkedInURL}>링크드인에 공유하기</a>
+      </section>
+    </main>
   );
-};
+}
 
 const invisiblePrint = css({
   "@media print": { display: "none" },
 });
-
-export default Certificate;
