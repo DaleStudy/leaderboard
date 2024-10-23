@@ -39,7 +39,8 @@ describe("<Certificate />", () => {
 
   test("calls window.print when the print button is clicked", async () => {
     const printButton = screen.getByRole("button", { name: "출력" });
-    await userEvent.click(printButton);
+    const user = userEvent.setup();
+    await user.click(printButton);
     expect(window.print).toHaveBeenCalledOnce();
   });
 
