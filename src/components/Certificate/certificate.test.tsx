@@ -1,0 +1,56 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import Certificate from "./certificate";
+
+describe("<Certificate />", () => {
+  const username = "testUser";
+  const pathname = `/members/${username}/certificate`;
+
+  beforeEach(() => {
+    vi.spyOn(window, "print").mockImplementation(() => {});
+    render(
+      <MemoryRouter initialEntries={[pathname]}>
+        <Routes>
+          <Route
+            path="/members/:username/certificate"
+            element={<Certificate />}
+          />
+        </Routes>
+      </MemoryRouter>,
+    );
+  });
+
+  it("render title", () => {
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveTextContent(`${username}님의 수료증`);
+  });
+
+  it("render content", () => {
+    const content = screen.getByText("귀하는 어쩌구 저쩌구");
+    expect(content).toBeInTheDocument();
+  });
+
+  it("render print button", () => {
+    const printButton = screen.getByRole("button", { name: "출력" });
+    expect(printButton).toBeInTheDocument();
+  });
+
+  it("calls window.print when the print button is clicked", async () => {
+    const printButton = screen.getByRole("button", { name: "출력" });
+    const user = userEvent.setup();
+    await user.click(printButton);
+    expect(window.print).toHaveBeenCalledOnce();
+  });
+
+  it("render LinkedIn link", () => {
+    const linkedInLink = screen.getByRole("link", {
+      name: "링크드인에 공유하기",
+    });
+    expect(linkedInLink).toHaveAttribute(
+      "href",
+      `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${username}&organizationId=104834174&certUrl=${pathname}`,
+    );
+  });
+});
