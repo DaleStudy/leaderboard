@@ -1,10 +1,18 @@
 import { faker } from "@faker-js/faker";
 import { render, screen } from "@testing-library/react";
 import { useRouteError } from "react-router-dom";
-import { expect, test, vi } from "vitest";
+import { afterAll, beforeAll, expect, test, vi } from "vitest";
 import ErrorPage from "./ErrorPage";
 
 vi.mock("react-router-dom");
+
+beforeAll(() => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterAll(() => {
+  vi.mocked(console.error).mockRestore();
+});
 
 test("displays the title and message", () => {
   vi.mocked(useRouteError).mockReturnValue({
