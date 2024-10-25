@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,12 +19,12 @@ describe("<Leaderboard/>", () => {
     ),
   );
 
-  test("renders the title", () => {
+  it("renders the title", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveTextContent("Leaderboard");
   });
 
-  test("renders the member information", () => {
+  it("renders the member information", () => {
     const members = [
       { name: "DaleSeo", solved: 71, rank: "새싹" },
       { name: "sounmind", solved: 69, rank: "나무" },
@@ -45,7 +45,7 @@ describe("<Leaderboard/>", () => {
     });
   });
 
-  test("renders the links for members", () => {
+  it("renders the links for members", () => {
     const members = [
       { name: "DaleSeo" },
       { name: "sounmind" },

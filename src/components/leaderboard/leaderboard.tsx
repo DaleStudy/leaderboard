@@ -1,15 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-
-/* NOTE: 임시 코드, 추후 삭제 예정 */
-const fetchViteSvg = async () => {
-  const response = await fetch("/vite.svg");
-  if (!response.ok) {
-    throw new Error("SVG 파일을 가져오는 데 실패했습니다.");
-  }
-  const blob = await response.blob();
-  return URL.createObjectURL(blob);
-};
-
 export default function Leaderboard() {
   const members = [
     { name: "DaleSeo", solved: 71, rank: "새싹" },
@@ -20,18 +8,8 @@ export default function Leaderboard() {
     { name: "SamTheKorean", solved: 60, rank: "나무" },
   ];
 
-  /* NOTE: 임시 코드, 추후 삭제 예정 */
-  const { data: viteSvg, isLoading: isViteSvgLoading } = useQuery({
-    queryKey: ["vite.svg"],
-    queryFn: fetchViteSvg,
-  });
-
   return (
     <main>
-      {/* NOTE: 임시 코드, 추후 삭제 예정 */}
-      {isViteSvgLoading && <p>Loading...</p>}
-      {viteSvg && <img src={viteSvg} alt="Vite" />}
-
       <h1>Leaderboard</h1>
 
       <section aria-labelledby="leaderboard">
