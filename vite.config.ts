@@ -6,6 +6,7 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "/leaderboard/",
   test: {
     environment: "happy-dom",
     setupFiles: ["./vitest.setup.ts"],
