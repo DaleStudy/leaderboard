@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-
 export default function Progress() {
   const tasks = [
     { id: 128, title: "Longest Consecutive Sequence", difficulty: "Med." },

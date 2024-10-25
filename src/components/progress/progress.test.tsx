@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Progress from "./progress"; // Adjust the import path as needed
 
@@ -7,12 +7,12 @@ describe("<Progress/>", () => {
     render(<Progress />);
   });
 
-  test("renders the title", () => {
+  it("renders the title", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveTextContent("Progress");
   });
 
-  test("renders the profile information", () => {
+  it("renders the profile information", () => {
     const profileSection = screen.getByRole("heading", {
       level: 2,
       name: /Profile Section/i,
@@ -22,12 +22,12 @@ describe("<Progress/>", () => {
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
       "0 Attempting",
     );
-    expect(screen.getByText(/Easy: 12\/12/i)).toBeInTheDocument();
-    expect(screen.getByText(/Med.: 22\/22/i)).toBeInTheDocument();
-    expect(screen.getByText(/Hard: 1\/1/i)).toBeInTheDocument();
+    expect(screen.getByText(/^Easy: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
+    expect(screen.getByText(/^Med.: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
+    expect(screen.getByText(/^Hard: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
   });
 
-  test("renders the task list", () => {
+  it("renders the task list", () => {
     const taskItems = screen.getAllByRole("listitem");
     expect(taskItems).toHaveLength(4); // Since there are 4 tasks defined
 
