@@ -1,9 +1,5 @@
-import type {
-  GithubInfo,
-  GithubTeam,
-  GithubMember,
-  GithubTree,
-} from "../../types";
+import type { GithubTeam, GithubMember, GithubTree } from "../github/types";
+import { GithubInfo } from "./types";
 
 export const mockGithubInfo: GithubInfo = {
   orgName: "test-org",
