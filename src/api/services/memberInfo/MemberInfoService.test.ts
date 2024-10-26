@@ -1,4 +1,13 @@
-import { describe, it, expect, beforeEach, vi, Mock, beforeAll } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  vi,
+  Mock,
+  beforeAll,
+  afterAll,
+} from "vitest";
 import { MemberInfoService } from "./MemberInfoService";
 import { IGithubApiClient } from "../github/interfaces";
 import {
@@ -13,8 +22,11 @@ describe("MemberInfoService", () => {
   let mockGithubApiClient: IGithubApiClient;
 
   beforeAll(() => {
-    // Remove needless error logs
-    global.console.error = vi.fn();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
   });
 
   beforeEach(() => {

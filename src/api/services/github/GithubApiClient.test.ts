@@ -1,4 +1,13 @@
-import { describe, it, expect, beforeEach, vi, Mock, beforeAll } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  vi,
+  Mock,
+  beforeAll,
+  afterAll,
+} from "vitest";
 import { GithubApiClient } from "./GithubApiClient";
 import type { IFetchClient } from "../../utils/interfaces";
 import type { GithubTeam, GithubMember, GithubTreeResponse } from "./types";
@@ -10,8 +19,11 @@ describe("GithubApiClient", () => {
   const mockToken = "mock-github-token";
 
   beforeAll(() => {
-    // Remove needless error logs
-    global.console.error = vi.fn();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
   });
 
   beforeEach(() => {
