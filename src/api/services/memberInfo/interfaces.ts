@@ -1,4 +1,4 @@
-import { StudyData } from "../../types";
+import { StudyData } from "./types";
 
 export interface IMemberInfoService {
   getMemberInfo(): Promise<StudyData>;
