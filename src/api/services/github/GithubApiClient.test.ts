@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi, Mock, beforeAll } from "vitest";
 import { GithubApiClient } from "./GithubApiClient";
 import type { IFetchClient } from "../../utils/interfaces";
-import type { GithubTeam, GithubMember, GithubTreeResponse } from "../../types";
+import type { GithubTeam, GithubMember, GithubTreeResponse } from "./types";
 import { mockGithubMembers, mockGithubTeams, mockGithubTree } from "./fixtures";
 
 describe("GithubApiClient", () => {
