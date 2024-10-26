@@ -1,4 +1,13 @@
-import { describe, it, expect, beforeEach, vi, Mock, beforeAll } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  vi,
+  Mock,
+  beforeAll,
+  afterAll,
+} from "vitest";
 import { FetchClient } from "./FetchClient";
 import { mockClientUrl, mockGithubToken } from "./fixtures";
 
@@ -6,8 +15,11 @@ describe("FetchClient", () => {
   let client: FetchClient;
 
   beforeAll(() => {
-    // Remove needless error logs
-    global.console.error = vi.fn();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    vi.restoreAllMocks();
   });
 
   beforeEach(() => {
