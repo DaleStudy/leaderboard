@@ -38,7 +38,17 @@ export class MemberInfoService implements IMemberInfoService {
     const membersByTeam = await Promise.all(
       teams.map((team) => this.getTeamMembers(team)),
     );
-    return membersByTeam.flat();
+
+    const memberMap = new Map<string, Member>();
+
+    membersByTeam.flat().forEach((member) => {
+      const existingMember = memberMap.get(member.id);
+      if (!existingMember || member.cohort > existingMember.cohort) {
+        memberMap.set(member.id, member);
+      }
+    });
+
+    return Array.from(memberMap.values());
   }
 
   private async getTeams(): Promise<string[]> {
