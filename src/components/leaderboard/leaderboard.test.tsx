@@ -19,6 +19,12 @@ describe("<Leaderboard/>", () => {
     ),
   );
 
+  it("renders the members list section", () => {
+    expect(
+      screen.getByRole("region", { name: /members list/i }),
+    ).toBeInTheDocument();
+  });
+
   it("renders the title", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveTextContent("Leaderboard");
@@ -41,7 +47,7 @@ describe("<Leaderboard/>", () => {
     members.forEach((member, index) => {
       const memberItem = memberItems[index];
       expect(memberItem).toHaveTextContent(`등급: ${member.rank}`);
-      expect(memberItem).toHaveTextContent(`푼 문제: ${member.solved}`);
+      expect(memberItem).toHaveTextContent(`진행 상황: ${member.solved}`);
     });
   });
 

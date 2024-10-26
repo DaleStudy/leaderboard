@@ -9,7 +9,7 @@ export default function Leaderboard() {
   ];
 
   return (
-    <main>
+    <div>
       <h1>Leaderboard</h1>
 
       <section aria-labelledby="leaderboard">
@@ -18,7 +18,7 @@ export default function Leaderboard() {
           {members.map((member) => (
             <li key={member.name} style={{ marginBottom: "20px" }}>
               <div>등급: {member.rank}</div>
-              <div>푼 문제: {member.solved}</div>
+              <div>진행 상황: {member.solved}</div>
               <div>
                 <a href={`/progress?member=${member.name}`}>
                   <button>풀이 보기</button>
@@ -31,6 +31,6 @@ export default function Leaderboard() {
           ))}
         </ul>
       </section>
-    </main>
+    </div>
   );
 }
