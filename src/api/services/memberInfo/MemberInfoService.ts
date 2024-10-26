@@ -4,12 +4,12 @@ import {
   Member,
   Cohort,
   Submission,
-  GithubTree,
   MemberInfo,
-} from "../../types";
+} from "./types";
 import { IGithubApiClient } from "../github/interfaces";
 import { IMemberInfoService } from "./interfaces";
 import { handleError } from "../../common";
+import { GithubTree } from "../github/types";
 
 export class MemberInfoService implements IMemberInfoService {
   constructor(

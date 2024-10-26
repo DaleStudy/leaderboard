@@ -1,4 +1,4 @@
-import { HeaderTuple } from "../types";
+import { HeaderTuple } from "./types";
 
 export interface IFetchClient {
   baseUrl: string;

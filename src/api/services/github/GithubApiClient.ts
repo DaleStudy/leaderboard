@@ -5,7 +5,7 @@ import {
   GithubTeam,
   GithubTree,
   GithubTreeResponse,
-} from "../../types";
+} from "./types";
 import { handleError } from "../../common";
 
 export class GithubApiClient implements IGithubApiClient {

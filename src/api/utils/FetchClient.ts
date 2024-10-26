@@ -1,6 +1,5 @@
 import { IFetchClient } from "./interfaces";
-
-export type HeaderTuple = [string, string];
+import { HeaderTuple } from "./types";
 
 export class FetchClient implements IFetchClient {
   constructor(
