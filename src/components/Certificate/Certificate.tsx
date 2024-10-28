@@ -1,16 +1,17 @@
-import { useLocation, useParams } from "react-router-dom";
+// import { useLocation, useParams } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 
 export default function Certificate() {
-  const { member } = useParams();
-  const { pathname } = useLocation();
+  // const { member } = useParams();
+  // const { pathname } = useLocation();
+  const member = new URL(location.href).searchParams.get("member");
 
   /**
    * @description https://addtoprofile.linkedin.com/#header2
    * @argument field를 어디까지 채울것인가
    * @argument 프로필에 등록이라는 이미지가 존재하기에 대체할 것인가?
    */
-  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member}&organizationId=104834174&certUrl=${pathname}`;
+  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member}&organizationId=104834174&certUrl=${location.href}`;
 
   return (
     <main>

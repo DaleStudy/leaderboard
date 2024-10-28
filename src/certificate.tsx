@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Leaderboard from "./components/Leaderboard/Leaderboard";
+import Certificate from "./components/Certificate/Certificate";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Leaderboard />
+    <Certificate />
   </StrictMode>,
 );
