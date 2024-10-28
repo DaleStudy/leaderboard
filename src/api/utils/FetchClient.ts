@@ -3,17 +3,25 @@ import { HeaderTuple } from "./types";
 
 export class FetchClient implements IFetchClient {
   constructor(
-    public baseUrl: string = "",
-    public baseHeaders: HeaderTuple[] = [],
+    private _baseUrl: string = "",
+    private _baseHeaders: HeaderTuple[] = [],
   ) {}
 
-  setBaseUrl(baseUrl: string): this {
-    this.baseUrl = baseUrl.trim();
+  get baseUrl(): string {
+    return this._baseUrl;
+  }
+
+  get baseHeaders(): ReadonlyArray<HeaderTuple> {
+    return this._baseHeaders;
+  }
+
+  setBaseUrl(baseUrl: string): IFetchClient {
+    this._baseUrl = baseUrl.trim();
     return this;
   }
 
-  setBaseHeaders(baseHeaders: HeaderTuple[]): this {
-    this.baseHeaders = [...baseHeaders];
+  setBaseHeaders(baseHeaders: HeaderTuple[]): IFetchClient {
+    this._baseHeaders = [...baseHeaders];
     return this;
   }
 
