@@ -1,9 +1,19 @@
-export function handleError(message: string, error: unknown): void {
+type ErrorHandler = (message: string, error: unknown) => void;
+
+const defaultErrorHandler: ErrorHandler = (message, error) => {
   if (error instanceof Error) {
     console.error(`${message}: ${error.message}`);
   } else {
     console.error(message, error);
   }
+};
+
+export function handleError(
+  message: string,
+  error: unknown,
+  handler = defaultErrorHandler,
+): void {
+  handler(message, error);
 }
 
 export const GITHUB_API_BASE_URL = "https://api.github.com";
