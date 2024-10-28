@@ -43,14 +43,14 @@ describe("initialization", () => {
       "https://api.github.com",
     );
     expect(mockFetchClient.setBaseHeaders).toHaveBeenCalledWith([
-      ["Accept", "application/vnd.github.v3+json"],
+      ["Accept", "application/vnd.github+json"],
       ["Authorization", `Bearer ${mockToken}`],
     ]);
   });
 
   it("should throw error when token is NOT provided", () => {
     expect(() => new GithubApiClient(mockFetchClient, "")).toThrow(
-      "GitHub token is required but not provided",
+      new Error("GitHub token is required but not provided"),
     );
   });
 });

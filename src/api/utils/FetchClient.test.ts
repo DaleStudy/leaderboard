@@ -86,6 +86,7 @@ test("it should make GET request with correct URL and headers", async () => {
 
   // Assert
   expect(result).toEqual(mockResponse);
+  expect(global.fetch).toHaveBeenCalledTimes(1);
   expect(global.fetch).toHaveBeenCalledWith(
     `${mockClientUrl}/test`,
     expect.objectContaining({
@@ -115,6 +116,7 @@ test("it should combine multiple headers with same key", async () => {
   await client.get("/test");
 
   // Assert
+  expect(global.fetch).toHaveBeenCalledTimes(1);
   expect(global.fetch).toHaveBeenCalledWith(
     expect.any(String),
     expect.objectContaining({
