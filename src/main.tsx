@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Certificate from "./components/certificate/certificate";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import Leaderboard from "./components/leaderboard/leaderboard";
+import Leaderboard from "./components/Leaderboard/Leaderboard";
 import Progress from "./components/progress/progress";
 import "./index.css";
 
