@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import Leaderboard from "./leaderboard";
+import Leaderboard from "./Leaderboard";
 
 const pathname = `/leaderboard`;
 
