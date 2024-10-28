@@ -10,7 +10,7 @@ import { handleError } from "../../common";
 
 export class GithubApiClient implements IGithubApiClient {
   private static readonly BASE_URL = "https://api.github.com";
-  private static readonly API_VERSION = "application/vnd.github.v3+json";
+  private static readonly MEDIA_TYPE = "application/vnd.github+json";
 
   constructor(
     private readonly fetchClient: IFetchClient,
@@ -57,7 +57,7 @@ export class GithubApiClient implements IGithubApiClient {
     }
 
     this.fetchClient.setBaseUrl(GithubApiClient.BASE_URL).setBaseHeaders([
-      ["Accept", GithubApiClient.API_VERSION],
+      ["Accept", GithubApiClient.MEDIA_TYPE],
       ["Authorization", `Bearer ${this.githubToken}`],
     ]);
   }
