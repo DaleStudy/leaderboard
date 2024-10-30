@@ -15,6 +15,7 @@ import {
   mockGithubTeams,
   mockGithubTree,
 } from "./fixtures";
+import { Grades } from "./types";
 
 let service: MemberInfoService;
 let mockGithubApiClient: IGithubApiClient;
@@ -179,6 +180,70 @@ describe("cohort extraction", () => {
 
     // Assert
     expect(result.data[0].cohort).toBe(2); // default value
+  });
+});
+
+describe("calculate progress", () => {
+  it("should calculate progress correctly", async () => {
+    // Arrange
+    vi.mocked(mockGithubApiClient.getTeams).mockResolvedValue([
+      mockGithubTeams[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getTeamMembers).mockResolvedValue([
+      mockGithubMembers[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getDirectoryTree).mockResolvedValue([
+      { ...mockGithubTree[0], path: "problem1/algo.js", type: "blob" },
+      { ...mockGithubTree[0], path: "problem2/algo.js", type: "blob" },
+    ]);
+
+    // Act
+    const result = await service.getMemberInfo();
+
+    // Assert
+    const user = result.data[0];
+    expect(user.progress).toBe((2 / mockGithubInfo.totalProblemCount) * 100);
+  });
+
+  it("should calculate progress as 0 when no submissions", async () => {
+    // Arrange
+    vi.mocked(mockGithubApiClient.getTeams).mockResolvedValue([
+      mockGithubTeams[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getTeamMembers).mockResolvedValue([
+      mockGithubMembers[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getDirectoryTree).mockResolvedValue([]);
+
+    // Act
+    const result = await service.getMemberInfo();
+
+    // Assert
+    const user = result.data[0];
+    expect(user.progress).toBe(0);
+  });
+});
+
+describe("calculate grade", () => {
+  it("should calculate grade correctly", async () => {
+    // Arrange
+    vi.mocked(mockGithubApiClient.getTeams).mockResolvedValue([
+      mockGithubTeams[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getTeamMembers).mockResolvedValue([
+      mockGithubMembers[0],
+    ]);
+    vi.mocked(mockGithubApiClient.getDirectoryTree).mockResolvedValue([
+      { ...mockGithubTree[0], path: "problem1/algo.js", type: "blob" },
+      { ...mockGithubTree[0], path: "problem2/algo.js", type: "blob" },
+    ]);
+
+    // Act
+    const result = await service.getMemberInfo();
+
+    // Assert
+    const user = result.data[0];
+    expect(user.grade).toBe(Grades.SMALL_TREE);
   });
 });
 

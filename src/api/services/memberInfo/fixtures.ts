@@ -7,7 +7,13 @@ export const mockGithubInfo: StudyInfo = {
   repoName: "test-repo",
   branchName: "main",
   teamPrefix: "algodale",
-  totalProblemCount: 10,
+  totalProblemCount: 4,
+  gradeThresholds: {
+    BIG_TREE: 3,
+    SMALL_TREE: 2,
+    SPROUT: 1,
+    SEED: 0,
+  },
 };
 
 export const mockGithubTeams: GithubTeam[] = [

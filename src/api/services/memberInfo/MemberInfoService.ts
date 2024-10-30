@@ -6,6 +6,7 @@ import {
   Submission,
   MemberInfo,
   Grades,
+  Grade,
 } from "./types";
 import { IGithubApiClient } from "../github/interfaces";
 import { IMemberInfoService } from "./interfaces";
@@ -137,53 +138,76 @@ export class MemberInfoService implements IMemberInfoService {
     members: Member[],
     submissions: Submission[],
   ): Record<string, MemberInfo> {
+    const memberMap = this.initializeMemberMap(members);
+    this.updateSubmissionInfo(memberMap, submissions);
+    this.updateProgressAndGrade(memberMap);
+
+    return memberMap;
+  }
+
+  private initializeMemberMap(members: Member[]): Record<string, MemberInfo> {
     const memberMap: Record<string, MemberInfo> = {};
 
-    // Member Info 초기화
     members.forEach((member) => {
       memberMap[member.id] = {
         ...member,
         totalSubmissions: 0,
         submissions: [],
         progress: 0,
-        grade: Grades.Seed,
+        grade: Grades.SEED,
       };
     });
 
-    // 제출 정보 기입
+    return memberMap;
+  }
+
+  private updateSubmissionInfo(
+    memberMap: Record<string, MemberInfo>,
+    submissions: Submission[],
+  ): void {
     submissions.forEach((submission) => {
       const member = memberMap[submission.memberId];
       if (!member) return;
 
-      const isNewProblem = !member.submissions.some(
-        (s) => s.problemTitle === submission.problemTitle,
-      );
-
-      if (isNewProblem) {
+      if (this.isNewProblem(member, submission)) {
         member.totalSubmissions += 1;
       }
 
       member.submissions.push(submission);
     });
+  }
 
-    // 진도율, 등급 계산
+  private isNewProblem(member: MemberInfo, submission: Submission): boolean {
+    return !member.submissions.some(
+      (s) => s.problemTitle === submission.problemTitle,
+    );
+  }
+
+  private updateProgressAndGrade(memberMap: Record<string, MemberInfo>): void {
     Object.values(memberMap).forEach((member) => {
-      // 소수점 첫째자리까지 반올림
-      member.progress =
-        Math.round(
-          (member.totalSubmissions / this.config.totalProblemCount) * 1000,
-        ) / 10;
-      if (member.totalSubmissions === 0) {
-        member.grade = Grades.Seed;
-      } else if (member.totalSubmissions < 25) {
-        member.grade = Grades.Sprout;
-      } else if (member.totalSubmissions < 50) {
-        member.grade = Grades.SmallTree;
-      } else {
-        member.grade = Grades.BigTree;
-      }
+      member.progress = this.calculateProgress(member.totalSubmissions);
+      member.grade = this.determineGrade(member.totalSubmissions);
     });
+  }
 
-    return memberMap;
+  private calculateProgress(totalSubmissions: number): number {
+    return (
+      Math.round((totalSubmissions / this.config.totalProblemCount) * 1000) / 10
+    );
+  }
+
+  private determineGrade(totalSubmissions: number): Grade {
+    const gradeThresholds = this.config.gradeThresholds;
+
+    if (totalSubmissions >= gradeThresholds.BIG_TREE) {
+      return Grades.BIG_TREE;
+    }
+    if (totalSubmissions >= gradeThresholds.SMALL_TREE) {
+      return Grades.SMALL_TREE;
+    }
+    if (totalSubmissions >= gradeThresholds.SPROUT) {
+      return Grades.SPROUT;
+    }
+    return Grades.SEED;
   }
 }
