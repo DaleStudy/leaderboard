@@ -31,13 +31,14 @@ export type StudyInfo = {
   branchName: string;
   teamPrefix: string;
   totalProblemCount: number;
+  gradeThresholds: Record<Grade, number>;
 };
 
 export type Grade = "SEED" | "SPROUT" | "SMALL_TREE" | "BIG_TREE";
 
 export const Grades = {
-  Seed: "SEED",
-  Sprout: "SPROUT",
-  SmallTree: "SMALL_TREE",
-  BigTree: "BIG_TREE",
+  SEED: "SEED",
+  SPROUT: "SPROUT",
+  SMALL_TREE: "SMALL_TREE",
+  BIG_TREE: "BIG_TREE",
 } as const;
