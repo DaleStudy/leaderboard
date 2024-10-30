@@ -1,23 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Leaderboard from "./Leaderboard";
 
-const queryClient = new QueryClient();
-
 describe("<Leaderboard/>", () => {
-  beforeEach(() =>
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Routes>
-            <Route path="/" element={<Leaderboard />} />
-          </Routes>
-        </MemoryRouter>
-      </QueryClientProvider>,
-    ),
-  );
+  beforeEach(() => render(<Leaderboard />));
 
   it("renders the members list section", () => {
     expect(

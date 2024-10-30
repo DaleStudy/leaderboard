@@ -1,20 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Leaderboard from "./Leaderboard";
-
-const pathname = `/leaderboard`;
 
 const meta = {
   component: Leaderboard,
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={[pathname]}>
-        <Routes>
-          <Route path="/leaderboard" element={<Story />} />
-        </Routes>
-      </MemoryRouter>
-    ),
-  ],
 } satisfies Meta<typeof Leaderboard>;
 
 export default meta;

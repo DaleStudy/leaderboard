@@ -1,9 +1,6 @@
-// import { useLocation, useParams } from "react-router-dom";
 import { css } from "../../../styled-system/css";
 
 export default function Certificate() {
-  // const { member } = useParams();
-  // const { pathname } = useLocation();
   const member = new URL(location.href).searchParams.get("member");
 
   /**

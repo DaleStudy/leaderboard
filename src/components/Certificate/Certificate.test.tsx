@@ -1,27 +1,19 @@
-import { afterAll, beforeEach, expect, test, vi } from "vitest";
+import { faker } from "@faker-js/faker";
+import { afterAll, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Certificate from "./Certificate";
-
-const username = "testUser";
-const pathname = `/members/${username}/certificate`;
-
-beforeEach(() => {
-  render(
-    <MemoryRouter initialEntries={[pathname]}>
-      <Routes>
-        <Route path="/members/:member/certificate" element={<Certificate />} />
-      </Routes>
-    </MemoryRouter>,
-  );
-});
 
 afterAll(() => {
   vi.mocked(window.print).mockRestore();
 });
 
 test("render title", () => {
+  const username = faker.internet.displayName();
+  location.href = new URL(`?member=${username}`, location.href).toString();
+
+  render(<Certificate />);
+
   const heading = screen.getByRole("region", {
     name: `${username}님의 수료증`,
   });
@@ -29,17 +21,24 @@ test("render title", () => {
 });
 
 test("render content", () => {
+  render(<Certificate />);
+
   const content = screen.getByText("귀하는 어쩌구 저쩌구");
   expect(content).toBeInTheDocument();
 });
 
 test("render print button", () => {
+  render(<Certificate />);
+
   const printButton = screen.getByRole("button", { name: "출력" });
   expect(printButton).toBeInTheDocument();
 });
 
 test("calls window.print when the print button is clicked", async () => {
   vi.spyOn(window, "print").mockImplementation(() => {});
+
+  render(<Certificate />);
+
   const printButton = screen.getByRole("button", { name: "출력" });
   const user = userEvent.setup();
   await user.click(printButton);
@@ -47,11 +46,16 @@ test("calls window.print when the print button is clicked", async () => {
 });
 
 test("render LinkedIn link", () => {
+  const username = faker.internet.displayName();
+  location.href = new URL(`?member=${username}`, location.href).toString();
+
+  render(<Certificate />);
+
   const linkedInLink = screen.getByRole("link", {
     name: "링크드인에 공유하기",
   });
   expect(linkedInLink).toHaveAttribute(
     "href",
-    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${username}&organizationId=104834174&certUrl=${pathname}`,
+    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${username}&organizationId=104834174&certUrl=${location.href}`,
   );
 });
