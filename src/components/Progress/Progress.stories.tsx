@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Leaderboard from "./Leaderboard";
+import Progress from "./Progress";
 
 const meta = {
-  component: Leaderboard,
-} satisfies Meta<typeof Leaderboard>;
+  component: Progress,
+} satisfies Meta<typeof Progress>;
 
 export default meta;
 

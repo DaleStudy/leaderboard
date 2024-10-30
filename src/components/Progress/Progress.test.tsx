@@ -1,11 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Progress from "./progress"; // Adjust the import path as needed
+import Progress from "./Progress"; // Adjust the import path as needed
 
 describe("<Progress/>", () => {
-  beforeEach(() => {
-    render(<Progress />);
-  });
+  beforeEach(() => render(<Progress />));
 
   it("renders the title", () => {
     const heading = screen.getByRole("heading", { level: 1 });
