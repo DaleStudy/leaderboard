@@ -1,12 +1,13 @@
 import type { GithubTeam, GithubMember, GithubTree } from "../github/types";
-import { GithubInfo } from "./types";
+import { StudyInfo } from "./types";
 
-export const mockGithubInfo: GithubInfo = {
+export const mockGithubInfo: StudyInfo = {
   orgName: "test-org",
   repoOwner: "test-owner",
   repoName: "test-repo",
   branchName: "main",
   teamPrefix: "algodale",
+  totalProblemCount: 10,
 };
 
 export const mockGithubTeams: GithubTeam[] = [

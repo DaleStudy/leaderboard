@@ -1,10 +1,11 @@
 import {
-  GithubInfo,
+  StudyInfo,
   StudyData,
   Member,
   Cohort,
   Submission,
   MemberInfo,
+  Grades,
 } from "./types";
 import { IGithubApiClient } from "../github/interfaces";
 import { IMemberInfoService } from "./interfaces";
@@ -14,7 +15,7 @@ import { GithubTree } from "../github/types";
 export class MemberInfoService implements IMemberInfoService {
   constructor(
     private readonly githubApiClient: IGithubApiClient,
-    private readonly config: GithubInfo,
+    private readonly config: StudyInfo,
   ) {}
 
   async getMemberInfo(): Promise<StudyData> {
@@ -144,6 +145,8 @@ export class MemberInfoService implements IMemberInfoService {
         ...member,
         totalSubmissions: 0,
         submissions: [],
+        progress: 0,
+        grade: Grades.Seed,
       };
     });
 
@@ -161,6 +164,24 @@ export class MemberInfoService implements IMemberInfoService {
       }
 
       member.submissions.push(submission);
+    });
+
+    // 진도율, 등급 계산
+    Object.values(memberMap).forEach((member) => {
+      // 소수점 첫째자리까지 반올림
+      member.progress =
+        Math.round(
+          (member.totalSubmissions / this.config.totalProblemCount) * 1000,
+        ) / 10;
+      if (member.totalSubmissions === 0) {
+        member.grade = Grades.Seed;
+      } else if (member.totalSubmissions < 25) {
+        member.grade = Grades.Sprout;
+      } else if (member.totalSubmissions < 50) {
+        member.grade = Grades.SmallTree;
+      } else {
+        member.grade = Grades.BigTree;
+      }
     });
 
     return memberMap;
