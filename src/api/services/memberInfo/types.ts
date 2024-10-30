@@ -8,6 +8,8 @@ export type Member = {
 
 export type MemberInfo = Member & {
   totalSubmissions: number;
+  progress: number;
+  grade: Grade;
   submissions: Submission[];
 };
 
@@ -22,10 +24,20 @@ export type StudyData = {
   data: MemberInfo[];
 };
 
-export type GithubInfo = {
+export type StudyInfo = {
   orgName: string;
   repoOwner: string;
   repoName: string;
   branchName: string;
   teamPrefix: string;
+  totalProblemCount: number;
 };
+
+export type Grade = "SEED" | "SPROUT" | "SMALL_TREE" | "BIG_TREE";
+
+export const Grades = {
+  Seed: "SEED",
+  Sprout: "SPROUT",
+  SmallTree: "SMALL_TREE",
+  BigTree: "BIG_TREE",
+} as const;
