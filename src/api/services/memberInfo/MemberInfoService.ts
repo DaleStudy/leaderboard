@@ -1,5 +1,4 @@
 import type {
-  StudyInfo,
   StudyData,
   Member,
   Cohort,
@@ -8,16 +7,17 @@ import type {
   Grade,
 } from "./types";
 import { Grades } from "./types";
-import { IGithubApiClient } from "../github/interfaces";
 import { IMemberInfoService } from "./interfaces";
 import { handleError } from "../../common";
 import { GithubTree } from "../github/types";
+import { createGithubClient } from "../github";
+import { CONFIG } from "../../config";
 
 export class MemberInfoService implements IMemberInfoService {
-  constructor(
-    private readonly githubApiClient: IGithubApiClient,
-    private readonly config: StudyInfo,
-  ) {}
+  private readonly githubClient;
+  constructor(private readonly config: typeof CONFIG) {
+    this.githubClient = createGithubClient(config.github.token);
+  }
 
   async getMemberInfo(): Promise<StudyData> {
     try {
@@ -36,7 +36,7 @@ export class MemberInfoService implements IMemberInfoService {
   }
 
   private async getAllTeamMembers(): Promise<Member[]> {
-    const teams = await this.getTeams();
+    const teams = await this.getTeamNames();
     const membersByTeam = await Promise.all(
       teams.map((team) => this.getTeamMembers(team)),
     );
@@ -53,12 +53,14 @@ export class MemberInfoService implements IMemberInfoService {
     return Array.from(memberMap.values());
   }
 
-  private async getTeams(): Promise<string[]> {
+  private async getTeamNames(): Promise<string[]> {
     try {
-      const teams = await this.githubApiClient.getTeams(this.config.orgName);
-      return teams
-        .filter((team) => team.name.startsWith(this.config.teamPrefix))
-        .map((team) => team.name);
+      const teamNames = await this.githubClient.getTeamNames(
+        this.config.study.orgName,
+      );
+      return teamNames
+        .filter((name) => name.startsWith(this.config.study.teamPrefix))
+        .map((name) => name);
     } catch (error) {
       handleError("Error fetching teams", error);
       return [];
@@ -68,8 +70,8 @@ export class MemberInfoService implements IMemberInfoService {
   private async getTeamMembers(teamName: string): Promise<Member[]> {
     try {
       const cohort = this.extractCohortFromTeamName(teamName);
-      const members = await this.githubApiClient.getTeamMembers(
-        this.config.orgName,
+      const members = await this.githubClient.getTeamMembers(
+        this.config.study.orgName,
         teamName,
       );
 
@@ -85,8 +87,9 @@ export class MemberInfoService implements IMemberInfoService {
   }
 
   private extractCohortFromTeamName(teamName: string): Cohort {
-    const cohortNumber =
-      parseInt(teamName.replace(this.config.teamPrefix, "")) || 2; // TODO: Default cohort number
+    const cohortNumber = parseInt(
+      teamName.replace(this.config.study.teamPrefix, ""),
+    );
     if (isNaN(cohortNumber)) {
       throw new Error(`Invalid team name format: ${teamName}`);
     }
@@ -95,10 +98,10 @@ export class MemberInfoService implements IMemberInfoService {
 
   private async getSubmissionData(): Promise<Submission[]> {
     try {
-      const tree = await this.githubApiClient.getDirectoryTree(
-        this.config.repoOwner,
-        this.config.repoName,
-        this.config.branchName,
+      const tree = await this.githubClient.getDirectoryTree(
+        this.config.study.repoOwner,
+        this.config.study.repoName,
+        this.config.study.branchName,
       );
 
       return this.extractRelevantData(tree)
@@ -192,12 +195,14 @@ export class MemberInfoService implements IMemberInfoService {
 
   private calculateProgress(totalSubmissions: number): number {
     return (
-      Math.round((totalSubmissions / this.config.totalProblemCount) * 1000) / 10
+      Math.round(
+        (totalSubmissions / this.config.study.totalProblemCount) * 1000,
+      ) / 10
     );
   }
 
   private determineGrade(totalSubmissions: number): Grade {
-    const gradeThresholds = this.config.gradeThresholds;
+    const gradeThresholds = this.config.study.gradeThresholds;
 
     if (totalSubmissions >= gradeThresholds.BIG_TREE) {
       return Grades.BIG_TREE;

@@ -4,6 +4,7 @@ export type Member = {
   id: string; // lowercase
   name: string;
   cohort: Cohort;
+  profileUrl?: string;
 };
 
 export type MemberInfo = Member & {
