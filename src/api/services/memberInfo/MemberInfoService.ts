@@ -1,13 +1,13 @@
-import {
+import type {
   StudyInfo,
   StudyData,
   Member,
   Cohort,
   Submission,
   MemberInfo,
-  Grades,
   Grade,
 } from "./types";
+import { Grades } from "./types";
 import { IGithubApiClient } from "../github/interfaces";
 import { IMemberInfoService } from "./interfaces";
 import { handleError } from "../../common";
