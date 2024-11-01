@@ -1,4 +1,4 @@
-import { BASE_URL, MEDIA_TYPE } from "./const";
+import { CONFIG } from "../../config";
 import type {
   GithubMember,
   GithubTeam,
@@ -6,11 +6,11 @@ import type {
   GithubTreeResponse,
 } from "./types";
 
-export const createGithubClient = (token: string) => {
+export const createGithubClient = (config: typeof CONFIG.github) => {
   const request = async (url: string, token: string): Promise<unknown> => {
     const response = await fetch(url, {
       headers: {
-        Accept: MEDIA_TYPE,
+        Accept: config.mediaType,
         Authorization: `token ${token}`,
       },
     });
@@ -26,17 +26,18 @@ export const createGithubClient = (token: string) => {
 
   return {
     getTeamNames: async (organization: string): Promise<string[]> =>
-      request(`${BASE_URL}/orgs/${organization}/teams`, token).then(
-        (response) => (response as GithubTeam[]).map((team) => team.name),
-      ),
+      request(
+        `${config.baseUrl}/orgs/${organization}/teams`,
+        config.token,
+      ).then((response) => (response as GithubTeam[]).map((team) => team.name)),
 
     getTeamMembers: async (
       organization: string,
       teamName: string,
     ): Promise<GithubMember[]> =>
       request(
-        `${BASE_URL}/orgs/${organization}/teams/${teamName}/members`,
-        token,
+        `${config.baseUrl}/orgs/${organization}/teams/${teamName}/members`,
+        config.token,
       ).then((response) => response as GithubMember[]),
 
     getDirectoryTree: async (
@@ -46,8 +47,8 @@ export const createGithubClient = (token: string) => {
       recursive = 1,
     ): Promise<GithubTree[]> =>
       request(
-        `${BASE_URL}/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
-        token,
+        `${config.baseUrl}/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
+        config.token,
       ).then((response) => (response as GithubTreeResponse).tree),
   };
 };
