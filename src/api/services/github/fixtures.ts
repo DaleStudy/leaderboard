@@ -1,4 +1,4 @@
-import { GithubTeam, GithubMember, GithubTree } from "./types";
+import type { GithubTeam, GithubMember, GithubTree } from "./types";
 
 export const mockGithubTeams: GithubTeam[] = [
   {

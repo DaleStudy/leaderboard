@@ -1,6 +1,6 @@
 import { IFetchClient } from "../../utils/interfaces";
 import { IGithubApiClient } from "./interfaces";
-import {
+import type {
   GithubMember,
   GithubTeam,
   GithubTree,

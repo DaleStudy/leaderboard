@@ -1,5 +1,5 @@
 import { IFetchClient } from "./interfaces";
-import { HeaderTuple } from "./types";
+import type { HeaderTuple } from "./types";
 
 export class FetchClient implements IFetchClient {
   constructor(

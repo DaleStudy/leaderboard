@@ -1,4 +1,4 @@
-import { GithubTeam, GithubMember, GithubTree } from "./types";
+import type { GithubTeam, GithubMember, GithubTree } from "./types";
 
 export interface IGithubApiClient {
   getTeams(orgName: string): Promise<GithubTeam[]>;
