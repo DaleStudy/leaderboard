@@ -1,4 +1,3 @@
-import { IFetchClient } from "../../utils/interfaces";
 import { IGithubApiClient } from "./interfaces";
 import type {
   GithubMember,
@@ -12,12 +11,7 @@ export class GithubApiClient implements IGithubApiClient {
   private static readonly BASE_URL = "https://api.github.com";
   private static readonly MEDIA_TYPE = "application/vnd.github+json";
 
-  constructor(
-    private readonly fetchClient: IFetchClient,
-    private readonly githubToken: string,
-  ) {
-    this.initializeClient();
-  }
+  constructor(private readonly githubToken: string) {}
 
   async getTeams(orgName: string): Promise<GithubTeam[]> {
     return this.executeRequest<GithubTeam[]>(
@@ -51,23 +45,23 @@ export class GithubApiClient implements IGithubApiClient {
     return response.tree;
   }
 
-  private initializeClient(): void {
-    if (!this.githubToken) {
-      throw new Error("GitHub token is required but not provided");
-    }
-
-    this.fetchClient.setBaseUrl(GithubApiClient.BASE_URL).setBaseHeaders([
-      ["Accept", GithubApiClient.MEDIA_TYPE],
-      ["Authorization", `Bearer ${this.githubToken}`],
-    ]);
-  }
-
   private async executeRequest<T>(
     url: string,
     errorContext: string,
   ): Promise<T> {
     try {
-      return await this.fetchClient.get<T>(url);
+      const response = await fetch(`${GithubApiClient.BASE_URL}${url}`, {
+        headers: {
+          Authorization: `token ${this.githubToken}`,
+          Accept: GithubApiClient.MEDIA_TYPE,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+      }
+
+      return response.json();
     } catch (error) {
       throw handleError(errorContext, error);
     }
