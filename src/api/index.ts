@@ -1,10 +1,18 @@
 import { CONFIG } from "./config";
-import { MemberInfoService } from "./services/memberInfo/MemberInfoService";
+import { createFetchService } from "./services/fetchService";
+import { createProcessService } from "./services/processService";
 
 async function main() {
-  const memberService = new MemberInfoService(CONFIG);
+  const fetchService = createFetchService(CONFIG);
+  const [members, submissions] = await Promise.all([
+    fetchService.fetchMembers(),
+    fetchService.fetchSubmissions(CONFIG.study.repository),
+  ]);
 
-  const { data } = await memberService.getMemberInfo();
+  const processService = createProcessService(CONFIG);
+
+  const { data } = processService.analyzeMemberInfo(members, submissions);
+
   console.log(data.slice(0, 5));
 }
 
