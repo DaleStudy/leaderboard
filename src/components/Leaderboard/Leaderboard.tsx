@@ -1,5 +1,7 @@
 import styles from "./Leaderboard.module.css";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 export default function Leaderboard() {
   const members = [
     { name: "DaleSeo", solved: 71, rank: "새싹" },
@@ -34,6 +36,7 @@ export default function Leaderboard() {
           ))}
         </ul>
       </article>
+      <Footer />
     </main>
   );
 }

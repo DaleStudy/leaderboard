@@ -1,5 +1,6 @@
 import styles from "./Progress.module.css";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 export default function Progress() {
   const tasks = [
@@ -36,6 +37,7 @@ export default function Progress() {
           ))}
         </ul>
       </section>
+      <Footer />
     </main>
   );
 }
