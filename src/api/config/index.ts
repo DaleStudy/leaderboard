@@ -15,7 +15,7 @@ export const CONFIG: Config = {
       ["SEED", 0],
     ] as [Grade, number][],
   },
-  github: {
+  gitHub: {
     baseUrl: "https://api.github.com",
     mediaType: "application/vnd.github+json",
     token: process.env.GITHUB_TOKEN ?? "",

@@ -1,6 +1,6 @@
-import type { GithubTeam, GithubMember, GithubTree } from "./types";
+import type { GitHubTeam, GitHubMember, GitHubTree } from "./types";
 
-export const mockGithubTeams: GithubTeam[] = [
+export const mockGitHubTeams: GitHubTeam[] = [
   {
     name: "leetcode01",
     id: 1,
@@ -33,7 +33,7 @@ export const mockGithubTeams: GithubTeam[] = [
   },
 ];
 
-export const mockGithubMembers: GithubMember[] = [
+export const mockGitHubMembers: GitHubMember[] = [
   {
     login: "D",
     id: 1,
@@ -78,7 +78,7 @@ export const mockGithubMembers: GithubMember[] = [
   },
 ];
 
-export const mockGithubTree: GithubTree[] = [
+export const mockGitHubTree: GitHubTree[] = [
   {
     path: "best-time-to-buy-and-sell-stock/test.java",
     type: "blob",

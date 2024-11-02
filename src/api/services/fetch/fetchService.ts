@@ -1,14 +1,14 @@
 import type { Config } from "../../config/type";
-import { createGithubClient } from "../../infra/github/githubClient";
-import type { GithubTree } from "../../infra/github/types";
+import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
+import type { GitHubTree } from "../../infra/gitHub/types";
 import type { Cohort, Member, Submission } from "../common/types";
 
 export const createFetchService = (config: Config) => {
-  const githubClient = createGithubClient(config.github);
+  const gitHubClient = createGitHubClient(config.gitHub);
 
   return {
     fetchMembers: async (): Promise<Member[]> => {
-      const teamNames = await githubClient.getTeamNames(
+      const teamNames = await gitHubClient.getTeamNames(
         config.study.organization,
       );
 
@@ -16,7 +16,7 @@ export const createFetchService = (config: Config) => {
         teamNames
           .filter((name) => name.startsWith(config.study.teamPrefix))
           .map(async (teamName) => {
-            const members = await githubClient.getTeamMembers(
+            const members = await gitHubClient.getTeamMembers(
               config.study.organization,
               teamName,
             );
@@ -37,7 +37,7 @@ export const createFetchService = (config: Config) => {
     },
 
     fetchSubmissions: async (repoName: string): Promise<Submission[]> => {
-      const submissions = await githubClient.getDirectoryTree(
+      const submissions = await gitHubClient.getDirectoryTree(
         config.study.organization,
         repoName,
         config.study.branchName,
@@ -75,11 +75,11 @@ const dropDuplicateMembers = (members: Member[]): Member[] => {
   return Array.from(memberMap.values());
 };
 
-const isRelevantTree = (tree: GithubTree): boolean => {
+const isRelevantTree = (tree: GitHubTree): boolean => {
   return tree.type === "blob" && tree.path.includes("/");
 };
 
-const parseSubmissionTree = (tree: GithubTree): Submission | null => {
+const parseSubmissionTree = (tree: GitHubTree): Submission | null => {
   const regex = /^([^/]+)\/([^.]+)\.([a-zA-Z0-9]+)$/;
   const match = tree.path.toLocaleLowerCase().match(regex);
 

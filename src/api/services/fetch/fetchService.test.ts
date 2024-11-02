@@ -1,9 +1,9 @@
 import { test, expect, beforeEach, vi } from "vitest";
 import { createFetchService } from "./fetchService";
 import {
-  mockGithubMembers,
-  mockGithubTeams,
-  mockGithubTree,
+  mockGitHubMembers,
+  mockGitHubTeams,
+  mockGitHubTree,
   mockConfig,
 } from "../common/fixtures";
 
@@ -11,8 +11,8 @@ const mockGetTeamNames = vi.fn();
 const mockGetTeamMembers = vi.fn();
 const mockGetDirectoryTree = vi.fn();
 
-vi.mock("../../infra/github/githubClient", () => ({
-  createGithubClient: () => ({
+vi.mock("../../infra/gitHub/gitHubClient", () => ({
+  createGitHubClient: () => ({
     getTeamNames: mockGetTeamNames,
     getTeamMembers: mockGetTeamMembers,
     getDirectoryTree: mockGetDirectoryTree,
@@ -28,9 +28,9 @@ beforeEach(() => {
 
 test("fetchMembers should fetch and transform members correctly", async () => {
   // Arrange
-  const teamNames = mockGithubTeams.map((team) => team.name);
+  const teamNames = mockGitHubTeams.map((team) => team.name);
   mockGetTeamNames.mockResolvedValue(teamNames);
-  mockGetTeamMembers.mockResolvedValue(mockGithubMembers);
+  mockGetTeamMembers.mockResolvedValue(mockGitHubMembers);
 
   // Act
   const result = await fetchService.fetchMembers();
@@ -39,7 +39,7 @@ test("fetchMembers should fetch and transform members correctly", async () => {
   expect(mockGetTeamNames).toHaveBeenCalledWith(mockConfig.study.organization);
   expect(mockGetTeamMembers).toHaveBeenCalledTimes(2); // Only algodale teams
   expect(result).toEqual(
-    mockGithubMembers.map((member) => ({
+    mockGitHubMembers.map((member) => ({
       id: member.login.toLowerCase(),
       name: member.login,
       profileUrl: member.avatar_url,
@@ -50,9 +50,9 @@ test("fetchMembers should fetch and transform members correctly", async () => {
 
 test("fetchMembers should handle duplicate members preferring higher cohort", async () => {
   // Arrange
-  const teamNames = mockGithubTeams.map((team) => team.name);
+  const teamNames = mockGitHubTeams.map((team) => team.name);
   mockGetTeamNames.mockResolvedValue(teamNames);
-  const duplicateMember = mockGithubMembers[0];
+  const duplicateMember = mockGitHubMembers[0];
   mockGetTeamMembers
     .mockResolvedValueOnce([duplicateMember]) // cohort 1
     .mockResolvedValueOnce([duplicateMember]); // cohort 2
@@ -94,9 +94,9 @@ test("fetchMembers should filter out non-prefix teams", async () => {
 
 test("fetchMembers should handle duplicate members keeping the latest cohort", async () => {
   // Arrange
-  const teamNames = mockGithubTeams.map((team) => team.name);
+  const teamNames = mockGitHubTeams.map((team) => team.name);
   mockGetTeamNames.mockResolvedValue(teamNames);
-  const duplicateMember = mockGithubMembers[0];
+  const duplicateMember = mockGitHubMembers[0];
 
   // same member in two different cohorts
   mockGetTeamMembers
@@ -118,7 +118,7 @@ test("fetchMembers should handle duplicate members keeping the latest cohort", a
 
 test("fetchSubmissions should fetch and parse submissions correctly", async () => {
   // Arrange
-  mockGetDirectoryTree.mockResolvedValue(mockGithubTree);
+  mockGetDirectoryTree.mockResolvedValue(mockGitHubTree);
 
   // Act
   const result = await fetchService.fetchSubmissions("test-repo");
@@ -152,7 +152,7 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
 test("fetchSubmissions should filter out invalid submission paths", async () => {
   // Arrange
   const treeWithInvalidPaths = [
-    ...mockGithubTree,
+    ...mockGitHubTree,
     {
       path: "invalid/path/format",
       type: "blob",
@@ -180,7 +180,7 @@ test("fetchSubmissions should filter out invalid submission paths", async () => 
 test("fetchSubmissions should filter out non-submission files", async () => {
   // Arrange
   mockGetDirectoryTree.mockResolvedValue([
-    ...mockGithubTree,
+    ...mockGitHubTree,
     {
       path: "README.md",
       type: "blob",

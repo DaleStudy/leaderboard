@@ -1,4 +1,4 @@
-export type GithubTeam = {
+export type GitHubTeam = {
   name: string;
   id: number;
   node_id: string;
@@ -14,7 +14,7 @@ export type GithubTeam = {
   parent: null;
 };
 
-export type GithubMember = {
+export type GitHubMember = {
   login: string;
   id: number;
   node_id: string;
@@ -36,13 +36,13 @@ export type GithubMember = {
   site_admin: boolean;
 };
 
-export type GithubTreeResponse = {
+export type GitHubTreeResponse = {
   sha: string;
   url: string;
-  tree: GithubTree[];
+  tree: GitHubTree[];
 };
 
-export type GithubTree = {
+export type GitHubTree = {
   path: string;
   mode: string;
   type: string;
