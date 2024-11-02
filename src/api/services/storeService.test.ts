@@ -8,6 +8,14 @@ const mockFetchMembers = vi.fn();
 const mockFetchSubmissions = vi.fn();
 const mockAnalyzeMemberInfo = vi.fn();
 
+// Mock localStorage
+const mockLocalStorage = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+};
+Object.defineProperty(window, "localStorage", { value: mockLocalStorage });
+
 vi.mock("./fetchService", () => ({
   createFetchService: () => ({
     fetchMembers: mockFetchMembers,
@@ -29,6 +37,8 @@ beforeEach(async () => {
   mockFetchMembers.mockResolvedValue([]);
   mockFetchSubmissions.mockResolvedValue([]);
   mockAnalyzeMemberInfo.mockReturnValue(mockMembers);
+
+  mockLocalStorage.getItem.mockReturnValue(null);
 
   storeService = await createStoreService(mockConfig);
 });
@@ -53,6 +63,53 @@ test("getData should return data without fetching", async () => {
 
   // Assert
   expect(mockFetchMembers).toHaveBeenCalledTimes(1); // Should not be called twice
+  expect(result).toEqual(mockMembers);
+});
+
+test("getData should use localStorage data when available and not expired", async () => {
+  // Arrange
+  const cachedData = {
+    data: mockMembers,
+    timestamp: Date.now(),
+  };
+  mockLocalStorage.getItem.mockReturnValue(JSON.stringify(cachedData));
+
+  // Act
+  const result = await storeService.getData();
+
+  // Assert
+  expect(mockFetchMembers).not.toHaveBeenCalled();
+  expect(result).toEqual(mockMembers);
+});
+
+test("getData should fetch new data when cache is expired", async () => {
+  // Arrange
+  const expiredCache = {
+    data: mockMembers,
+    timestamp: Date.now() - 1000 * 60 * 60 * 10, // 10 hours ago
+  };
+  mockLocalStorage.getItem.mockReturnValue(JSON.stringify(expiredCache));
+
+  // Act
+  const result = await storeService.getData();
+
+  // Assert
+  expect(mockLocalStorage.removeItem).toHaveBeenCalled();
+  expect(mockFetchMembers).toHaveBeenCalled();
+  expect(result).toEqual(mockMembers);
+});
+
+test("getData should fetch new data when localStorage throws error", async () => {
+  // Arrange
+  mockLocalStorage.getItem.mockImplementation(() => {
+    throw new Error("some localStorage error");
+  });
+
+  // Act
+  const result = await storeService.getData();
+
+  // Assert
+  expect(mockFetchMembers).toHaveBeenCalled();
   expect(result).toEqual(mockMembers);
 });
 
