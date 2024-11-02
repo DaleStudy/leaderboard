@@ -1,10 +1,10 @@
 import { test, expect, beforeEach, vi } from "vitest";
-import { createGithubClient } from "./githubClient";
+import { createGitHubClient } from "./gitHubClient";
 import { CONFIG } from "../../config";
-import { mockGithubTeams, mockGithubMembers, mockGithubTree } from "./fixtures";
+import { mockGitHubTeams, mockGitHubMembers, mockGitHubTree } from "./fixtures";
 
 const mockConfig = {
-  ...CONFIG.github,
+  ...CONFIG.gitHub,
   token: "test-token",
 };
 
@@ -19,9 +19,9 @@ test("getTeamNames should fetch and return team names", async () => {
   // Arrange
   mockFetch.mockResolvedValue({
     ok: true,
-    json: () => Promise.resolve(mockGithubTeams),
+    json: () => Promise.resolve(mockGitHubTeams),
   });
-  const client = createGithubClient(mockConfig);
+  const client = createGitHubClient(mockConfig);
   const expectedUrl = `${mockConfig.baseUrl}/orgs/test-org/teams`;
   const expectedHeaders = {
     Accept: mockConfig.mediaType,
@@ -45,7 +45,7 @@ test("getTeamNames should throw error when fetch fails", async () => {
     status: 404,
     statusText: "Not Found",
   });
-  const client = createGithubClient(mockConfig);
+  const client = createGitHubClient(mockConfig);
 
   // Act & Assert
   await expect(client.getTeamNames("test-org")).rejects.toThrow(
@@ -57,9 +57,9 @@ test("getTeamMembers should fetch and return team members", async () => {
   // Arrange
   mockFetch.mockResolvedValue({
     ok: true,
-    json: () => Promise.resolve(mockGithubMembers),
+    json: () => Promise.resolve(mockGitHubMembers),
   });
-  const client = createGithubClient(mockConfig);
+  const client = createGitHubClient(mockConfig);
   const expectedUrl = `${mockConfig.baseUrl}/orgs/test-org/teams/test-team/members`;
   const expectedHeaders = {
     Accept: mockConfig.mediaType,
@@ -73,16 +73,16 @@ test("getTeamMembers should fetch and return team members", async () => {
   expect(mockFetch).toHaveBeenCalledWith(expectedUrl, {
     headers: expectedHeaders,
   });
-  expect(result).toEqual(mockGithubMembers);
+  expect(result).toEqual(mockGitHubMembers);
 });
 
 test("getDirectoryTree should fetch and return directory tree", async () => {
   // Arrange
   mockFetch.mockResolvedValue({
     ok: true,
-    json: () => Promise.resolve({ tree: mockGithubTree }),
+    json: () => Promise.resolve({ tree: mockGitHubTree }),
   });
-  const client = createGithubClient(mockConfig);
+  const client = createGitHubClient(mockConfig);
   const expectedUrl = `${mockConfig.baseUrl}/repos/test-owner/test-repo/git/trees/main?recursive=1`;
   const expectedHeaders = {
     Accept: mockConfig.mediaType,
@@ -100,7 +100,7 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
   expect(mockFetch).toHaveBeenCalledWith(expectedUrl, {
     headers: expectedHeaders,
   });
-  expect(result).toEqual(mockGithubTree);
+  expect(result).toEqual(mockGitHubTree);
 });
 
 test("error should include detailed information", async () => {
@@ -112,7 +112,7 @@ test("error should include detailed information", async () => {
     status,
     statusText,
   });
-  const client = createGithubClient(mockConfig);
+  const client = createGitHubClient(mockConfig);
   const expectedErrorMessage = `Failed to fetch url: ${mockConfig.baseUrl}/orgs/test-org/teams, status: ${status}, statusText: ${statusText}`;
 
   // Act & Assert

@@ -1,9 +1,9 @@
 import type { StudyConfig } from "../../config/type";
 import type {
-  GithubTeam,
-  GithubMember,
-  GithubTree,
-} from "../../infra/github/types";
+  GitHubTeam,
+  GitHubMember,
+  GitHubTree,
+} from "../../infra/gitHub/types";
 import { Grades, type Grade } from "../../type";
 import type { Submission } from "./types";
 
@@ -21,7 +21,7 @@ export const mockStudyConfig: StudyConfig = {
   ] as [Grade, number][],
 };
 
-export const mockGithubConfig = {
+export const mockGitHubConfig = {
   baseUrl: "https://api.github.com",
   mediaType: "application/vnd.github+json",
   token: "test-token",
@@ -29,10 +29,10 @@ export const mockGithubConfig = {
 
 export const mockConfig = {
   study: mockStudyConfig,
-  github: mockGithubConfig,
+  gitHub: mockGitHubConfig,
 };
 
-export const mockGithubTeams: GithubTeam[] = [
+export const mockGitHubTeams: GitHubTeam[] = [
   {
     name: "algodale01",
     id: 1,
@@ -80,7 +80,7 @@ export const mockGithubTeams: GithubTeam[] = [
   }, // should be filtered out
 ];
 
-export const mockGithubMembers: GithubMember[] = [
+export const mockGitHubMembers: GitHubMember[] = [
   { login: "algo", id: 1 },
   { login: "dale", id: 2 },
 ].map((member) => ({
@@ -104,7 +104,7 @@ export const mockGithubMembers: GithubMember[] = [
   site_admin: false,
 }));
 
-export const mockGithubTree: GithubTree[] = [
+export const mockGitHubTree: GitHubTree[] = [
   {
     path: "problem1/algo.js",
     type: "blob",
@@ -147,7 +147,7 @@ export const mockGithubTree: GithubTree[] = [
   }, // should be filtered out
 ];
 
-export const mockMembers = mockGithubMembers.map((member) => ({
+export const mockMembers = mockGitHubMembers.map((member) => ({
   id: member.login.toLowerCase(),
   name: member.login,
   profileUrl: member.avatar_url,
