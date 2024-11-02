@@ -1,19 +1,9 @@
 import { CONFIG } from "./config";
-import { createFetchService } from "./services/fetchService";
-import { createProcessService } from "./services/processService";
+import { createStoreService } from "./services/storeService";
 
-async function main() {
-  const fetchService = createFetchService(CONFIG);
-  const [members, submissions] = await Promise.all([
-    fetchService.fetchMembers(),
-    fetchService.fetchSubmissions(CONFIG.study.repository),
-  ]);
+export const leaderBoardStore = await createStoreService(CONFIG);
 
-  const processService = createProcessService(CONFIG);
-
-  const { data } = processService.analyzeMemberInfo(members, submissions);
-
-  console.log(data.slice(0, 5));
-}
-
-main().catch(console.error);
+console.log(await leaderBoardStore.getData());
+console.log(await leaderBoardStore.getMemberById("hc"));
+console.log(await leaderBoardStore.getMemberByCohort(1));
+console.log(await leaderBoardStore.getMemberByGrade("SEED"));
