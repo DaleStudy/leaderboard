@@ -1,23 +1,18 @@
 import type { Config } from "../config/type";
 import { type Grade, Grades } from "../type";
-import {
-  type Member,
-  type MemberInfo,
-  type StudyData,
-  type Submission,
-} from "./types";
+import type { Member, MemberInfo, Submission } from "./types";
 
 export const createProcessService = (config: Config) => ({
-  analyzeMemberInfo(members: Member[], submissions: Submission[]): StudyData {
+  analyzeMemberInfo(
+    members: Member[],
+    submissions: Submission[],
+  ): MemberInfo[] {
     const memberMap = initializeMemberMap(members);
     updateSubmissions(memberMap, submissions);
     calculateProgress(memberMap, config.study.totalProblemCount);
     updateGrades(memberMap, config.study.gradeThresholds);
 
-    return {
-      total: members.length,
-      data: Object.values(memberMap),
-    };
+    return Object.values(memberMap);
   },
 });
 

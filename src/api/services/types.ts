@@ -21,8 +21,3 @@ export type Submission = {
   problemTitle: string;
   language: string;
 };
-
-export type StudyData = {
-  total: number;
-  data: MemberInfo[];
-};
