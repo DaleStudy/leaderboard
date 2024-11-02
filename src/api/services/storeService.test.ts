@@ -113,6 +113,17 @@ test("getData should fetch new data when localStorage throws error", async () =>
   expect(result).toEqual(mockMembers);
 });
 
+test("getData should fetch if requested hard refresh", async () => {
+  // Arrange
+  await storeService.getData(); // Initial fetch
+
+  // Act
+  await storeService.getData(true); // Hard refresh
+
+  // Assert
+  expect(mockFetchMembers).toHaveBeenCalledTimes(2);
+});
+
 test("getMemberById should return filtered members by ID", async () => {
   // Arrange
   await storeService.getData(); // Ensure data is loaded
