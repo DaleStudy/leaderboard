@@ -10,8 +10,8 @@ test("processService should initialize members correctly", () => {
   const result = processService.analyzeMemberInfo(mockMembers, []);
 
   // Assert
-  expect(result.total).toBe(mockMembers.length);
-  result.data.forEach((member) => {
+  expect(result.length).toBe(mockMembers.length);
+  result.forEach((member) => {
     expect(member).toEqual({
       ...mockMembers.find((m) => m.id === member.id),
       totalSubmissions: 0,
@@ -27,8 +27,8 @@ test("processService should calculate submissions and progress correctly", () =>
   const result = processService.analyzeMemberInfo(mockMembers, mockSubmissions);
 
   // Assert
-  const algoInfo = result.data.find((m) => m.id === "algo")!; // 2
-  const daleInfo = result.data.find((m) => m.id === "dale")!; // 1
+  const algoInfo = result.find((m) => m.id === "algo")!; // 2
+  const daleInfo = result.find((m) => m.id === "dale")!; // 1
 
   // number of submissions
   expect(algoInfo.totalSubmissions).toBe(2);
@@ -57,7 +57,7 @@ test("processService should handle duplicate problem submissions", () => {
   );
 
   // Assert
-  const algoInfo = result.data.find((m) => m.id === "algo")!;
+  const algoInfo = result.find((m) => m.id === "algo")!;
   expect(algoInfo.totalSubmissions).toBe(2); // duplicates should be ignored
   expect(algoInfo.submissions).toHaveLength(3); // but should be added to submissions
 });
@@ -77,8 +77,8 @@ test("processService should assign correct grades based on submissions", () => {
   const result = processService.analyzeMemberInfo(mockMembers, submissions);
 
   // Assert
-  const algoInfo = result.data.find((m) => m.id === "algo")!;
-  const daleInfo = result.data.find((m) => m.id === "dale")!;
+  const algoInfo = result.find((m) => m.id === "algo")!;
+  const daleInfo = result.find((m) => m.id === "dale")!;
 
   // mockConfig gradeThresholds: BIG_TREE(3), SMALL_TREE(2), SPROUT(1), SEED(0)
   expect(algoInfo.grade).toBe(Grades.BIG_TREE); // large or equal to 3
@@ -97,7 +97,7 @@ test("processService should calculate correct progress percentages", () => {
   const result = processService.analyzeMemberInfo(mockMembers, submissions);
 
   // Assert
-  const algoInfo = result.data.find((m) => m.id === "algo")!;
+  const algoInfo = result.find((m) => m.id === "algo")!;
   expect(algoInfo.progress).toBe(100); // 4/4 * 100
   expect(algoInfo.grade).toBe(Grades.BIG_TREE);
 });
