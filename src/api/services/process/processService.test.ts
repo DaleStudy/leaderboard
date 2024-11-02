@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
 import { createProcessService } from "./processService";
-import { mockConfig, mockMembers, mockSubmissions } from "./fixtures";
-import { Grades } from "../type";
+import { mockConfig, mockMembers, mockSubmissions } from "../common/fixtures";
+import { Grades } from "../../type";
 
 const processService = createProcessService(mockConfig);
 

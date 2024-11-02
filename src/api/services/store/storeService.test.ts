@@ -1,7 +1,7 @@
 import { test, expect, beforeEach, vi } from "vitest";
 import { createStoreService } from "./storeService";
-import { mockConfig, mockMembers } from "./fixtures";
-import { Grades } from "../type";
+import { mockConfig, mockMembers } from "../common/fixtures";
+import { Grades } from "../../type";
 
 // Mock services
 const mockFetchMembers = vi.fn();
@@ -16,14 +16,14 @@ const mockLocalStorage = {
 };
 Object.defineProperty(window, "localStorage", { value: mockLocalStorage });
 
-vi.mock("./fetchService", () => ({
+vi.mock("../fetch/fetchService", () => ({
   createFetchService: () => ({
     fetchMembers: mockFetchMembers,
     fetchSubmissions: mockFetchSubmissions,
   }),
 }));
 
-vi.mock("./processService", () => ({
+vi.mock("../process/processService", () => ({
   createProcessService: () => ({
     analyzeMemberInfo: mockAnalyzeMemberInfo,
   }),

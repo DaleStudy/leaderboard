@@ -1,7 +1,7 @@
-import type { Config } from "../config/type";
-import { createGithubClient } from "../infra/github/githubClient";
-import type { GithubTree } from "../infra/github/types";
-import type { Cohort, Member, Submission } from "./types";
+import type { Config } from "../../config/type";
+import { createGithubClient } from "../../infra/github/githubClient";
+import type { GithubTree } from "../../infra/github/types";
+import type { Cohort, Member, Submission } from "../common/types";
 
 export const createFetchService = (config: Config) => {
   const githubClient = createGithubClient(config.github);

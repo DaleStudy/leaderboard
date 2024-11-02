@@ -5,13 +5,13 @@ import {
   mockGithubTeams,
   mockGithubTree,
   mockConfig,
-} from "./fixtures";
+} from "../common/fixtures";
 
 const mockGetTeamNames = vi.fn();
 const mockGetTeamMembers = vi.fn();
 const mockGetDirectoryTree = vi.fn();
 
-vi.mock("../infra/github/githubClient", () => ({
+vi.mock("../../infra/github/githubClient", () => ({
   createGithubClient: () => ({
     getTeamNames: mockGetTeamNames,
     getTeamMembers: mockGetTeamMembers,

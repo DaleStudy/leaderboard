@@ -1,6 +1,6 @@
-import type { Config } from "../config/type";
-import { type Grade, Grades } from "../type";
-import type { Member, MemberInfo, Submission } from "./types";
+import type { Config } from "../../config/type";
+import { type Grade, Grades } from "../../type";
+import type { Member, MemberInfo, Submission } from "../common/types";
 
 export const createProcessService = (config: Config) => ({
   analyzeMemberInfo(
