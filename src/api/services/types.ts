@@ -1,3 +1,5 @@
+import type { Grade } from "../type";
+
 export type Cohort = number;
 
 export type Member = {
@@ -24,22 +26,3 @@ export type StudyData = {
   total: number;
   data: MemberInfo[];
 };
-
-export type StudyInfo = {
-  orgName: string;
-  repoOwner: string;
-  repoName: string;
-  branchName: string;
-  teamPrefix: string;
-  totalProblemCount: number;
-  gradeThresholds: Record<Grade, number>;
-};
-
-export type Grade = "SEED" | "SPROUT" | "SMALL_TREE" | "BIG_TREE";
-
-export const Grades = {
-  SEED: "SEED",
-  SPROUT: "SPROUT",
-  SMALL_TREE: "SMALL_TREE",
-  BIG_TREE: "BIG_TREE",
-} as const;

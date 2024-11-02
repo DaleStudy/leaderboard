@@ -1,14 +1,13 @@
-import { CONFIG } from "../../config";
+import type { Config } from "../config/type";
+import { type Grade, Grades } from "../type";
 import {
-  Grades,
-  type Grade,
   type Member,
   type MemberInfo,
   type StudyData,
   type Submission,
-} from "../memberInfo/types";
+} from "./types";
 
-export const createProcessService = (config: typeof CONFIG) => ({
+export const createProcessService = (config: Config) => ({
   analyzeMemberInfo(members: Member[], submissions: Submission[]): StudyData {
     const memberMap = initializeMemberMap(members);
     updateSubmissions(memberMap, submissions);

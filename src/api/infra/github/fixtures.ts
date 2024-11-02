@@ -17,7 +17,7 @@ export const mockGithubTeams: GithubTeam[] = [
     parent: null,
   },
   {
-    name: "leetcode",
+    name: "leetcode02",
     id: 2,
     node_id: "D",
     slug: "leetcode",
