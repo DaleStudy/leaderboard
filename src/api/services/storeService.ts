@@ -24,13 +24,15 @@ export const createStoreService = async (config: Config) => {
     return cachedData;
   };
 
-  const getData = async () => {
-    if (cachedData.length) return cachedData;
+  const getData = async (isHardRefresh: boolean = false) => {
+    if (!isHardRefresh) {
+      if (cachedData.length) return cachedData;
 
-    const storageData = loadFromStorage();
-    if (storageData) {
-      cachedData = storageData;
-      return cachedData;
+      const storageData = loadFromStorage();
+      if (storageData) {
+        cachedData = storageData;
+        return cachedData;
+      }
     }
 
     return fetchAndProcessData();
