@@ -1,8 +1,8 @@
-import type { Config } from "../config/type";
-import type { MemberInfo } from "./types";
-import type { Grade } from "../type";
-import { createFetchService } from "./fetchService";
-import { createProcessService } from "./processService";
+import type { Config } from "../../config/type";
+import type { MemberInfo } from "../common/types";
+import type { Grade } from "../../type";
+import { createFetchService } from "../fetch/fetchService";
+import { createProcessService } from "../process/processService";
 
 const STORAGE_KEY = "leaderBoardData";
 const STORAGE_EXPIRES = 1000 * 60 * 60 * 8; // 8 hours
