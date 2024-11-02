@@ -4,15 +4,8 @@ import type { Grade } from "../type";
 import { createFetchService } from "./fetchService";
 import { createProcessService } from "./processService";
 
-type LeaderBoardStore = {
-  data: MemberInfo[];
-};
-
-const store: LeaderBoardStore = {
-  data: [],
-};
-
 export const createStoreService = async (config: Config) => {
+  let data: MemberInfo[] = [];
   const fetchService = createFetchService(config);
   const processService = createProcessService(config);
 
@@ -22,16 +15,16 @@ export const createStoreService = async (config: Config) => {
       fetchService.fetchSubmissions(config.study.repository),
     ]);
 
-    store.data = processService.analyzeMemberInfo(members, submissions);
+    data = processService.analyzeMemberInfo(members, submissions);
 
-    return store.data;
+    return data;
   };
 
   const getData = async () => {
-    if (!store.data.length) {
+    if (!data.length) {
       return fetchAndProcessData();
     }
-    return store.data;
+    return data;
   };
 
   return {
