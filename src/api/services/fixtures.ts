@@ -1,19 +1,35 @@
-import type { GithubTeam, GithubMember, GithubTree } from "../github/types";
-import { StudyInfo } from "./types";
+import type { StudyConfig } from "../config/type";
+import type {
+  GithubTeam,
+  GithubMember,
+  GithubTree,
+} from "../infra/github/types";
+import type { Grade } from "../type";
+import type { Submission } from "./types";
 
-export const mockGithubInfo: StudyInfo = {
-  orgName: "test-org",
-  repoOwner: "test-owner",
-  repoName: "test-repo",
+export const mockStudyConfig: StudyConfig = {
+  organization: "test-org",
+  repository: "test-repo",
   branchName: "main",
   teamPrefix: "algodale",
   totalProblemCount: 4,
-  gradeThresholds: {
-    BIG_TREE: 3,
-    SMALL_TREE: 2,
-    SPROUT: 1,
-    SEED: 0,
-  },
+  gradeThresholds: [
+    ["BIG_TREE", 3],
+    ["SMALL_TREE", 2],
+    ["SPROUT", 1],
+    ["SEED", 0],
+  ] as [Grade, number][],
+};
+
+export const mockGithubConfig = {
+  baseUrl: "https://api.github.com",
+  mediaType: "application/vnd.github+json",
+  token: "test-token",
+};
+
+export const mockConfig = {
+  study: mockStudyConfig,
+  github: mockGithubConfig,
 };
 
 export const mockGithubTeams: GithubTeam[] = [
@@ -129,4 +145,29 @@ export const mockGithubTree: GithubTree[] = [
     size: 0,
     url: "some-url",
   }, // should be filtered out
+];
+
+export const mockMembers = mockGithubMembers.map((member) => ({
+  id: member.login.toLowerCase(),
+  name: member.login,
+  profileUrl: member.avatar_url,
+  cohort: 1,
+}));
+
+export const mockSubmissions: Submission[] = [
+  {
+    memberId: "algo",
+    problemTitle: "problem1",
+    language: "js",
+  },
+  {
+    memberId: "algo",
+    problemTitle: "problem2",
+    language: "ts",
+  },
+  {
+    memberId: "dale",
+    problemTitle: "problem1",
+    language: "py",
+  },
 ];

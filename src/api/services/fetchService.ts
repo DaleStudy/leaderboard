@@ -1,9 +1,9 @@
-import { CONFIG } from "../../config";
-import { createGithubClient } from "../github";
-import { GithubTree } from "../github/types";
-import type { Cohort, Member, Submission } from "../memberInfo/types";
+import type { Config } from "../config/type";
+import { createGithubClient } from "../infra/github/githubClient";
+import type { GithubTree } from "../infra/github/types";
+import type { Cohort, Member, Submission } from "./types";
 
-export const createFetchService = (config: typeof CONFIG) => {
+export const createFetchService = (config: Config) => {
   const githubClient = createGithubClient(config.github);
 
   return {
@@ -63,11 +63,17 @@ const isCohort = (value: number): value is Cohort => {
   return Number.isInteger(value) && value > 0;
 };
 
-const dropDuplicateMembers = (members: Member[]): Member[] =>
-  members.filter(
-    (member, index, self) =>
-      index === self.findIndex((m) => m.id === member.id),
-  );
+const dropDuplicateMembers = (members: Member[]): Member[] => {
+  const memberMap = members.reduce((acc, member) => {
+    const existingMember = acc.get(member.id);
+    if (!existingMember || member.cohort > existingMember.cohort) {
+      acc.set(member.id, member);
+    }
+    return acc;
+  }, new Map<string, Member>());
+
+  return Array.from(memberMap.values());
+};
 
 const isRelevantTree = (tree: GithubTree): boolean => {
   return tree.type === "blob" && tree.path.includes("/");

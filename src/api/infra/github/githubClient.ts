@@ -1,4 +1,4 @@
-import { CONFIG } from "../../config";
+import type { GithubConfig } from "../../config/type";
 import type {
   GithubMember,
   GithubTeam,
@@ -6,7 +6,7 @@ import type {
   GithubTreeResponse,
 } from "./types";
 
-export const createGithubClient = (config: typeof CONFIG.github) => {
+export const createGithubClient = (config: GithubConfig) => {
   const request = async (url: string, token: string): Promise<unknown> => {
     const response = await fetch(url, {
       headers: {

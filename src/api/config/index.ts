@@ -1,6 +1,7 @@
-import type { Grade } from "../services/memberInfo/types";
+import type { Grade } from "../type";
+import type { Config } from "./type";
 
-export const CONFIG = {
+export const CONFIG: Config = {
   study: {
     organization: "DaleStudy",
     repository: "leetcode-study",
