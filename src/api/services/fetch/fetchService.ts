@@ -3,7 +3,7 @@ import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
 import type { Cohort, Member, Submission } from "../common/types";
 
-export const createFetchService = (config: Config) => {
+export function createFetchService(config: Config) {
   const gitHubClient = createGitHubClient(config.gitHub);
 
   return {
@@ -49,7 +49,7 @@ export const createFetchService = (config: Config) => {
         .filter((submission): submission is Submission => submission !== null);
     },
   };
-};
+}
 
 const parseCohort = (teamName: string, prefix: string): Cohort => {
   const cohort = parseInt(teamName.replace(prefix, ""), 10);

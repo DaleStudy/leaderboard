@@ -4,7 +4,7 @@ import type { Grade } from "../../type";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 
-export const createStoreService = async (config: Config) => {
+export async function createStoreService(config: Config) {
   let fetchedData: MemberInfo[] = [];
   const fetchService = createFetchService(config);
   const processService = createProcessService(config);
@@ -46,4 +46,4 @@ export const createStoreService = async (config: Config) => {
       return data.filter((member) => member.grade === grade);
     },
   };
-};
+}
