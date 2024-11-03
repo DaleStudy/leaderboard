@@ -4,11 +4,8 @@ import type { Grade } from "../../type";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 
-const STORAGE_KEY = "leaderBoardData";
-const STORAGE_EXPIRES = 1000 * 60 * 60 * 8; // 8 hours
-
 export const createStoreService = async (config: Config) => {
-  let cachedData: MemberInfo[] = [];
+  let fetchedData: MemberInfo[] = [];
   const fetchService = createFetchService(config);
   const processService = createProcessService(config);
 
@@ -18,23 +15,13 @@ export const createStoreService = async (config: Config) => {
       fetchService.fetchSubmissions(config.study.repository),
     ]);
 
-    cachedData = processService.analyzeMemberInfo(members, submissions);
-    saveToStorage(cachedData);
+    fetchedData = processService.analyzeMemberInfo(members, submissions);
 
-    return cachedData;
+    return fetchedData;
   };
 
-  const getData = async (isHardRefresh: boolean = false) => {
-    if (!isHardRefresh) {
-      if (cachedData.length) return cachedData;
-
-      const storageData = loadFromStorage();
-      if (storageData) {
-        cachedData = storageData;
-        return cachedData;
-      }
-    }
-
+  const getData = async () => {
+    if (fetchedData.length) return fetchedData;
     return fetchAndProcessData();
   };
 
@@ -59,34 +46,4 @@ export const createStoreService = async (config: Config) => {
       return data.filter((member) => member.grade === grade);
     },
   };
-};
-
-const saveToStorage = (data: MemberInfo[]) => {
-  try {
-    const cacheData = {
-      data,
-      timestamp: Date.now(),
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cacheData));
-  } catch (error) {
-    console.error("Failed to save to localStorage:", error);
-  }
-};
-
-const loadFromStorage = (): MemberInfo[] | null => {
-  try {
-    const cached = localStorage.getItem(STORAGE_KEY);
-    if (!cached) return null;
-
-    const { data, timestamp } = JSON.parse(cached);
-    if (Date.now() - timestamp > STORAGE_EXPIRES) {
-      localStorage.removeItem(STORAGE_KEY);
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Failed to load from localStorage:", error);
-    return null;
-  }
 };
