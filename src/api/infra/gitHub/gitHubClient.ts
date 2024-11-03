@@ -6,7 +6,7 @@ import type {
   GitHubTreeResponse,
 } from "./types";
 
-export const createGitHubClient = (config: GitHubConfig) => {
+export function createGitHubClient(config: GitHubConfig) {
   const request = async (url: string, token: string): Promise<unknown> => {
     const response = await fetch(url, {
       headers: {
@@ -51,4 +51,4 @@ export const createGitHubClient = (config: GitHubConfig) => {
         config.token,
       ).then((response) => (response as GitHubTreeResponse).tree),
   };
-};
+}
