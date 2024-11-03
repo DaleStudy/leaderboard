@@ -6,18 +6,18 @@ import {
   mockGitHubTree,
   mockConfig,
 } from "../common/fixtures";
+import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 
 const mockGetTeamNames = vi.fn();
 const mockGetTeamMembers = vi.fn();
 const mockGetDirectoryTree = vi.fn();
 
-vi.mock("../../infra/gitHub/gitHubClient", () => ({
-  createGitHubClient: () => ({
-    getTeamNames: mockGetTeamNames,
-    getTeamMembers: mockGetTeamMembers,
-    getDirectoryTree: mockGetDirectoryTree,
-  }),
-}));
+vi.mock("../../infra/gitHub/gitHubClient");
+vi.mocked(createGitHubClient).mockReturnValue({
+  getTeamNames: mockGetTeamNames,
+  getTeamMembers: mockGetTeamMembers,
+  getDirectoryTree: mockGetDirectoryTree,
+});
 
 let fetchService: ReturnType<typeof createFetchService>;
 
