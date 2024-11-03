@@ -1,41 +1,36 @@
 import { test, expect, beforeEach, vi } from "vitest";
-import { createStoreService } from "./storeService";
+import { createFetchService } from "../fetch/fetchService";
+import { createProcessService } from "../process/processService";
 import { mockConfig, mockMembers } from "../common/fixtures";
-import { Grades } from "../../type";
+import { fetchLeaderBoard } from "./storeService";
 
 // Mock services
 const mockFetchMembers = vi.fn();
 const mockFetchSubmissions = vi.fn();
 const mockAnalyzeMemberInfo = vi.fn();
 
-vi.mock("../fetch/fetchService", () => ({
-  createFetchService: () => ({
-    fetchMembers: mockFetchMembers,
-    fetchSubmissions: mockFetchSubmissions,
-  }),
-}));
+vi.mock("../fetch/fetchService");
+vi.mocked(createFetchService).mockReturnValue({
+  fetchMembers: mockFetchMembers,
+  fetchSubmissions: mockFetchSubmissions,
+});
 
-vi.mock("../process/processService", () => ({
-  createProcessService: () => ({
-    analyzeMemberInfo: mockAnalyzeMemberInfo,
-  }),
-}));
+vi.mock("../process/processService");
+vi.mocked(createProcessService).mockReturnValue({
+  analyzeMemberInfo: mockAnalyzeMemberInfo,
+});
 
-let storeService: Awaited<ReturnType<typeof createStoreService>>;
-
-beforeEach(async () => {
+beforeEach(() => {
   vi.clearAllMocks();
 
   mockFetchMembers.mockResolvedValue([]);
   mockFetchSubmissions.mockResolvedValue([]);
   mockAnalyzeMemberInfo.mockReturnValue(mockMembers);
-
-  storeService = await createStoreService(mockConfig);
 });
 
-test("getData should fetch data when store is empty", async () => {
+test("should fetch and process data correctly", async () => {
   // Act
-  const result = await storeService.getData();
+  const result = await fetchLeaderBoard(mockConfig);
 
   // Assert
   expect(mockFetchMembers).toHaveBeenCalledTimes(1);
@@ -44,95 +39,37 @@ test("getData should fetch data when store is empty", async () => {
   expect(result).toEqual(mockMembers);
 });
 
-test("getData should return data without fetching", async () => {
-  // Arrange
-  await storeService.getData(); // Initial fetch
-
-  // Act
-  const result = await storeService.getData(); // Second call
-
-  // Assert
-  expect(mockFetchMembers).toHaveBeenCalledTimes(1); // Should not be called twice
-  expect(result).toEqual(mockMembers);
-});
-
-test("getMemberById should return filtered members by ID", async () => {
-  // Arrange
-  await storeService.getData(); // Ensure data is loaded
-
-  // Act
-  const result = await storeService.getMemberById("algo");
-
-  // Assert
-  expect(result.length).toBe(1);
-  expect(result).toEqual([mockMembers.find((member) => member.id === "algo")]);
-});
-
-test("getMemberById should handle case-insensitive search", async () => {
-  // Act
-  const result = await storeService.getMemberById("ALGO");
-
-  // Assert
-  expect(result.length).toBe(1);
-  expect(result[0].id).toBe("algo");
-});
-
-test("getMemberById should return empty array for non-existing ID", async () => {
-  // Act
-  const result = await storeService.getMemberById("non-existing");
-
-  // Assert
-  expect(result).toEqual([]);
-});
-
-test("getMemberByCohort should return filtered members by cohort", async () => {
-  // Act
-  const result = await storeService.getMemberByCohort(1);
-
-  // Assert
-  expect(result).toEqual(mockMembers.filter((m) => m.cohort === 1));
-});
-
-test("getMemberByCohort should return empty array for non-existing cohort", async () => {
-  // Act
-  const result = await storeService.getMemberByCohort(999999);
-
-  // Assert
-  expect(result).toEqual([]);
-});
-
-test("getMemberByGrade should return filtered members by grade", async () => {
-  // Act
-  const result = await storeService.getMemberByGrade(Grades.BIG_TREE);
-
-  // Assert
-  expect(result).toEqual(
-    mockMembers.filter((m) => m.grade === Grades.BIG_TREE),
-  );
-});
-
-test("getMemberByGrade should return empty array for grade with no members", async () => {
-  // Act
-  const result = await storeService.getMemberByGrade(Grades.SEED);
-
-  // Assert
-  expect(result).toEqual([]); // No mock members with SEED grade
-});
-
-test("getData should throw error when fetch fails", async () => {
+test("fetchLeaderBoard should throw error when fetch fails", async () => {
   // Arrange
   mockFetchMembers.mockRejectedValue(new Error("Fetch failed"));
 
   // Act & Assert
-  await expect(storeService.getData()).rejects.toThrow("Fetch failed");
+  await expect(fetchLeaderBoard(mockConfig)).rejects.toThrow("Fetch failed");
 });
 
-test("getData should handle process service errors", async () => {
+test("fetchLeaderBoard should handle process service errors", async () => {
   // Arrange
   mockAnalyzeMemberInfo.mockImplementation(() => {
     throw new Error("Process failed");
   });
 
   // Act & Assert
-  await expect(storeService.getData()).rejects.toThrow("Process failed");
+  await expect(fetchLeaderBoard(mockConfig)).rejects.toThrow("Process failed");
+});
+
+test("fetchLeaderBoard should pass correct parameters to process service", async () => {
+  // Arrange
+  const mockMembers = [{ id: "1", name: "Test" }];
+  const mockSubmissions = [{ id: "1", score: 100 }];
+  mockFetchMembers.mockResolvedValue(mockMembers);
+  mockFetchSubmissions.mockResolvedValue(mockSubmissions);
+
+  // Act
+  await fetchLeaderBoard(mockConfig);
+
+  // Assert
+  expect(mockAnalyzeMemberInfo).toHaveBeenCalledWith(
+    mockMembers,
+    mockSubmissions,
+  );
 });
