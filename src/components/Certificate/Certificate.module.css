@@ -1,0 +1,7 @@
+.certificate {
+  footer {
+    @media print {
+      display: none;
+    }
+  }
+}

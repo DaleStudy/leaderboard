@@ -7,7 +7,7 @@ describe("<Leaderboard/>", () => {
 
   it("renders the members list section", () => {
     expect(
-      screen.getByRole("region", { name: /members list/i }),
+      screen.getByRole("article", { name: /members list/i }),
     ).toBeInTheDocument();
   });
 

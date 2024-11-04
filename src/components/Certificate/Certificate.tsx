@@ -1,4 +1,4 @@
-import { css } from "../../../styled-system/css";
+import styles from "./Certificate.module.css";
 
 export default function Certificate() {
   const member = new URL(location.href).searchParams.get("member");
@@ -11,21 +11,17 @@ export default function Certificate() {
   const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member}&organizationId=104834174&certUrl=${location.href}`;
 
   return (
-    <main>
+    <main className={styles.certificate}>
       <section aria-labelledby="certification">
         <h2 id="certification">{member}님의 수료증</h2>
         <div>
           <p>귀하는 어쩌구 저쩌구</p>
         </div>
       </section>
-      <section className={invisiblePrint}>
+      <footer>
         <button onClick={() => window.print()}>출력</button>
         <a href={linkedInURL}>링크드인에 공유하기</a>
-      </section>
+      </footer>
     </main>
   );
 }
-
-const invisiblePrint = css({
-  "@media print": { display: "none" },
-});
