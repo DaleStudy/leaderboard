@@ -65,3 +65,9 @@ test("render LinkedIn link", () => {
     `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${username}&organizationId=104834174&certUrl=${location.href}`,
   );
 });
+
+test("render footer", () => {
+  render(<Certificate />);
+
+  expect(screen.getByRole("contentinfo"));
+});

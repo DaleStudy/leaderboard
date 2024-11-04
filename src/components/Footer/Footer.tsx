@@ -96,7 +96,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <section>
-        <ul>
+        <ul className={styles.leftMenu}>
           {leftMenu.map(({ label, link }) => (
             <li key={link}>
               <a href={link} target="_blank" aria-label={label}>
@@ -105,7 +105,8 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        <ul>
+
+        <ul className={styles.rightMenu}>
           {rightMenu.map(({ label, link, component }) => (
             <li key={link}>
               <a href={link} target="_blank" aria-label={label}>
@@ -115,6 +116,7 @@ export default function Footer() {
           ))}
         </ul>
       </section>
+
       <p>© 2024 DaleStudy. All rights reserved.</p>
     </footer>
   );

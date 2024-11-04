@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import Leaderboard from "./Leaderboard";
 
 describe("<Leaderboard/>", () => {
@@ -31,7 +31,9 @@ describe("<Leaderboard/>", () => {
       { name: "SamTheKorean", solved: 60, rank: "나무" },
     ];
 
-    const memberItems = screen.getAllByRole("listitem");
+    const memberItems = within(
+      screen.getByRole("article", { name: /members list/i }),
+    ).getAllByRole("listitem");
 
     expect(memberItems).toHaveLength(members.length);
 
@@ -70,5 +72,9 @@ describe("<Leaderboard/>", () => {
         `/certificate?member=${member.name}`,
       );
     });
+  });
+
+  it("renders footer", () => {
+    expect(screen.getByRole("contentinfo"));
   });
 });
