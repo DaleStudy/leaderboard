@@ -1,0 +1,62 @@
+.headerWrapper {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: var(--text-900);
+  padding: 20px 0;
+  font-weight: var(--font-weight-medium);
+  width: 100%;
+  border-bottom: 1px solid var(--bg-300);
+  background-color: var(--bg-200);
+
+  header {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+}
+
+.logoLink {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 5px;
+  font-weight: var(--font-weight-medium);
+
+  span {
+    display: inline;
+    font-size: 20px;
+  }
+
+  svg {
+    width: 45px;
+  }
+
+  &:hover {
+    font-weight: var(--font-weight-bold);
+  }
+
+  &:focus {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  &:active svg path {
+    fill: var(--text-900);
+  }
+
+  &:active span {
+    color: var(--primary);
+  }
+}
