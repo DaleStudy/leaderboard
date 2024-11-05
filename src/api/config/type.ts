@@ -1,4 +1,4 @@
-import { Grade } from "../type";
+import type { Grade } from "../type";
 
 export type StudyConfig = {
   organization: string;
