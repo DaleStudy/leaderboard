@@ -1,3 +1,5 @@
+import styles from "./Leaderboard.module.css";
+
 export default function Leaderboard() {
   const members = [
     { name: "DaleSeo", solved: 71, rank: "새싹" },
@@ -9,14 +11,14 @@ export default function Leaderboard() {
   ];
 
   return (
-    <div>
+    <main className={styles.leaderboard}>
       <h1>Leaderboard</h1>
 
-      <section aria-labelledby="leaderboard">
+      <article aria-labelledby="leaderboard">
         <h2 id="leaderboard">Members List</h2>
         <ul>
           {members.map((member) => (
-            <li key={member.name} style={{ marginBottom: "20px" }}>
+            <li key={member.name}>
               <div>등급: {member.rank}</div>
               <div>진행 상황: {member.solved}</div>
               <div>
@@ -30,7 +32,7 @@ export default function Leaderboard() {
             </li>
           ))}
         </ul>
-      </section>
-    </div>
+      </article>
+    </main>
   );
 }
