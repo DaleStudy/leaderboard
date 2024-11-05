@@ -44,7 +44,7 @@ export function createFetchService(config: Config) {
       );
 
       return submissions
-        .filter(isRelevantTree)
+        .filter((tree) => tree.type === "blob" && tree.path.includes("/")) // 제출된 풀이(디렉토리 아래에 있는 파일)만 필터링
         .map(parseSubmissionTree)
         .filter((submission): submission is Submission => submission !== null);
     },
@@ -52,15 +52,8 @@ export function createFetchService(config: Config) {
 }
 
 const parseCohort = (teamName: string, prefix: string): Cohort => {
-  const cohort = parseInt(teamName.replace(prefix, ""), 10);
-  if (!isCohort(cohort)) {
-    throw new Error(`Invalid cohort number: ${cohort} from team ${teamName}`);
-  }
-  return cohort as Cohort;
-};
-
-const isCohort = (value: number): value is Cohort => {
-  return Number.isInteger(value) && value > 0;
+  // 기수(코호트)는 명확하게 숫자로 구성되어 있다고 가정한다.
+  return parseInt(teamName.replace(prefix, ""), 10);
 };
 
 const dropDuplicateMembers = (members: Member[]): Member[] => {
@@ -73,10 +66,6 @@ const dropDuplicateMembers = (members: Member[]): Member[] => {
   }, new Map<string, Member>());
 
   return Array.from(memberMap.values());
-};
-
-const isRelevantTree = (tree: GitHubTree): boolean => {
-  return tree.type === "blob" && tree.path.includes("/");
 };
 
 const parseSubmissionTree = (tree: GitHubTree): Submission | null => {
