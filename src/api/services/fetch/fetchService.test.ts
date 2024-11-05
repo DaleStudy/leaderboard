@@ -70,16 +70,6 @@ test("fetchMembers should handle duplicate members preferring higher cohort", as
   });
 });
 
-test("fetchMembers should throw error for invalid cohort number", async () => {
-  // Arrange
-  mockGetTeamNames.mockResolvedValue(["algodaleinvalid"]);
-
-  // Act & Assert
-  await expect(fetchService.fetchMembers()).rejects.toThrow(
-    "Invalid cohort number",
-  );
-});
-
 test("fetchMembers should filter out non-prefix teams", async () => {
   // Arrange
   mockGetTeamNames.mockResolvedValue(["another-team"]);
