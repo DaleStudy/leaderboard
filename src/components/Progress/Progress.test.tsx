@@ -5,6 +5,11 @@ import Progress from "./Progress"; // Adjust the import path as needed
 describe("<Progress/>", () => {
   beforeEach(() => render(<Progress />));
 
+  it("renders the page header", () => {
+    const header = screen.getByRole("banner");
+    expect(header).toBeInTheDocument();
+  });
+
   it("renders the title", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveTextContent("Progress");

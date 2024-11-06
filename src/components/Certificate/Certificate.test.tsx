@@ -8,6 +8,12 @@ afterAll(() => {
   vi.mocked(window.print).mockRestore();
 });
 
+test("renders the page header", () => {
+  render(<Certificate />);
+  const header = screen.getByRole("banner");
+  expect(header).toBeInTheDocument();
+});
+
 test("render title", () => {
   const username = faker.internet.displayName();
   location.href = new URL(`?member=${username}`, location.href).toString();

@@ -41,13 +41,9 @@
   }
 
   &:focus-visible {
-    outline: 3px solid var(--secondary);
+    outline: 3px solid var(--primary);
     outline-offset: 2px;
     border-radius: 10px;
-  }
-
-  &:active svg path {
-    fill: var(--primary);
   }
 
   &:active span {
