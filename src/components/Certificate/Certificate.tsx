@@ -1,4 +1,5 @@
 import styles from "./Certificate.module.css";
+import Header from "../Header/Header";
 
 export default function Certificate() {
   const member = new URL(location.href).searchParams.get("member");
@@ -12,6 +13,7 @@ export default function Certificate() {
 
   return (
     <main className={styles.certificate}>
+      <Header />
       <section aria-labelledby="certification">
         <h2 id="certification">{member}님의 수료증</h2>
         <div>

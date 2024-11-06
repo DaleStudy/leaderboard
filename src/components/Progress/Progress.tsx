@@ -1,3 +1,5 @@
+import Header from "../Header/Header";
+
 export default function Progress() {
   const tasks = [
     { id: 128, title: "Longest Consecutive Sequence", difficulty: "Med." },
@@ -8,8 +10,8 @@ export default function Progress() {
 
   return (
     <main>
+      <Header />
       <h1>Progress</h1>
-
       <section aria-labelledby="profile">
         <h2 id="profile">Profile Section</h2>
         <div>
