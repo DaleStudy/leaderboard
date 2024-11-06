@@ -1,3 +1,4 @@
+import styles from "./Progress.module.css";
 import Header from "../Header/Header";
 
 export default function Progress() {
@@ -9,7 +10,7 @@ export default function Progress() {
   ];
 
   return (
-    <main>
+    <main className={styles.progress}>
       <Header />
       <h1>Progress</h1>
       <section aria-labelledby="profile">

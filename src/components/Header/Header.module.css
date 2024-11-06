@@ -40,12 +40,6 @@
     font-weight: var(--font-weight-bold);
   }
 
-  &:focus {
-    outline: 3px solid var(--primary);
-    outline-offset: 2px;
-    border-radius: 10px;
-  }
-
   &:focus-visible {
     outline: 3px solid var(--secondary);
     outline-offset: 2px;
@@ -53,7 +47,7 @@
   }
 
   &:active svg path {
-    fill: var(--text-900);
+    fill: var(--primary);
   }
 
   &:active span {
