@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 export default function Header() {
   return (
     <div className={styles.headerWrapper}>
-      <header className={styles.header}>
+      <header>
         <a
           href="http://www.dalestudy.com"
           aria-label="Go to the homepage"
