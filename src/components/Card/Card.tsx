@@ -4,6 +4,9 @@ import YoungTree from "../../assets/YoungTree.png";
 import LargeTree from "../../assets/LargeTree.png";
 
 import type { Grade } from "../../api";
+
+import styles from "./Card.module.css";
+
 interface CardProps {
   id: string;
   name: string;
@@ -20,7 +23,7 @@ const imageTable = {
 
 export default function Card({ id, name, cohort, grade }: CardProps) {
   return (
-    <article>
+    <article className={styles.item}>
       <img src={imageTable[grade]} alt={`${grade} image`} />
       <section>
         <section aria-labelledby={`card-github-${id}`}>
