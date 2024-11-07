@@ -21,11 +21,12 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     coverage: {
       include: ["src/**/*.ts?(x)"],
+      exclude: ["src/**/*.stories.ts?(x)"],
       thresholds: {
-        lines: 10,
-        functions: 20,
-        statements: 10,
-        branches: 30,
+        lines: 70,
+        functions: 70,
+        statements: 70,
+        branches: 70,
       },
     },
   },
