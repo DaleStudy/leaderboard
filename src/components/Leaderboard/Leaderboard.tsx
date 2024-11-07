@@ -1,5 +1,5 @@
 import styles from "./Leaderboard.module.css";
-
+import Header from "../Header/Header";
 export default function Leaderboard() {
   const members = [
     { name: "DaleSeo", solved: 71, rank: "새싹" },
@@ -12,7 +12,8 @@ export default function Leaderboard() {
 
   return (
     <main className={styles.leaderboard}>
-      <h1>Leaderboard</h1>
+      <Header />
+      <h1>Leaderboard </h1>
 
       <article aria-labelledby="leaderboard">
         <h2 id="leaderboard">Members List</h2>

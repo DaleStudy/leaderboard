@@ -5,6 +5,11 @@ import Leaderboard from "./Leaderboard";
 describe("<Leaderboard/>", () => {
   beforeEach(() => render(<Leaderboard />));
 
+  it("renders the page header", () => {
+    const header = screen.getByRole("banner");
+    expect(header).toBeInTheDocument();
+  });
+
   it("renders the members list section", () => {
     expect(
       screen.getByRole("article", { name: /members list/i }),

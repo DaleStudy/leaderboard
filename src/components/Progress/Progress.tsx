@@ -1,3 +1,6 @@
+import styles from "./Progress.module.css";
+import Header from "../Header/Header";
+
 export default function Progress() {
   const tasks = [
     { id: 128, title: "Longest Consecutive Sequence", difficulty: "Med." },
@@ -7,9 +10,9 @@ export default function Progress() {
   ];
 
   return (
-    <main>
+    <main className={styles.progress}>
+      <Header />
       <h1>Progress</h1>
-
       <section aria-labelledby="profile">
         <h2 id="profile">Profile Section</h2>
         <div>
