@@ -1,4 +1,4 @@
-import type { GitHubConfig } from "../../config/type";
+import type { GitHubConfig } from "../../config/types";
 import type {
   GitHubMember,
   GitHubTeam,

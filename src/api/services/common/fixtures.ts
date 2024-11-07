@@ -1,10 +1,10 @@
-import type { StudyConfig } from "../../config/type";
+import type { StudyConfig } from "../../config/types";
 import type {
   GitHubTeam,
   GitHubMember,
   GitHubTree,
 } from "../../infra/gitHub/types";
-import { Grades, type Grade } from "../../type";
+import { Grades, type Grade } from "../../types";
 import type { Submission } from "./types";
 
 export const mockStudyConfig: StudyConfig = {

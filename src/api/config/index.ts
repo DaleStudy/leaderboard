@@ -1,5 +1,5 @@
-import type { Grade } from "../type";
-import type { Config } from "./type";
+import type { Grade } from "../types";
+import type { Config } from "./types";
 
 export const CONFIG: Config = {
   study: {

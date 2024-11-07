@@ -1,4 +1,4 @@
-import type { Config } from "../../config/type";
+import type { Config } from "../../config/types";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
 import type { Cohort, Member, Submission } from "../common/types";

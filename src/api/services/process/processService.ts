@@ -1,5 +1,5 @@
-import type { Config } from "../../config/type";
-import { type Grade, Grades } from "../../type";
+import type { Config } from "../../config/types";
+import { type Grade, Grades } from "../../types";
 import type { Member, MemberInfo, Submission } from "../common/types";
 
 export function createProcessService(config: Config) {

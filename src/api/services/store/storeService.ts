@@ -1,4 +1,4 @@
-import type { Config } from "../../config/type";
+import type { Config } from "../../config/types";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 

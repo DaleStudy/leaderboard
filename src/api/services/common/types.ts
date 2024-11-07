@@ -1,4 +1,4 @@
-import type { Grade } from "../../type";
+import type { Grade } from "../../types";
 
 export type Cohort = number;
 
