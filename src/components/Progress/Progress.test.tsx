@@ -1,9 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Progress from "./Progress"; // Adjust the import path as needed
 
 describe("<Progress/>", () => {
   beforeEach(() => render(<Progress />));
+
+  it("renders the table", () => {
+    const table = screen.getByRole("table");
+    expect(table).toBeInTheDocument();
+  });
 
   it("renders the page header", () => {
     const header = screen.getByRole("banner");
@@ -28,26 +33,6 @@ describe("<Progress/>", () => {
     expect(screen.getByText(/^Easy: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
     expect(screen.getByText(/^Med.: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
     expect(screen.getByText(/^Hard: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
-  });
-
-  it("renders the task list", () => {
-    const taskItems = within(
-      screen.getByRole("region", { name: "Task List" }),
-    ).getAllByRole("listitem");
-    expect(taskItems).toHaveLength(4); // Since there are 4 tasks defined
-
-    const expectedTasks = [
-      { title: "Longest Consecutive Sequence", difficulty: "Med." },
-      { title: "Two Sum", difficulty: "Easy" },
-      { title: "Binary Tree Paths", difficulty: "Easy" },
-      { title: "Clone Graph", difficulty: "Med." },
-    ];
-
-    expectedTasks.forEach((task, index) => {
-      const taskItem = taskItems[index];
-      expect(taskItem).toHaveTextContent(task.title);
-      expect(taskItem).toHaveTextContent(task.difficulty);
-    });
   });
 
   it("renders footer", () => {

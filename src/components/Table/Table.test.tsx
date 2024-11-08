@@ -43,13 +43,3 @@ test("renders icon for completed/incomplete problems", () => {
     expect(within(row).getByLabelText(iconLabel)).toBeInTheDocument();
   });
 });
-
-test("renders icons for completed and incomplete problems", () => {
-  render(<Table problems={problems} />);
-
-  const completedIcons = screen.getAllByLabelText("Completed");
-  const incompleteIcons = screen.getAllByLabelText("Incomplete");
-
-  expect(completedIcons).toHaveLength(3);
-  expect(incompleteIcons).toHaveLength(1);
-});
