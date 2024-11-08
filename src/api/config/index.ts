@@ -18,6 +18,6 @@ export const CONFIG: Config = {
   gitHub: {
     baseUrl: "https://api.github.com",
     mediaType: "application/vnd.github+json",
-    token: process.env.GITHUB_TOKEN ?? "",
+    token: import.meta.env.VITE_GITHUB_API_TOKEN,
   },
 } as const;
