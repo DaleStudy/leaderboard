@@ -1,0 +1,63 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  height: 48px;
+  background-color: var(--bg-100);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+/* Row & Cell Styles */
+td {
+  height: 48px;
+}
+
+tr:nth-child(odd) {
+  background-color: var(--bg-200);
+}
+
+tr:nth-child(even) {
+  background-color: var(--bg-100);
+}
+
+/* Problem column */
+.problemHeading {
+  padding-left: 17px;
+  text-align: left;
+}
+
+.problemData {
+  padding-left: 17px;
+  text-align: left;
+  width: 52%;
+}
+
+/* Difficulty column */
+.difficultyHeading,
+.difficultyData {
+  text-align: center;
+  width: 25%;
+}
+
+.easy {
+  color: #1cbaba;
+}
+
+.medium {
+  color: #ffb700;
+}
+
+.hard {
+  color: #f63737;
+}
+
+/* Status column */
+.statusHeading,
+.statusData {
+  text-align: center;
+  width: 23%;
+}
