@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import Progress from "./Progress"; // Adjust the import path as needed
 
 describe("<Progress/>", () => {
@@ -31,7 +31,9 @@ describe("<Progress/>", () => {
   });
 
   it("renders the task list", () => {
-    const taskItems = screen.getAllByRole("listitem");
+    const taskItems = within(
+      screen.getByRole("region", { name: "Task List" }),
+    ).getAllByRole("listitem");
     expect(taskItems).toHaveLength(4); // Since there are 4 tasks defined
 
     const expectedTasks = [
@@ -46,5 +48,9 @@ describe("<Progress/>", () => {
       expect(taskItem).toHaveTextContent(task.title);
       expect(taskItem).toHaveTextContent(task.difficulty);
     });
+  });
+
+  it("renders footer", () => {
+    expect(screen.getByRole("contentinfo"));
   });
 });

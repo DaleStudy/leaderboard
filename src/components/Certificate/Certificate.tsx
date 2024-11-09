@@ -1,5 +1,6 @@
 import styles from "./Certificate.module.css";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 export default function Certificate() {
   const member = new URL(location.href).searchParams.get("member");
@@ -20,10 +21,11 @@ export default function Certificate() {
           <p>귀하는 어쩌구 저쩌구</p>
         </div>
       </section>
-      <footer>
+      <section>
         <button onClick={() => window.print()}>출력</button>
         <a href={linkedInURL}>링크드인에 공유하기</a>
-      </footer>
+      </section>
+      <Footer />
     </main>
   );
 }
