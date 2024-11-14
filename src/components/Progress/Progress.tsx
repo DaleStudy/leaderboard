@@ -1,8 +1,15 @@
-import styles from "./Progress.module.css";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+
+import { getMembers } from "../../api/services/store/storeService";
+import useMembers from "../../hooks/useMembers";
+
+import styles from "./Progress.module.css";
 
 export default function Progress() {
+  const { members, isLoading, error } = useMembers({ getMembers });
+  console.log({ members, isLoading, error });
+
   const tasks = [
     { id: 128, title: "Longest Consecutive Sequence", difficulty: "Med." },
     { id: 1, title: "Two Sum", difficulty: "Easy" },
