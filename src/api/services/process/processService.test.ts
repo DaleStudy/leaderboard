@@ -5,9 +5,9 @@ import { createProcessService } from "./processService";
 
 const processService = createProcessService(mockConfig);
 
-test("initialize members correctly", () => {
+test("initialize members", () => {
   // Act
-  const result = processService.analyzeMemberInfo(mockMembers, []);
+  const result = processService.getMembers(mockMembers, []);
 
   // Assert
   expect(result.length).toBe(mockMembers.length);
@@ -21,9 +21,9 @@ test("initialize members correctly", () => {
   });
 });
 
-test("processService should calculate submissions and progress correctly", () => {
+test("calculate submissions and progress", () => {
   // Act
-  const result = processService.analyzeMemberInfo(mockMembers, mockSubmissions);
+  const result = processService.getMembers(mockMembers, mockSubmissions);
 
   // Assert
   const algoInfo = result.find((m) => m.id === "algo")!; // 2
@@ -34,7 +34,7 @@ test("processService should calculate submissions and progress correctly", () =>
   expect(daleInfo.progress).toBe(25); // 1/4 * 100
 });
 
-test("processService should handle duplicate problem submissions", () => {
+test("remove duplicate problem submissions", () => {
   // Arrange
   const duplicateSubmissions = [
     {
@@ -50,17 +50,14 @@ test("processService should handle duplicate problem submissions", () => {
   ];
 
   // Act
-  const result = processService.analyzeMemberInfo(
-    mockMembers,
-    duplicateSubmissions,
-  );
+  const result = processService.getMembers(mockMembers, duplicateSubmissions);
 
   // Assert
   const algo = result.find((m) => m.id === "algo")!;
   expect(algo.solvedProblems.length).toBe(1); // duplicates should be ignored
 });
 
-test("processService should assign correct grades based on submissions", () => {
+test("assign correct grades based on submissions", () => {
   // Arrange
   const submissions = [
     // algo
@@ -72,7 +69,7 @@ test("processService should assign correct grades based on submissions", () => {
   ];
 
   // Act
-  const result = processService.analyzeMemberInfo(mockMembers, submissions);
+  const result = processService.getMembers(mockMembers, submissions);
 
   // Assert
   const algoInfo = result.find((m) => m.id === "algo")!;
@@ -83,7 +80,7 @@ test("processService should assign correct grades based on submissions", () => {
   expect(daleInfo.grade).toBe(Grades.SPROUT); // large or equal to 1
 });
 
-test("processService should calculate correct progress percentages", () => {
+test("calculate correct progress percentages", () => {
   // Arrange
   const submissions = Array.from({ length: 4 }, (_, i) => ({
     memberId: "algo",
@@ -92,7 +89,7 @@ test("processService should calculate correct progress percentages", () => {
   }));
 
   // Act
-  const result = processService.analyzeMemberInfo(mockMembers, submissions);
+  const result = processService.getMembers(mockMembers, submissions);
 
   // Assert
   const algoInfo = result.find((m) => m.id === "algo")!;

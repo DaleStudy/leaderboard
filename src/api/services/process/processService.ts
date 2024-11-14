@@ -4,10 +4,7 @@ import type { Member, MemberIdentity, Submission } from "../common/types";
 
 export function createProcessService(config: Config) {
   return {
-    analyzeMemberInfo(
-      members: MemberIdentity[],
-      submissions: Submission[],
-    ): Member[] {
+    getMembers(members: MemberIdentity[], submissions: Submission[]): Member[] {
       const memberMap = initializeMemberMap(members);
 
       updateSubmissions(memberMap, submissions);
