@@ -1,14 +1,15 @@
 import type { Config } from "../../config/types";
 import { type Grade, Grades } from "../../types";
-import type { Member, MemberInfo, Submission } from "../common/types";
+import type { Member, MemberIdentity, Submission } from "../common/types";
 
 export function createProcessService(config: Config) {
   return {
     analyzeMemberInfo(
-      members: Member[],
+      members: MemberIdentity[],
       submissions: Submission[],
-    ): MemberInfo[] {
+    ): Member[] {
       const memberMap = initializeMemberMap(members);
+
       updateSubmissions(memberMap, submissions);
       calculateProgress(memberMap, config.study.totalProblemCount);
       updateGrades(memberMap, config.study.gradeThresholds);
@@ -18,14 +19,15 @@ export function createProcessService(config: Config) {
   };
 }
 
-const initializeMemberMap = (members: Member[]): Record<string, MemberInfo> => {
-  const memberMap: Record<string, MemberInfo> = {};
+const initializeMemberMap = (
+  members: MemberIdentity[],
+): Record<string, Member> => {
+  const memberMap: Record<string, Member> = {};
 
   members.forEach((member) => {
     memberMap[member.id] = {
       ...member,
-      totalSubmissions: 0,
-      submissions: [],
+      solvedProblems: [],
       progress: 0,
       grade: Grades.SEED,
     };
@@ -35,43 +37,41 @@ const initializeMemberMap = (members: Member[]): Record<string, MemberInfo> => {
 };
 
 const updateSubmissions = (
-  memberMap: Record<string, MemberInfo>,
+  memberMap: Record<string, Member>,
   submissions: Submission[],
 ): void => {
   submissions.forEach((submission) => {
     const member = memberMap[submission.memberId];
     if (!member) return;
 
-    if (isNewProblem(member, submission)) {
-      member.totalSubmissions += 1;
-    }
+    member.solvedProblems.push(submission.problemTitle);
+  });
 
-    member.submissions.push(submission);
+  submissions.forEach((submission) => {
+    const member = memberMap[submission.memberId];
+    if (!member) return;
+
+    member.solvedProblems = Array.from(new Set(member.solvedProblems));
   });
 };
 
-const isNewProblem = (member: MemberInfo, submission: Submission): boolean => {
-  return !member.submissions.some(
-    (s) => s.problemTitle === submission.problemTitle,
-  );
-};
-
 const calculateProgress = (
-  memberMap: Record<string, MemberInfo>,
+  memberMap: Record<string, Member>,
   totalProblemCount: number,
 ): void => {
   Object.values(memberMap).forEach((member) => {
     member.progress =
-      Math.round((member.totalSubmissions / totalProblemCount) * 1000) / 10;
+      Math.round((member.solvedProblems.length / totalProblemCount) * 1000) /
+      10;
   });
 };
 
 const updateGrades = (
-  memberMap: Record<string, MemberInfo>,
+  memberMap: Record<string, Member>,
   thresholds: [Grade, number][],
 ): void => {
   Object.values(memberMap).forEach((member) => {
-    member.grade = determineGrade(member.totalSubmissions, thresholds);
+    member.grade = determineGrade(member.solvedProblems.length, thresholds);
   });
 };
 
@@ -83,5 +83,6 @@ const determineGrade = (
   const grade = thresholds.find(
     ([, threshold]) => totalSubmissions >= threshold,
   );
+
   return grade ? grade[0] : Grades.SEED;
 };

@@ -1,13 +1,13 @@
 import type { Config } from "../../config/types";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
-import type { Cohort, Member, Submission } from "../common/types";
+import type { Cohort, MemberIdentity, Submission } from "../common/types";
 
 export function createFetchService(config: Config) {
   const gitHubClient = createGitHubClient(config.gitHub);
 
   return {
-    fetchMembers: async (): Promise<Member[]> => {
+    fetchMembers: async (): Promise<MemberIdentity[]> => {
       const teamNames = await gitHubClient.getTeamNames(
         config.study.organization,
       );
@@ -23,7 +23,7 @@ export function createFetchService(config: Config) {
             const cohort = parseCohort(teamName, config.study.teamPrefix);
 
             return members.map(
-              (member): Member => ({
+              (member): MemberIdentity => ({
                 id: member.login.toLocaleLowerCase(),
                 name: member.login,
                 profileUrl: member.avatar_url,
@@ -56,14 +56,14 @@ const parseCohort = (teamName: string, prefix: string): Cohort => {
   return parseInt(teamName.replace(prefix, ""), 10);
 };
 
-const dropDuplicateMembers = (members: Member[]): Member[] => {
+const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
     if (!existingMember || member.cohort > existingMember.cohort) {
       acc.set(member.id, member);
     }
     return acc;
-  }, new Map<string, Member>());
+  }, new Map<string, MemberIdentity>());
 
   return Array.from(memberMap.values());
 };

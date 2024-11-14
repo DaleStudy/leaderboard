@@ -1,19 +1,10 @@
-import type { Grade } from "../../types";
-
 export type Cohort = number;
 
-export type Member = {
+export type MemberIdentity = {
   id: string; // lowercase
   name: string;
   cohort: Cohort;
   profileUrl?: string;
-};
-
-export type MemberInfo = Member & {
-  totalSubmissions: number;
-  progress: number;
-  grade: Grade;
-  submissions: Submission[];
 };
 
 export type Submission = {
@@ -21,3 +12,17 @@ export type Submission = {
   problemTitle: string;
   language: string;
 };
+
+export interface Member {
+  id: string;
+  name: string;
+  /** 기수 (1기, 2기, 3기 ...) */
+  cohort: number;
+  /** Profile Image URL */
+  profileUrl?: string;
+  /** Unit: % */
+  progress: number;
+  grade: "SEED" | "SPROUT" | "SMALL_TREE" | "BIG_TREE";
+  /** Example: ["best-time-to-buy-and-sell-stock", "3sum", "climbing-stairs", ...] */
+  solvedProblems: string[];
+}

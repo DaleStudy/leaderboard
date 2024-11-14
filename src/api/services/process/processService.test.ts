@@ -1,11 +1,11 @@
-import { test, expect } from "vitest";
-import { createProcessService } from "./processService";
-import { mockConfig, mockMembers, mockSubmissions } from "../common/fixtures";
+import { expect, test } from "vitest";
 import { Grades } from "../../types";
+import { mockConfig, mockMembers, mockSubmissions } from "../common/fixtures";
+import { createProcessService } from "./processService";
 
 const processService = createProcessService(mockConfig);
 
-test("processService should initialize members correctly", () => {
+test("initialize members correctly", () => {
   // Act
   const result = processService.analyzeMemberInfo(mockMembers, []);
 
@@ -14,8 +14,7 @@ test("processService should initialize members correctly", () => {
   result.forEach((member) => {
     expect(member).toEqual({
       ...mockMembers.find((m) => m.id === member.id),
-      totalSubmissions: 0,
-      submissions: [],
+      solvedProblems: [],
       progress: 0,
       grade: Grades.SEED,
     });
@@ -30,10 +29,6 @@ test("processService should calculate submissions and progress correctly", () =>
   const algoInfo = result.find((m) => m.id === "algo")!; // 2
   const daleInfo = result.find((m) => m.id === "dale")!; // 1
 
-  // number of submissions
-  expect(algoInfo.totalSubmissions).toBe(2);
-  expect(daleInfo.totalSubmissions).toBe(1);
-
   // progress percentage
   expect(algoInfo.progress).toBe(50); // 2/4 * 100
   expect(daleInfo.progress).toBe(25); // 1/4 * 100
@@ -42,11 +37,15 @@ test("processService should calculate submissions and progress correctly", () =>
 test("processService should handle duplicate problem submissions", () => {
   // Arrange
   const duplicateSubmissions = [
-    ...mockSubmissions,
     {
       memberId: "algo",
-      problemTitle: "problem1", // duplicate
+      problemTitle: "duplicated-problem",
       language: "ts",
+    },
+    {
+      memberId: "algo",
+      problemTitle: "duplicated-problem",
+      language: "js",
     },
   ];
 
@@ -57,9 +56,8 @@ test("processService should handle duplicate problem submissions", () => {
   );
 
   // Assert
-  const algoInfo = result.find((m) => m.id === "algo")!;
-  expect(algoInfo.totalSubmissions).toBe(2); // duplicates should be ignored
-  expect(algoInfo.submissions).toHaveLength(3); // but should be added to submissions
+  const algo = result.find((m) => m.id === "algo")!;
+  expect(algo.solvedProblems.length).toBe(1); // duplicates should be ignored
 });
 
 test("processService should assign correct grades based on submissions", () => {

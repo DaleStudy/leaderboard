@@ -1,8 +1,8 @@
-import { test, expect, beforeEach, vi } from "vitest";
+import { beforeEach, expect, test, vi } from "vitest";
+import { mockMembers } from "../common/fixtures";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
-import { mockConfig, mockMembers } from "../common/fixtures";
-import { fetchLeaderBoard } from "./storeService";
+import { getMembers } from "./storeService";
 
 // Mock services
 const mockFetchMembers = vi.fn();
@@ -30,7 +30,7 @@ beforeEach(() => {
 
 test("should fetch and process data correctly", async () => {
   // Act
-  const result = await fetchLeaderBoard(mockConfig);
+  const result = await getMembers();
 
   // Assert
   expect(mockFetchMembers).toHaveBeenCalledTimes(1);
@@ -39,25 +39,25 @@ test("should fetch and process data correctly", async () => {
   expect(result).toEqual(mockMembers);
 });
 
-test("fetchLeaderBoard should throw error when fetch fails", async () => {
+test("getMembers should throw error when fetch fails", async () => {
   // Arrange
   mockFetchMembers.mockRejectedValue(new Error("Fetch failed"));
 
   // Act & Assert
-  await expect(fetchLeaderBoard(mockConfig)).rejects.toThrow("Fetch failed");
+  await expect(getMembers()).rejects.toThrow("Fetch failed");
 });
 
-test("fetchLeaderBoard should handle process service errors", async () => {
+test("getMembers should handle process service errors", async () => {
   // Arrange
   mockAnalyzeMemberInfo.mockImplementation(() => {
     throw new Error("Process failed");
   });
 
   // Act & Assert
-  await expect(fetchLeaderBoard(mockConfig)).rejects.toThrow("Process failed");
+  await expect(getMembers()).rejects.toThrow("Process failed");
 });
 
-test("fetchLeaderBoard should pass correct parameters to process service", async () => {
+test("getMembers should pass correct parameters to process service", async () => {
   // Arrange
   const mockMembers = [{ id: "1", name: "Test" }];
   const mockSubmissions = [{ id: "1", score: 100 }];
@@ -65,7 +65,7 @@ test("fetchLeaderBoard should pass correct parameters to process service", async
   mockFetchSubmissions.mockResolvedValue(mockSubmissions);
 
   // Act
-  await fetchLeaderBoard(mockConfig);
+  await getMembers();
 
   // Assert
   expect(mockAnalyzeMemberInfo).toHaveBeenCalledWith(
