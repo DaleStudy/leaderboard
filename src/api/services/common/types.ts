@@ -1,5 +1,12 @@
 export type Cohort = number;
 
+export enum Grade {
+  SEED = "SEED",
+  SPROUT = "SPROUT",
+  SMALL_TREE = "SMALL_TREE",
+  BIG_TREE = "BIG_TREE",
+}
+
 export type MemberIdentity = {
   id: string; // lowercase
   name: string;
@@ -22,7 +29,7 @@ export interface Member {
   profileUrl?: string;
   /** Unit: % */
   progress: number;
-  grade: "SEED" | "SPROUT" | "SMALL_TREE" | "BIG_TREE";
+  grade: Grade;
   /** Example: ["best-time-to-buy-and-sell-stock", "3sum", "climbing-stairs", ...] */
   solvedProblems: string[];
 }

@@ -1,6 +1,10 @@
 import type { Config } from "../../config/types";
-import { type Grade, Grades } from "../../types";
-import type { Member, MemberIdentity, Submission } from "../common/types";
+import {
+  Grade,
+  type Member,
+  type MemberIdentity,
+  type Submission,
+} from "../common/types";
 
 export function createProcessService(config: Config) {
   return {
@@ -26,7 +30,7 @@ const initializeMemberMap = (
       ...member,
       solvedProblems: [],
       progress: 0,
-      grade: Grades.SEED,
+      grade: Grade.SEED,
     };
   });
 
@@ -81,5 +85,5 @@ const determineGrade = (
     ([, threshold]) => totalSubmissions >= threshold,
   );
 
-  return grade ? grade[0] : Grades.SEED;
+  return grade ? grade[0] : Grade.SEED;
 };
