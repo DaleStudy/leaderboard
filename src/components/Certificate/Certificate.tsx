@@ -1,8 +1,15 @@
-import styles from "./Certificate.module.css";
-import Header from "../Header/Header";
+import { getMembers } from "../../api/services/store/storeService";
+import useMembers from "../../hooks/useMembers";
+
 import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+
+import styles from "./Certificate.module.css";
 
 export default function Certificate() {
+  const { members, isLoading, error } = useMembers({ getMembers });
+  console.log({ members, isLoading, error });
+
   const member = new URL(location.href).searchParams.get("member");
 
   /**

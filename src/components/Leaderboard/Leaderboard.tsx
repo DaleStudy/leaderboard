@@ -1,9 +1,15 @@
-import styles from "./Leaderboard.module.css";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
+import { getMembers } from "../../api/services/store/storeService";
+import useMembers from "../../hooks/useMembers";
+
+import styles from "./Leaderboard.module.css";
 export default function Leaderboard() {
-  const members = [
+  const { members, isLoading, error } = useMembers({ getMembers });
+  console.log({ members, isLoading, error });
+
+  const mockMembers = [
     { name: "DaleSeo", solved: 71, rank: "새싹" },
     { name: "sounmind", solved: 69, rank: "나무" },
     { name: "yolophg", solved: 65, rank: "새싹" },
@@ -20,7 +26,7 @@ export default function Leaderboard() {
       <article aria-labelledby="leaderboard">
         <h2 id="leaderboard">Members List</h2>
         <ul>
-          {members.map((member) => (
+          {mockMembers.map((member) => (
             <li key={member.name}>
               <div>등급: {member.rank}</div>
               <div>진행 상황: {member.solved}</div>
