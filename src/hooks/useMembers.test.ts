@@ -2,16 +2,15 @@ import { faker } from "@faker-js/faker";
 import { renderHook, waitFor } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
-import type { MemberInfo } from "../api";
-import useMembers, { type Member } from "./useMembers";
+import type { Member } from "../api/services/common/types";
+import useMembers from "./useMembers";
 
 test("fetch member info successfully and update state", async () => {
-  const mockMemberInfos: MemberInfo[] = Array.from({ length: 5 }, () => ({
+  const expectedMembers: Member[] = Array.from({ length: 5 }, () => ({
     id: faker.string.uuid(),
     name: faker.person.fullName(),
     cohort: faker.number.int({ min: 1, max: 10 }),
     profileUrl: faker.internet.url(),
-    totalSubmissions: faker.number.int({ min: 0, max: 100 }),
     progress: faker.number.int({ min: 0, max: 100 }),
     grade: faker.helpers.arrayElement([
       "SEED",
@@ -19,29 +18,12 @@ test("fetch member info successfully and update state", async () => {
       "SMALL_TREE",
       "BIG_TREE",
     ]),
-    submissions: Array.from(
-      { length: faker.number.int({ min: 0, max: 5 }) },
-      (): MemberInfo["submissions"][number] => ({
-        problemTitle: faker.lorem.words(3),
-        memberId: faker.string.uuid(),
-        language: faker.helpers.arrayElement(["javascript", "python", "java"]),
-      }),
+    solvedProblems: Array.from({ length: 5 }, () =>
+      faker.lorem.words(3).replaceAll(" ", "-"),
     ),
   }));
 
-  const expectedMembers: Member[] = mockMemberInfos.map((memberInfo) => ({
-    id: memberInfo.id,
-    name: memberInfo.name,
-    cohort: memberInfo.cohort,
-    profileUrl: memberInfo.profileUrl,
-    progress: memberInfo.progress,
-    grade: memberInfo.grade,
-    solvedProblems: memberInfo.submissions.map(
-      (submission) => submission.problemTitle,
-    ),
-  }));
-
-  const getMembers = vi.fn().mockResolvedValue(mockMemberInfos);
+  const getMembers = vi.fn().mockResolvedValue(expectedMembers);
 
   const { result } = renderHook(() => useMembers({ getMembers }));
 

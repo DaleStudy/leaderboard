@@ -1,14 +1,15 @@
-import type { Config } from "../../config/types";
+import { CONFIG } from "../../config";
+import type { Member } from "../common/types";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 
-export async function fetchLeaderBoard(config: Config) {
-  const fetchService = createFetchService(config);
-  const processService = createProcessService(config);
+export async function getMembers(): Promise<Member[]> {
+  const fetchService = createFetchService(CONFIG);
+  const processService = createProcessService(CONFIG);
 
   const [members, submissions] = await Promise.all([
     fetchService.fetchMembers(),
-    fetchService.fetchSubmissions(config.study.repository),
+    fetchService.fetchSubmissions(CONFIG.study.repository),
   ]);
 
   return processService.analyzeMemberInfo(members, submissions);
