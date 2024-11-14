@@ -7,10 +7,10 @@ export async function getMembers(): Promise<Member[]> {
   const fetchService = createFetchService(CONFIG);
   const processService = createProcessService(CONFIG);
 
-  const [members, submissions] = await Promise.all([
+  const [memberIdentities, submissions] = await Promise.all([
     fetchService.fetchMembers(),
     fetchService.fetchSubmissions(CONFIG.study.repository),
   ]);
 
-  return processService.analyzeMemberInfo(members, submissions);
+  return processService.getMembers(memberIdentities, submissions);
 }
