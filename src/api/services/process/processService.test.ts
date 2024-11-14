@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { Grades } from "../../types";
 import { mockConfig, mockMembers, mockSubmissions } from "../common/fixtures";
+import { Grade } from "../common/types";
 import { createProcessService } from "./processService";
 
 const processService = createProcessService(mockConfig);
@@ -16,7 +16,7 @@ test("initialize members", () => {
       ...mockMembers.find((m) => m.id === member.id),
       solvedProblems: [],
       progress: 0,
-      grade: Grades.SEED,
+      grade: Grade.SEED,
     });
   });
 });
@@ -76,8 +76,8 @@ test("assign correct grades based on submissions", () => {
   const daleInfo = result.find((m) => m.id === "dale")!;
 
   // mockConfig gradeThresholds: BIG_TREE(3), SMALL_TREE(2), SPROUT(1), SEED(0)
-  expect(algoInfo.grade).toBe(Grades.BIG_TREE); // large or equal to 3
-  expect(daleInfo.grade).toBe(Grades.SPROUT); // large or equal to 1
+  expect(algoInfo.grade).toBe(Grade.BIG_TREE); // large or equal to 3
+  expect(daleInfo.grade).toBe(Grade.SPROUT); // large or equal to 1
 });
 
 test("calculate correct progress percentages", () => {
@@ -94,5 +94,5 @@ test("calculate correct progress percentages", () => {
   // Assert
   const algoInfo = result.find((m) => m.id === "algo")!;
   expect(algoInfo.progress).toBe(100); // 4/4 * 100
-  expect(algoInfo.grade).toBe(Grades.BIG_TREE);
+  expect(algoInfo.grade).toBe(Grade.BIG_TREE);
 });

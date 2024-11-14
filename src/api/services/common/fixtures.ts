@@ -1,11 +1,10 @@
 import type { StudyConfig } from "../../config/types";
 import type {
-  GitHubTeam,
   GitHubMember,
+  GitHubTeam,
   GitHubTree,
 } from "../../infra/gitHub/types";
-import { Grades, type Grade } from "../../types";
-import type { Submission } from "./types";
+import { Grade, Submission } from "./types";
 
 export const mockStudyConfig: StudyConfig = {
   organization: "test-org",
@@ -158,7 +157,7 @@ export const mockMembers = mockGitHubMembers.map((member) => ({
     { memberId: member.login, problemTitle: "problem2", language: "ts" },
   ],
   progress: 50,
-  grade: member.login === "algo" ? Grades.BIG_TREE : Grades.SPROUT,
+  grade: member.login === "algo" ? Grade.BIG_TREE : Grade.SPROUT,
 }));
 
 export const mockSubmissions: Submission[] = [

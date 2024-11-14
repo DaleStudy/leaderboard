@@ -1,4 +1,4 @@
-import type { Grade } from "../types";
+import type { Grade } from "../services/common/types";
 
 export type StudyConfig = {
   organization: string;

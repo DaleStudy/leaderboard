@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { renderHook, waitFor } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
-import type { Member } from "../api/services/common/types";
+import { Grade, type Member } from "../api/services/common/types";
 import useMembers from "./useMembers";
 
 test("fetch member info successfully and update state", async () => {
@@ -12,12 +12,7 @@ test("fetch member info successfully and update state", async () => {
     cohort: faker.number.int({ min: 1, max: 10 }),
     profileUrl: faker.internet.url(),
     progress: faker.number.int({ min: 0, max: 100 }),
-    grade: faker.helpers.arrayElement([
-      "SEED",
-      "SPROUT",
-      "SMALL_TREE",
-      "BIG_TREE",
-    ]),
+    grade: faker.helpers.arrayElement(Object.values(Grade)),
     solvedProblems: Array.from({ length: 5 }, () =>
       faker.lorem.words(3).replaceAll(" ", "-"),
     ),
