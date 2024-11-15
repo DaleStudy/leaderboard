@@ -1,0 +1,130 @@
+.container {
+    width: 250px; 
+    padding: 20px 35px;
+    background-color: var(--bg-300);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container {
+    width: 250px;
+    padding: 20px 35px;
+    background-color: var(--bg-300);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .avatar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .avatar img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+  
+  :root {
+    --progress: 0%; /* Default to 0, but this will be overwritten */
+  }
+  
+  .progress-circle {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(
+      #24eaca 0%,
+      #846de9 var(--progress),
+      #eaeaea var(--progress)
+    );
+  }
+  
+  .progress-text {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-secondary);
+  }
+  
+  .username {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  
+  .currentStatus {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+  
+  .currentStatus img {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .currentStatus figcaption {
+    text-align: center;
+    font-size: 14px;
+    color: var(--primary);
+    margin-top: 5px;
+  }
+  
+  .taskCounts {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    margin-bottom: 35px;
+  }
+  
+  .task {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .easy {
+    color: #1cbaba;
+  }
+  
+  .medium {
+    color: #ffb700;
+  }
+  
+  .hard {
+    color: #f63737;
+  }
+  
+  
+  .returnButton {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .returnButton:hover {
+    background-color: var(--primary);
+    color: var(--bg-100);
+  }
+  
