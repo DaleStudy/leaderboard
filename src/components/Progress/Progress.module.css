@@ -1,4 +1,18 @@
 .progress {
-  /* 컴포넌트가 헤더에 가려져서 임의로 지정했으니 컴포넌트 개발자가 설계에 맞게 수정해주시면 됩니다  */
+  width: 80%;
+  margin: 0 auto;
   margin-top: 100px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile {
+  width: 20%;
+}
+
+.problemList {
+  width: 80%;
 }
