@@ -1,27 +1,30 @@
 import { render, screen, within } from "@testing-library/react";
 import { expect, test } from "vitest";
 
+import { Grade } from "../../api/services/common/types";
+
 import Card from "./Card";
 
 test("render grade image", () => {
-  const grade = "BIG_TREE";
-  render(<Card id="test" name="test" grade={grade} cohort={1} />);
+  render(<Card id="test" name="test" grade={Grade.BIG_TREE} cohort={1} />);
 
   expect(
-    screen.getByRole("img", { name: `${grade} image` }),
+    screen.getByRole("img", { name: `${Grade.BIG_TREE} image` }),
   ).toBeInTheDocument();
 });
 
 test("render github name", () => {
   const name = "user123";
-  render(<Card id="test" name={name} grade="BIG_TREE" cohort={1} />);
+  render(<Card id="test" name={name} grade={Grade.BIG_TREE} cohort={1} />);
 
   expect(screen.getByRole("region", { name })).toBeInTheDocument();
 });
 
 test("render cohort", () => {
   const cohort = 2;
-  render(<Card id="test" name="user123" grade="BIG_TREE" cohort={cohort} />);
+  render(
+    <Card id="test" name="user123" grade={Grade.BIG_TREE} cohort={cohort} />,
+  );
 
   expect(
     screen.getByRole("region", { name: `${cohort}기` }),
@@ -30,7 +33,7 @@ test("render cohort", () => {
 
 test("render progress button", () => {
   const id = "test";
-  render(<Card id={id} name="user123" grade="BIG_TREE" cohort={1} />);
+  render(<Card id={id} name="user123" grade={Grade.BIG_TREE} cohort={1} />);
 
   const link = within(
     screen.getByRole("navigation", { name: `card-navigation-${id}` }),
@@ -42,7 +45,7 @@ test("render progress button", () => {
 
 test("render certificate button", () => {
   const id = "test";
-  render(<Card id={id} name="user123" grade="BIG_TREE" cohort={1} />);
+  render(<Card id={id} name="user123" grade={Grade.BIG_TREE} cohort={1} />);
 
   const link = within(
     screen.getByRole("navigation", { name: `card-navigation-${id}` }),

@@ -2,8 +2,8 @@ import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
 import LargeTree from "../../assets/LargeTree.png";
-
 import type { Grade } from "../../api";
+import Link from "../Link/Link";
 
 import styles from "./Card.module.css";
 
@@ -61,8 +61,8 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
           <span id={`card-cohort-${id}`}>{cohort}기</span>
         </section>
         <nav aria-label={`card-navigation-${id}`}>
-          <a href={`/progress?member=${id}`}>풀이 현황</a>
-          <a href={`/certificate?member=${id}`}>수료증</a>
+          <Link href={`/progress?member=${id}`}>풀이 현황</Link>
+          <Link href={`/certificate?member=${id}`}>수료증</Link>
         </nav>
       </section>
     </article>
