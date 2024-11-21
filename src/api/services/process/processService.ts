@@ -1,3 +1,4 @@
+import { problemMap } from "../../../constants/problems";
 import type { Config } from "../../config/types";
 import {
   Grade,
@@ -8,8 +9,11 @@ import {
 
 export function createProcessService(config: Config) {
   return {
-    getMembers(members: MemberIdentity[], submissions: Submission[]): Member[] {
-      const memberMap = initializeMemberMap(members);
+    getMembers(
+      memberIdentities: MemberIdentity[],
+      submissions: Submission[],
+    ): Member[] {
+      const memberMap = initializeMemberMap(memberIdentities);
 
       updateSubmissions(memberMap, submissions);
       calculateProgress(memberMap, config.study.totalProblemCount);
@@ -43,16 +47,20 @@ const updateSubmissions = (
 ): void => {
   submissions.forEach((submission) => {
     const member = memberMap[submission.memberId];
-    if (!member) return;
 
-    member.solvedProblems.push(submission.problemTitle);
-  });
+    if (!member) {
+      return;
+    }
 
-  submissions.forEach((submission) => {
-    const member = memberMap[submission.memberId];
-    if (!member) return;
+    const alreadySolved = member.solvedProblems.find(
+      (problem) => problem.title === submission.problemTitle,
+    );
 
-    member.solvedProblems = Array.from(new Set(member.solvedProblems));
+    if (alreadySolved) {
+      return;
+    }
+
+    member.solvedProblems.push(problemMap[submission.problemTitle]);
   });
 };
 

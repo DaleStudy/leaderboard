@@ -1,12 +1,12 @@
-import { test, expect, beforeEach, vi } from "vitest";
-import { createFetchService } from "./fetchService";
+import { beforeEach, expect, test, vi } from "vitest";
+import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import {
+  dummyConfig,
   mockGitHubMembers,
   mockGitHubTeams,
   mockGitHubTree,
-  mockConfig,
 } from "../common/fixtures";
-import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
+import { createFetchService } from "./fetchService";
 
 const mockGetTeamNames = vi.fn();
 const mockGetTeamMembers = vi.fn();
@@ -23,7 +23,7 @@ let fetchService: ReturnType<typeof createFetchService>;
 
 beforeEach(() => {
   vi.clearAllMocks();
-  fetchService = createFetchService(mockConfig);
+  fetchService = createFetchService(dummyConfig);
 });
 
 test("fetchMembers should fetch and transform members correctly", async () => {
@@ -36,7 +36,7 @@ test("fetchMembers should fetch and transform members correctly", async () => {
   const result = await fetchService.fetchMembers();
 
   // Assert
-  expect(mockGetTeamNames).toHaveBeenCalledWith(mockConfig.study.organization);
+  expect(mockGetTeamNames).toHaveBeenCalledWith(dummyConfig.study.organization);
   expect(mockGetTeamMembers).toHaveBeenCalledTimes(2); // Only algodale teams
   expect(result).toEqual(
     mockGitHubMembers.map((member) => ({
@@ -115,9 +115,9 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
 
   // Assert
   expect(mockGetDirectoryTree).toHaveBeenCalledWith(
-    mockConfig.study.organization,
+    dummyConfig.study.organization,
     "test-repo",
-    mockConfig.study.branchName,
+    dummyConfig.study.branchName,
   );
 
   expect(result).toEqual([

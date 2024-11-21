@@ -13,9 +13,10 @@ test("fetch member info successfully and update state", async () => {
     profileUrl: faker.internet.url(),
     progress: faker.number.int({ min: 0, max: 100 }),
     grade: faker.helpers.arrayElement(Object.values(Grade)),
-    solvedProblems: Array.from({ length: 5 }, () =>
-      faker.lorem.words(3).replaceAll(" ", "-"),
-    ),
+    solvedProblems: Array.from({ length: 5 }, () => ({
+      title: faker.lorem.words(3).replaceAll(" ", "-"),
+      difficulty: faker.helpers.arrayElement(["easy", "medium", "hard"]),
+    })),
   }));
 
   const getMembers = vi.fn().mockResolvedValue(expectedMembers);

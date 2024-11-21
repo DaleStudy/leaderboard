@@ -1,98 +1,114 @@
+import { faker } from "@faker-js/faker";
 import { expect, test } from "vitest";
-import { mockConfig, mockMembers, mockSubmissions } from "../common/fixtures";
+
+import { problems } from "../../../constants/problems";
+import type { Config } from "../../config/types";
 import { Grade } from "../common/types";
 import { createProcessService } from "./processService";
 
-const processService = createProcessService(mockConfig);
+import {
+  createMockMemberIdentity,
+  createMockSubmission,
+  createMockSubmissions,
+  dummyConfig,
+  dummyStudyConfig,
+} from "../common/fixtures";
 
-test("initialize members", () => {
-  // Act
-  const result = processService.getMembers(mockMembers, []);
-
-  // Assert
-  expect(result.length).toBe(mockMembers.length);
-  result.forEach((member) => {
-    expect(member).toEqual({
-      ...mockMembers.find((m) => m.id === member.id),
-      solvedProblems: [],
-      progress: 0,
-      grade: Grade.SEED,
-    });
+const createMockProcessService = (customConfig: Partial<Config> = {}) => {
+  return createProcessService({
+    ...dummyConfig,
+    ...customConfig,
   });
-});
+};
 
 test("calculate submissions and progress", () => {
+  // Arrange
+  const totalProblemCount = 75;
+  const totalSubmissions = faker.number.int({ min: 1, max: 75 });
+  const processService = createMockProcessService({
+    study: {
+      ...dummyStudyConfig,
+      totalProblemCount,
+    },
+  });
+  const member = createMockMemberIdentity();
+  const targetSubmissions = createMockSubmissions(member.id, totalSubmissions);
+  const dummySubmissions = createMockSubmissions(
+    "dummyMemberId",
+    faker.number.int({ min: 1, max: 10 }),
+  );
+
   // Act
-  const result = processService.getMembers(mockMembers, mockSubmissions);
+  const members = processService.getMembers(
+    [member, createMockMemberIdentity()],
+    [...targetSubmissions, ...dummySubmissions],
+  );
+  const { progress } = members.find((member) => member.id === member.id)!;
 
   // Assert
-  const algoInfo = result.find((m) => m.id === "algo")!; // 2
-  const daleInfo = result.find((m) => m.id === "dale")!; // 1
-
-  // progress percentage
-  expect(algoInfo.progress).toBe(50); // 2/4 * 100
-  expect(daleInfo.progress).toBe(25); // 1/4 * 100
+  expect(progress).toBe(
+    Math.round((totalSubmissions / totalProblemCount) * 100 * 10) / 10,
+  );
 });
 
 test("remove duplicate problem submissions", () => {
   // Arrange
+  const processService = createMockProcessService();
+  const memberIdentity = createMockMemberIdentity();
+  const sameProblemTitle = faker.helpers.arrayElement(problems).title;
   const duplicateSubmissions = [
-    {
-      memberId: "algo",
-      problemTitle: "duplicated-problem",
-      language: "ts",
-    },
-    {
-      memberId: "algo",
-      problemTitle: "duplicated-problem",
-      language: "js",
-    },
+    createMockSubmission({
+      memberId: memberIdentity.id,
+      problemTitle: sameProblemTitle,
+    }),
+    createMockSubmission({
+      memberId: memberIdentity.id,
+      problemTitle: sameProblemTitle,
+    }),
   ];
 
   // Act
-  const result = processService.getMembers(mockMembers, duplicateSubmissions);
+  const solvedProblems = processService.getMembers(
+    [memberIdentity],
+    duplicateSubmissions,
+  )[0].solvedProblems;
 
   // Assert
-  const algo = result.find((m) => m.id === "algo")!;
-  expect(algo.solvedProblems.length).toBe(1); // duplicates should be ignored
+  expect(solvedProblems.length).toBe(1);
 });
 
-test("assign correct grades based on submissions", () => {
-  // Arrange
-  const submissions = [
-    // algo
-    { memberId: "algo", problemTitle: "problem1", language: "js" },
-    { memberId: "algo", problemTitle: "problem2", language: "js" },
-    { memberId: "algo", problemTitle: "problem3", language: "js" },
-    // dale
-    { memberId: "dale", problemTitle: "problem1", language: "py" },
-  ];
+test.each([
+  [0, Grade.SEED],
+  [1, Grade.SEED],
+  [2, Grade.SPROUT],
+  [3, Grade.SPROUT],
+  [4, Grade.SMALL_TREE],
+  [5, Grade.SMALL_TREE],
+  [6, Grade.BIG_TREE],
+  [7, Grade.BIG_TREE],
+])(
+  "assign grades based on submissions: totalSubmissions: %i, expectedGrade: %s",
+  (totalSubmissions, expectedGrade) => {
+    // Arrange
+    const config: Partial<Config> = {
+      study: {
+        ...dummyStudyConfig,
+        gradeThresholds: [
+          [Grade.SEED, 0],
+          [Grade.SPROUT, 2],
+          [Grade.SMALL_TREE, 4],
+          [Grade.BIG_TREE, 6],
+        ],
+      },
+    };
+    const processService = createMockProcessService(config);
+    const member = createMockMemberIdentity();
+    const submissions = createMockSubmissions(member.id, totalSubmissions);
 
-  // Act
-  const result = processService.getMembers(mockMembers, submissions);
+    // Act
+    const { grade } = processService.getMembers([member], submissions)[0];
 
-  // Assert
-  const algoInfo = result.find((m) => m.id === "algo")!;
-  const daleInfo = result.find((m) => m.id === "dale")!;
-
-  // mockConfig gradeThresholds: BIG_TREE(3), SMALL_TREE(2), SPROUT(1), SEED(0)
-  expect(algoInfo.grade).toBe(Grade.BIG_TREE); // large or equal to 3
-  expect(daleInfo.grade).toBe(Grade.SPROUT); // large or equal to 1
-});
-
-test("calculate correct progress percentages", () => {
-  // Arrange
-  const submissions = Array.from({ length: 4 }, (_, i) => ({
-    memberId: "algo",
-    problemTitle: `problem${i + 1}`, // 4 of 4
-    language: "js",
-  }));
-
-  // Act
-  const result = processService.getMembers(mockMembers, submissions);
-
-  // Assert
-  const algoInfo = result.find((m) => m.id === "algo")!;
-  expect(algoInfo.progress).toBe(100); // 4/4 * 100
-  expect(algoInfo.grade).toBe(Grade.BIG_TREE);
-});
+    // Assert
+    expect(grade).toBe(expectedGrade);
+  },
+);
