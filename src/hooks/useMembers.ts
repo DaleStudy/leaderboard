@@ -21,6 +21,7 @@ const useMembers: UseMembers = function ({ getMembers }) {
 
         setMembers(members);
       } catch (error) {
+        console.error(error);
         setError(error);
       } finally {
         setIsLoading(false);
