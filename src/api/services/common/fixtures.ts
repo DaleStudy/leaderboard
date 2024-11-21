@@ -1,12 +1,15 @@
+import { faker } from "@faker-js/faker";
+
+import { problems } from "../../../constants/problems";
 import type { StudyConfig } from "../../config/types";
 import type {
   GitHubMember,
   GitHubTeam,
   GitHubTree,
 } from "../../infra/gitHub/types";
-import { Grade, Submission } from "./types";
+import { Grade, type MemberIdentity, type Submission } from "./types";
 
-export const mockStudyConfig: StudyConfig = {
+export const dummyStudyConfig: StudyConfig = {
   organization: "test-org",
   repository: "test-repo",
   branchName: "main",
@@ -20,15 +23,15 @@ export const mockStudyConfig: StudyConfig = {
   ] as [Grade, number][],
 };
 
-export const mockGitHubConfig = {
+export const dummyGithubConfig = {
   baseUrl: "https://api.github.com",
   mediaType: "application/vnd.github+json",
   token: "test-token",
 };
 
-export const mockConfig = {
-  study: mockStudyConfig,
-  gitHub: mockGitHubConfig,
+export const dummyConfig = {
+  study: dummyStudyConfig,
+  gitHub: dummyGithubConfig,
 };
 
 export const mockGitHubTeams: GitHubTeam[] = [
@@ -160,20 +163,33 @@ export const mockMembers = mockGitHubMembers.map((member) => ({
   grade: member.login === "algo" ? Grade.BIG_TREE : Grade.SPROUT,
 }));
 
-export const mockSubmissions: Submission[] = [
-  {
-    memberId: "algo",
-    problemTitle: "problem1",
-    language: "js",
-  },
-  {
-    memberId: "algo",
-    problemTitle: "problem2",
-    language: "ts",
-  },
-  {
-    memberId: "dale",
-    problemTitle: "problem1",
-    language: "py",
-  },
-];
+export const createMockMemberIdentity = (
+  customMember: Partial<MemberIdentity> = {},
+): MemberIdentity => ({
+  id: faker.internet.userName().toLowerCase(),
+  name: faker.internet.userName(),
+  cohort: faker.number.int({ min: 1, max: 10 }),
+  profileUrl: faker.internet.url(),
+  ...customMember,
+});
+
+export const createMockSubmission = (
+  customSubmission: Partial<Submission> = {},
+): Submission => ({
+  memberId: faker.internet.userName(),
+  problemTitle: faker.word.words().replaceAll(" ", "-"),
+  language: faker.helpers.arrayElement(["js", "ts", "py"]),
+  ...customSubmission,
+});
+
+export const createMockSubmissions = (
+  memberId: string,
+  count: number,
+): Submission[] => {
+  return faker.helpers.arrayElements(problems, count).map((problem) =>
+    createMockSubmission({
+      memberId,
+      problemTitle: problem.title,
+    }),
+  );
+};

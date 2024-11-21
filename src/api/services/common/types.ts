@@ -20,6 +20,13 @@ export type Submission = {
   language: string;
 };
 
+export type Difficulty = "easy" | "medium" | "hard";
+
+export type Problem = {
+  title: string;
+  difficulty: Difficulty;
+};
+
 export interface Member {
   id: string;
   name: string;
@@ -31,5 +38,5 @@ export interface Member {
   progress: number;
   grade: Grade;
   /** Example: ["best-time-to-buy-and-sell-stock", "3sum", "climbing-stairs", ...] */
-  solvedProblems: string[];
+  solvedProblems: Problem[];
 }
