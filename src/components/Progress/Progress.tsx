@@ -1,3 +1,4 @@
+import Aside from "../Aside/Aside";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Table from "../Table/Table";
@@ -10,6 +11,13 @@ import styles from "./Progress.module.css";
 export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
   console.log({ members, isLoading, error });
+
+  const githubUsername = "exampleUser";
+  const easyTasks = "5/10";
+  const mediumTasks = "3/10";
+  const hardTasks = "1/10";
+  const solvedTasks = 30;
+  const totalTasks = 30;
 
   const problems = [
     {
@@ -31,18 +39,18 @@ export default function Progress() {
   return (
     <main className={styles.progress}>
       <Header />
-      <h1>Progress</h1>
+      <h1>풀이 현황</h1>
       <div className={styles.container}>
         <section aria-labelledby="profile">
-          <h2 id="profile">Profile Section</h2>
-          <div>
-            <img src="profile_image_url" alt="Profile" />
-            <h3>0 Attempting</h3>
-            <p>Easy: 12/12</p>
-            <p>Med.: 22/22</p>
-            <p>Hard: 1/1</p>
-          </div>
-          <button>PR 리스트</button>
+          {/* Pass required props to Aside */}
+          <Aside
+            githubUsername={githubUsername}
+            easyTasks={easyTasks}
+            mediumTasks={mediumTasks}
+            hardTasks={hardTasks}
+            solvedTasks={solvedTasks}
+            totalTasks={totalTasks}
+          />
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
