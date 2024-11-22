@@ -18,7 +18,7 @@ test("renders the Aside component", () => {
   expect(aside).toBeInTheDocument();
 });
 
-test("displays the correct number of solved tasks", () => {
+test("displays the number of solved tasks", () => {
   render(
     <Aside
       githubUsername="testuser"
@@ -34,7 +34,7 @@ test("displays the correct number of solved tasks", () => {
   expect(solvedTasksText).toBeInTheDocument();
 });
 
-test("displays the username correctly", () => {
+test("displays the username", () => {
   render(
     <Aside
       githubUsername="testuser"
@@ -50,7 +50,7 @@ test("displays the username correctly", () => {
   expect(username).toBeInTheDocument();
 });
 
-test("renders the return button with the correct text", () => {
+test("renders the button link with the text", () => {
   render(
     <Aside
       githubUsername="testuser"
@@ -62,8 +62,8 @@ test("renders the return button with the correct text", () => {
     />,
   );
 
-  const returnButton = screen.getByRole("button", {
+  const buttonLink = screen.getByRole("link", {
     name: /리더보드로 돌아가기/i,
   });
-  expect(returnButton).toBeInTheDocument();
+  expect(buttonLink).toBeInTheDocument();
 });

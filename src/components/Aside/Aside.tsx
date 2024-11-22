@@ -62,7 +62,9 @@ export default function Aside({
           </div>
         </section>
       </div>
-      <button className={styles.returnButton}>리더보드로 돌아가기</button>
+      <a href="../Leaderboard/Leaderboard.tsx" className={styles.buttonLink}>
+        리더보드로 돌아가기
+      </a>
     </aside>
   );
 }
