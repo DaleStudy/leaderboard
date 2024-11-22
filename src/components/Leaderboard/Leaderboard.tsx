@@ -7,41 +7,37 @@ import useMembers from "../../hooks/useMembers";
 import styles from "./Leaderboard.module.css";
 export default function Leaderboard() {
   const { members, isLoading, error } = useMembers({ getMembers });
-  console.log({ members, isLoading, error });
 
-  const mockMembers = [
-    { name: "DaleSeo", solved: 71, rank: "새싹" },
-    { name: "sounmind", solved: 69, rank: "나무" },
-    { name: "yolophg", solved: 65, rank: "새싹" },
-    { name: "Sunjae95", solved: 63, rank: "나무" },
-    { name: "HC-kang", solved: 62, rank: "나무" },
-    { name: "SamTheKorean", solved: 60, rank: "나무" },
-  ];
+  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   return (
     <main className={styles.leaderboard}>
       <Header />
-      <h1>Leaderboard </h1>
-
-      <article aria-labelledby="leaderboard">
-        <h2 id="leaderboard">Members List</h2>
-        <ul>
-          {mockMembers.map((member) => (
-            <li key={member.name}>
-              <div>등급: {member.rank}</div>
-              <div>진행 상황: {member.solved}</div>
-              <div>
-                <a href={`/progress?member=${member.name}`}>
+      <h1>리더보드</h1>
+      <ul>
+        {members.map((member) => (
+          <article key={member.name}>
+            <header>
+              <h2>{member.name}</h2>
+            </header>
+            <dl>
+              <dt>등급</dt>
+              <dd>{member.grade}</dd>
+              <dt>진행 상황</dt>
+              <dd>{member.progress}</dd>
+              <footer>
+                <a href={`/progress?member=${member.id}`}>
                   <button>풀이 보기</button>
                 </a>
-                <a href={`/certificate?member=${member.name}`}>
+                <a href={`/certificate?member=${member.id}`}>
                   <button>수료증 보기</button>
                 </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </article>
+              </footer>
+            </dl>
+          </article>
+        ))}
+      </ul>
       <Footer />
     </main>
   );

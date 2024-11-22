@@ -1,80 +1,80 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { expect, test, vi } from "vitest";
+import { mock } from "vitest-mock-extended";
+import { render, screen } from "@testing-library/react";
+import type { Member } from "../../api/services/common/types";
+import useMembers from "../../hooks/useMembers";
 import Leaderboard from "./Leaderboard";
 
-describe("<Leaderboard/>", () => {
-  beforeEach(() => render(<Leaderboard />));
+vi.mock("../../hooks/useMembers");
 
-  it("renders the page header", () => {
-    const header = screen.getByRole("banner");
-    expect(header).toBeInTheDocument();
-  });
+test("render the loading message while fetching members", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: true, error: null, members: [] }),
+  );
 
-  it("renders the members list section", () => {
-    expect(
-      screen.getByRole("article", { name: /members list/i }),
-    ).toBeInTheDocument();
-  });
+  render(<Leaderboard />);
 
-  it("renders the title", () => {
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Leaderboard");
-  });
+  expect(screen.getByText(/loading/i)).toBeInTheDocument();
+});
 
-  it("renders the member information", () => {
-    const members = [
-      { name: "DaleSeo", solved: 71, rank: "새싹" },
-      { name: "sounmind", solved: 69, rank: "나무" },
-      { name: "yolophg", solved: 65, rank: "새싹" },
-      { name: "Sunjae95", solved: 63, rank: "나무" },
-      { name: "HC-kang", solved: 62, rank: "나무" },
-      { name: "SamTheKorean", solved: 60, rank: "나무" },
-    ];
+test("render the error message while fetching members", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: new Error(), members: [] }),
+  );
 
-    const memberItems = within(
-      screen.getByRole("article", { name: /members list/i }),
-    ).getAllByRole("listitem");
+  render(<Leaderboard />);
 
-    expect(memberItems).toHaveLength(members.length);
+  expect(screen.getByText(/error/i)).toBeInTheDocument();
+});
 
-    members.forEach((member, index) => {
-      const memberItem = memberItems[index];
-      expect(memberItem).toHaveTextContent(`등급: ${member.rank}`);
-      expect(memberItem).toHaveTextContent(`진행 상황: ${member.solved}`);
-    });
-  });
+test("render the site header", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: null, members: [] }),
+  );
 
-  it("renders the links for members", () => {
-    const members = [
-      { name: "DaleSeo" },
-      { name: "sounmind" },
-      { name: "yolophg" },
-      { name: "Sunjae95" },
-      { name: "HC-kang" },
-      { name: "SamTheKorean" },
-    ];
+  render(<Leaderboard />);
 
-    const progressLinks = screen.getAllByRole("link", { name: "풀이 보기" });
-    const certificateLinks = screen.getAllByRole("link", {
-      name: "수료증 보기",
-    });
+  const header = screen.getByRole("banner");
+  expect(header).toBeInTheDocument();
+});
 
-    expect(progressLinks).toHaveLength(members.length);
-    expect(certificateLinks).toHaveLength(members.length);
+test("render the page title", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: null, members: [] }),
+  );
 
-    members.forEach((member, index) => {
-      expect(progressLinks[index]).toHaveAttribute(
-        "href",
-        `/progress?member=${member.name}`,
-      );
-      expect(certificateLinks[index]).toHaveAttribute(
-        "href",
-        `/certificate?member=${member.name}`,
-      );
-    });
-  });
+  render(<Leaderboard />);
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toHaveTextContent("리더보드");
+});
 
-  it("renders footer", () => {
-    expect(screen.getByRole("contentinfo"));
-  });
+test("render the member cards", () => {
+  const members = [
+    mock<Member>(),
+    mock<Member>(),
+    mock<Member>(),
+    mock<Member>(),
+    mock<Member>(),
+    mock<Member>(),
+  ];
+
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: null, members }),
+  );
+
+  render(<Leaderboard />);
+
+  const memberCards = screen.getAllByRole("article");
+
+  expect(memberCards).toHaveLength(members.length);
+});
+
+test("render the site footer", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+  );
+
+  render(<Leaderboard />);
+
+  expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
 });
