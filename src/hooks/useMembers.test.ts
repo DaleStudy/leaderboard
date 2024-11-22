@@ -24,7 +24,7 @@ test("fetch member info successfully and update state", async () => {
 
   // Initial state validation
   expect(result.current.isLoading).toBe(true);
-  expect(result.current.members).toBeNull();
+  expect(result.current.members).toEqual([]);
   expect(result.current.error).toBeNull();
 
   // Wait for the hook to finish fetching data
@@ -45,14 +45,14 @@ test("handle error when fetching member info fails", async () => {
 
   // Initial state validation
   expect(result.current.isLoading).toBe(true);
-  expect(result.current.members).toBeNull();
+  expect(result.current.members).toEqual([]);
   expect(result.current.error).toBeNull();
 
   // Wait for the hook to handle the error
   await waitFor(() => expect(result.current.isLoading).toBe(false));
 
   // Validate the state after error
-  expect(result.current.members).toBeNull();
+  expect(result.current.members).toEqual([]);
   expect(result.current.error).toEqual(mockError);
   expect(getMembers).toHaveBeenCalledTimes(1);
 });
