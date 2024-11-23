@@ -1,11 +1,10 @@
 aside {
-  position: sticky; /* Make the aside sticky */
-  top: 20px; /* Adjust this value to control when the sidebar becomes sticky */
-  width: 250px; /* Adjust the width as needed */
-  height: calc(
-    100vh - 40px
-  ); /* Full viewport height minus top/bottom padding */
-  overflow-y: auto; /* Allow vertical scrolling inside the aside */
+  position: sticky;
+  top: 87px;
+  width: 260px;
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+  align-items: center;
 }
 
 .cohort {
@@ -17,11 +16,10 @@ aside {
   top: 230px;
   left: 20px;
   width: 250px;
-  height: 550px;
   padding: 20px 35px;
   background-color: var(--bg-200);
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile {
@@ -76,19 +74,24 @@ aside {
   display: flex;
   justify-content: center;
   margin-bottom: 35px;
+  padding-bottom: 31px;
+  border-bottom: 2px solid #846de9;
 }
 
 .currentStatus img {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 103px;
 }
 
 .taskCounts {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 35px;
+  margin-top: 50px;
   margin-bottom: 35px;
+  gap: 35px;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
 }
 
 .task {
@@ -112,20 +115,77 @@ aside {
   color: #f63737;
 }
 
-.buttonLink {
+.gradientText {
+  background: linear-gradient(to right, #24faca, #846de9);
+  color: transparent;
+  background-clip: text;
+  font-size: 17px;
+}
+
+.solidText {
+  font-size: 13px;
+}
+
+.returnButtonLink {
   display: block;
-  width: 100%;
+  width: 80%;
   padding: 10px 0;
-  background-color: var(--bg-200);
   border: 1px solid var(--primary);
   border-radius: 10px;
-  color: var(--primary);
+  color: var(--primary) !important;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background-color: var(--primary);
+    color: white !important;
+  }
+
+  &:active {
+    font-weight: var(--font-weight-bold);
+    color: var(--primary) !important;
+    background-color: white;
+    text-decoration: underline;
+  }
+}
+
+.problemButtonLink {
+  display: block;
+  padding: 10px 0;
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  color: white !important;
   font-size: 14px;
   font-weight: bold;
   text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background-color: var(--tertiary);
+    color: white !important;
+  }
+
+  &:active {
+    background-color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
 }
 
-.returnButton:hover {
-  background-color: var(--primary);
-  color: var(--bg-100);
+.githubLinkWrapper {
+  margin-top: 10px;
+
+  .githubLink {
+    margin-top: 10px;
+    align-items: center;
+    img {
+      transform: translateY(8px);
+    }
+  }
 }

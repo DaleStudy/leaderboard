@@ -4,13 +4,14 @@ import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
 import LargeTree from "../../assets/LargeTree.png";
+import Github from "../../assets/Github.png";
 import { Grade } from "../../api/services/common/types.ts";
 
 interface AsideProps {
   githubUsername: string;
-  easyTasks: string;
-  mediumTasks: string;
-  hardTasks: string;
+  easyProgress: string;
+  mediumProgress: string;
+  hardProgress: string;
   solvedTasks: number;
   totalTasks: number;
   profile_url: string;
@@ -27,9 +28,9 @@ const imageTable = {
 
 export default function Aside({
   githubUsername,
-  easyTasks,
-  mediumTasks,
-  hardTasks,
+  easyProgress,
+  mediumProgress,
+  hardProgress,
   solvedTasks,
   totalTasks,
   profile_url,
@@ -45,6 +46,12 @@ export default function Aside({
     );
   }, [progressPercent]);
 
+  const taskProgress = [
+    { label: "EASY", progress: easyProgress, className: styles.easy },
+    { label: "MEDIUM", progress: mediumProgress, className: styles.medium },
+    { label: "HARD", progress: hardProgress, className: styles.hard },
+  ];
+
   return (
     <aside>
       <div className={styles.container}>
@@ -54,17 +61,26 @@ export default function Aside({
             <div className={styles["progress-circle"]}></div>
             <img src={profile_url} alt="User's profile picture" />
           </div>
+          <div>
+            <span className={styles.gradientText}>{solvedTasks} </span>
+            <span className={styles.solidText}> 문제</span>
+          </div>
           <div className={styles.progress}>
             <a
+              className={styles.problemButtonLink}
               href={`https://github.com/DaleStudy/leetcode-study/pulls?q=is%3Apr+author%3A${githubUsername}`}
             >
               풀이 보기
             </a>
           </div>
-          <a href={`https://github.com/${githubUsername}`}>
-            {" "}
-            {githubUsername}{" "}
-          </a>
+          <div className={styles.githubLinkWrapper}>
+            <a
+              className={styles.githubLink}
+              href={`https://github.com/${githubUsername}`}
+            >
+              <img src={Github} alt="github"></img> {githubUsername}
+            </a>
+          </div>
         </section>
 
         <section className={styles.currentStatus}>
@@ -73,21 +89,15 @@ export default function Aside({
           </figure>
         </section>
         <section className={styles.taskCounts}>
-          <div className={styles.task}>
-            <span className={styles.easy}>EASY</span>
-            <span>{easyTasks}</span>
-          </div>
-          <div className={styles.task}>
-            <span className={styles.medium}>MEDIUM</span>
-            <span>{mediumTasks}</span>
-          </div>
-          <div className={styles.task}>
-            <span className={styles.hard}>HARD</span>
-            <span>{hardTasks}</span>
-          </div>
+          {taskProgress.map(({ label, progress, className }) => (
+            <div key={label} className={styles.task}>
+              <span className={className}>{label}</span>
+              <span>{progress}</span>
+            </div>
+          ))}
         </section>
       </div>
-      <a href="../Leaderboard/Leaderboard.tsx" className={styles.buttonLink}>
+      <a href="../" className={styles.returnButtonLink}>
         리더보드로 돌아가기
       </a>
     </aside>

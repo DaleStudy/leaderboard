@@ -7,9 +7,9 @@ test("renders the Aside component", () => {
   render(
     <Aside
       githubUsername="testuser"
-      easyTasks="10/15"
-      mediumTasks="5/10"
-      hardTasks="2/5"
+      easyProgress="10/15"
+      mediumProgress="5/10"
+      hardProgress="2/5"
       solvedTasks={17}
       totalTasks={30}
       profile_url="https://example.com/profile.jpg"
@@ -26,9 +26,9 @@ test("displays the username", () => {
   render(
     <Aside
       githubUsername="testuser"
-      easyTasks="10/15"
-      mediumTasks="5/10"
-      hardTasks="2/5"
+      easyProgress="10/15"
+      mediumProgress="5/10"
+      hardProgress="2/5"
       solvedTasks={17}
       totalTasks={30}
       profile_url="https://example.com/profile.jpg"
@@ -45,9 +45,9 @@ test("renders the button link with the text", () => {
   render(
     <Aside
       githubUsername="testuser"
-      easyTasks="10/15"
-      mediumTasks="5/10"
-      hardTasks="2/5"
+      easyProgress="10/15"
+      mediumProgress="5/10"
+      hardProgress="2/5"
       solvedTasks={17}
       totalTasks={30}
       profile_url="https://example.com/profile.jpg"

@@ -97,3 +97,11 @@ export const problemMap: Record<Problem["title"], Problem> = problems.reduce(
   },
   {} as Record<Problem["title"], Problem>,
 );
+
+export const problemCounts = problems.reduce(
+  (acc, problem) => {
+    acc[problem.difficulty] += 1;
+    return acc;
+  },
+  { easy: 0, medium: 0, hard: 0 },
+);

@@ -4,6 +4,9 @@ import Header from "../Header/Header";
 import Table from "../Table/Table";
 import { getMembers } from "../../api/getMembers";
 import { problems } from "../../constants/problems";
+import { problemMap, problemCounts } from "../../constants/problems";
+
+
 import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
 
@@ -11,63 +14,65 @@ export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
   console.log({ members, isLoading, error });
 
-  const memberId = new URL(location.href).searchParams.get("member"); // Using URL to fetch member ID
+  const memberId = new URL(location.href).searchParams.get("member");
 
-  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
   if (!member) return <p>Member not found!</p>;
 
-  // Calculate total tasks dynamically
-  const totalTasks = problems.length;
-  const easyProblemsCount = problems.filter(
-    (problem) => problem.difficulty === "easy",
-  ).length;
-  const mediumProblemsCount = problems.filter(
-    (problem) => problem.difficulty === "medium",
-  ).length;
-  const hardProblemsCount = problems.filter(
-    (problem) => problem.difficulty === "hard",
-  ).length;
+  const totalTasks = Object.values(problemMap).length;
+  const {
+    easy: easyProblemsCount,
+    medium: mediumProblemsCount,
+    hard: hardProblemsCount,
+  } = problemCounts;
 
-  const easySolved = member.solvedProblems.filter(
-    (p) => p.difficulty === "easy",
-  ).length;
-  const mediumSolved = member.solvedProblems.filter(
-    (p) => p.difficulty === "medium",
-  ).length;
-  const hardSolved = member.solvedProblems.filter(
-    (p) => p.difficulty === "hard",
-  ).length;
-  const totalSolved = member.solvedProblems.length;
+  const solvedCounts = member.solvedProblems.reduce(
+    (acc, problem) => {
+      acc[problem.difficulty] = (acc[problem.difficulty] || 0) + 1;
+      acc.total += 1;
+      return acc;
+    },
+    { easy: 0, medium: 0, hard: 0, total: 0 },
+  );
 
-  const easyTasks = `${easySolved}/${easyProblemsCount}`;
-  const mediumTasks = `${mediumSolved}/${mediumProblemsCount}`;
-  const hardTasks = `${hardSolved}/${hardProblemsCount}`;
+  const {
+    easy: easySolved,
+    medium: mediumSolved,
+    hard: hardSolved,
+    total: totalSolved,
+  } = solvedCounts;
 
-  const grade = member.grade;
+  const easyProgress = `${easySolved}/${easyProblemsCount}`;
+  const mediumProgress = `${mediumSolved}/${mediumProblemsCount}`;
+  const hardProgress = `${hardSolved}/${hardProblemsCount}`;
 
-  const cohort = member.cohort;
+  const { grade, cohort } = member;
 
-  const profile_url = member.profileUrl || "SampleImg.png";
+  const profile_url = member.profileUrl || "Logo.png";
 
-  //TODO: need to pass the right member
-  const mockProblems = [
+  // To be updated, this will be replaced by the real data in a seperate pr.
+  const mockedProblems = [
     {
-      id: 128,
-      title: "Longest Consecutive Sequence",
-      difficulty: "Med.",
+      id: 1,
+      title: "Problem 1",
+      difficulty: "easy",
       completed: true,
     },
-    { id: 1, title: "Two Sum", difficulty: "Easy", completed: true },
     {
-      id: 257,
-      title: "Binary Tree Paths",
-      difficulty: "Easy",
+      id: 2,
+      title: "Problem 2",
+      difficulty: "medium",
       completed: false,
     },
-    { id: 133, title: "Clone Graph", difficulty: "Med.", completed: true },
+    {
+      id: 3,
+      title: "Problem 3",
+      difficulty: "hard",
+      completed: true,
+    },
   ];
 
   return (
@@ -78,9 +83,9 @@ export default function Progress() {
         <section aria-labelledby="profile">
           <Aside
             githubUsername={member.name}
-            easyTasks={easyTasks}
-            mediumTasks={mediumTasks}
-            hardTasks={hardTasks}
+            easyProgress={easyProgress}
+            mediumProgress={mediumProgress}
+            hardProgress={hardProgress}
             solvedTasks={totalSolved}
             totalTasks={totalTasks}
             profile_url={profile_url}
@@ -90,7 +95,7 @@ export default function Progress() {
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
-          <Table problems={mockProblems} />
+          <Table problems={mockedProblems} />
         </section>
       </div>
 

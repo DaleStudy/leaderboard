@@ -11,9 +11,9 @@ export default meta;
 export const Default: StoryObj<typeof meta> = {
   args: {
     githubUsername: "testuser",
-    easyTasks: "5/10",
-    mediumTasks: "8/10",
-    hardTasks: "3/5",
+    easyProgress: "5/10",
+    mediumProgress: "8/10",
+    hardProgress: "3/5",
     solvedTasks: 16,
     totalTasks: 25,
     profile_url: "https://example.com/profile.jpg", // Provide a valid URL or mock
@@ -27,9 +27,9 @@ export const HighProgress: StoryObj<typeof meta> = {
     ...Default.args,
     solvedTasks: 28,
     totalTasks: 30,
-    easyTasks: "10/10",
-    mediumTasks: "10/10",
-    hardTasks: "8/10",
+    easyProgress: "10/10",
+    mediumProgress: "10/10",
+    hardProgress: "8/10",
     grade: Grade.BIG_TREE, // Higher grade for more progress
   },
 };
@@ -37,9 +37,9 @@ export const HighProgress: StoryObj<typeof meta> = {
 export const NoTasks: StoryObj<typeof meta> = {
   args: {
     ...Default.args,
-    easyTasks: "0/0",
-    mediumTasks: "0/0",
-    hardTasks: "0/0",
+    easyProgress: "0/0",
+    mediumProgress: "0/0",
+    hardProgress: "0/0",
     solvedTasks: 0,
     totalTasks: 0,
     grade: Grade.SEED, // Minimal grade due to no tasks solved
