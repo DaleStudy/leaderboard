@@ -1,0 +1,36 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  border: 2px solid #846de9;
+  border-radius: 10px;
+
+  width: 276px;
+  height: 40px;
+  padding: 13px 15px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  input {
+    border: 0;
+  }
+
+  .separator {
+    width: 1px;
+    height: 16px;
+    border: 1px solid #846de9;
+    margin-right: 10px;
+  }
+
+  select {
+    border: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
