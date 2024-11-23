@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import style from "./SearchBar.module.css";
+
 interface SearchBarProps {
   onSearch: (name: string, cohort: number | null) => void;
   totalCohorts: number;
@@ -39,7 +41,13 @@ export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
   }, [name, cohort, onSearch]);
 
   return (
-    <section role="searchbox" aria-label="Search Bar">
+    <section
+      role="searchbox"
+      aria-label="Search Bar"
+      className={style.searchBar}
+    >
+      <img src="/search-icon.svg" alt="검색 아이콘" />
+
       <input
         type="text"
         value={name}
@@ -47,6 +55,8 @@ export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
         aria-label="이름 검색"
         placeholder="검색"
       />
+
+      <div className={style.separator}></div>
 
       <select
         value={cohort ?? ""}
