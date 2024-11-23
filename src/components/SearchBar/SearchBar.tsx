@@ -39,7 +39,7 @@ export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
   }, [name, cohort, onSearch]);
 
   return (
-    <div>
+    <section role="searchbox" aria-label="Search Bar">
       <input
         type="text"
         value={name}
@@ -60,6 +60,6 @@ export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
           </option>
         ))}
       </select>
-    </div>
+    </section>
   );
 }

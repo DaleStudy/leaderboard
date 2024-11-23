@@ -1,6 +1,8 @@
+import { faker } from "@faker-js/faker";
+import { render, screen } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
-import { render, screen } from "@testing-library/react";
+
 import type { Member } from "../../api/services/common/types";
 import useMembers from "../../hooks/useMembers";
 import Leaderboard from "./Leaderboard";
@@ -50,12 +52,12 @@ test("render the page title", () => {
 
 test("render the member cards", () => {
   const members = [
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
   ];
 
   vi.mocked(useMembers).mockReturnValue(
@@ -71,10 +73,28 @@ test("render the member cards", () => {
 
 test("render the site footer", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ name: faker.person.fullName() })],
+    }),
   );
 
   render(<Leaderboard />);
 
   expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
+});
+
+test("render the search bar", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ name: faker.person.fullName() })],
+    }),
+  );
+
+  render(<Leaderboard />);
+
+  expect(screen.getByRole("searchbox", { name: "Search Bar" }));
 });
