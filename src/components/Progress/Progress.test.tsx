@@ -1,12 +1,36 @@
 import { faker } from "@faker-js/faker";
+import { expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { expect, test, vi } from "vitest";
-import { mock } from "vitest-mock-extended";
-import { type Member, Grade } from "../../api/services/types";
-import useMembers from "../../hooks/useMembers";
 import Progress from "./Progress";
+import { mock } from "vitest-mock-extended";
+import useMembers from "../../hooks/useMembers";
+import { test, vi } from "vitest";
+import { type Member, Grade } from "../../api/services/types";
 
 vi.mock("../../hooks/useMembers");
+
+test("render the site header", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mockMember({ id: "sam" })],
+      totalCohorts: 3, // Add missing property
+      filter: { name: "", cohort: null }, // Add missing property
+      setFilter: vi.fn(), // Add mock function
+    }),
+  );
+
+  vi.stubGlobal("location", {
+    href: `http://example.com?member=sam`,
+    search: `?member=sam`,
+  });
+
+  render(<Progress />);
+
+  const header = screen.getByRole("banner");
+  expect(header).toBeInTheDocument();
+});
 
 test("display error message if member is not found", () => {
   vi.mocked(useMembers).mockReturnValue(
@@ -53,9 +77,9 @@ test("render page when query parameter is passed", async () => {
   mockedMember.id = mockedQueryParam;
   mockedMember.name = "soundmin";
   mockedMember.solvedProblems = [
-    { title: "Problem 1", difficulty: "easy" },
-    { title: "Problem 2", difficulty: "medium" },
-    { title: "Problem 3", difficulty: "easy" },
+    { id: 31, title: "Problem 1", difficulty: "Easy" },
+    { id: 52, title: "Problem 2", difficulty: "Med" },
+    { id: 30, title: "Problem 3", difficulty: "Hard" },
   ];
 
   vi.mocked(useMembers).mockReturnValue(

@@ -1,7 +1,11 @@
 import { getMembers } from "../../api/getMembers";
 import { problemCounts, problemMap } from "../../constants/problems";
 import Sidebar from "../Sidebar/Sidebar";
-import Table from "../Table/Table";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import { Table } from "../Table/Table";
+import { getMembers } from "../../api/getMembers";
+import { problems, problemMap, problemCounts } from "../../constants/problems";
 
 import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
@@ -19,9 +23,9 @@ export default function Progress() {
 
   const totalProblems = Object.values(problemMap).length;
   const {
-    easy: easyProblemsCount,
-    medium: mediumProblemsCount,
-    hard: hardProblemsCount,
+    Easy: easyProblemsCount,
+    Med: mediumProblemsCount,
+    Hard: hardProblemsCount,
   } = problemCounts;
 
   const solvedCounts = member.solvedProblems.reduce(
@@ -30,13 +34,13 @@ export default function Progress() {
       acc.total += 1;
       return acc;
     },
-    { easy: 0, medium: 0, hard: 0, total: 0 },
+    { Easy: 0, Med: 0, Hard: 0, total: 0 },
   );
 
   const {
-    easy: easySolved,
-    medium: mediumSolved,
-    hard: hardSolved,
+    Easy: easySolved,
+    Med: mediumSolved,
+    Hard: hardSolved,
     total: totalSolved,
   } = solvedCounts;
 
@@ -48,33 +52,11 @@ export default function Progress() {
 
   const profileUrl = member.profileUrl || "Logo.png";
 
-  // To be updated, this will be replaced by the real data in a seperate pr.
-  const mockedProblems = [
-    {
-      id: 1,
-      title: "Problem 1",
-      difficulty: "easy",
-      completed: true,
-    },
-    {
-      id: 2,
-      title: "Problem 2",
-      difficulty: "medium",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Problem 3",
-      difficulty: "hard",
-      completed: true,
-    },
-  ];
-
   return (
     <main className={styles.progress}>
       <h1>풀이 현황</h1>
       <div className={styles.container}>
-        <section aria-labelledby="profile">
+        <section className={styles.sideBar} aria-labelledby="profile">
           <Sidebar
             githubUsername={member.name}
             easyProgress={easyProgress}
@@ -89,7 +71,7 @@ export default function Progress() {
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
-          <Table problems={mockedProblems} />
+          <Table problems={problems} solvedProblems={member.solvedProblems} />
         </section>
       </div>
     </main>

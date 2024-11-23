@@ -1,10 +1,18 @@
 aside {
+<<<<<<< HEAD:src/components/Sidebar/Sidebar.module.css
   position: sticky;
   top: 87px;
   width: 260px;
   height: calc(100vh - 40px);
   overflow-y: auto;
   align-items: center;
+=======
+  position: sticky; /* Make the aside sticky */
+  top: 20px; /* Adjust this value to control when the sidebar becomes sticky */
+  width: 250px; /* Adjust the width as needed */
+  height: calc(100vh - 40px); /* Full viewport height minus top/bottom padding */
+  overflow-y: auto; /* Allow vertical scrolling inside the aside */
+>>>>>>> 4743ef2 (feat : convert profileurl to pass as prop):src/components/Aside/Aside.module.css
 }
 
 .cohort {
