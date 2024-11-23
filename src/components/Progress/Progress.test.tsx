@@ -1,11 +1,37 @@
+<<<<<<< HEAD
 import { faker } from "@faker-js/faker";
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { faker } from "@faker-js/faker";
+=======
+<<<<<<< HEAD
+>>>>>>> 2647efc (feat : convert profileurl to pass as prop)
+=======
+>>>>>>> 18e4279 (feat : complete progress component)
+>>>>>>> da91128 (feat : complete progress component)
 import { expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Progress from "./Progress";
 import { mock } from "vitest-mock-extended";
 import useMembers from "../../hooks/useMembers";
 import { test, vi } from "vitest";
+<<<<<<< HEAD
 import { type Member, Grade } from "../../api/services/types";
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+import { type Member, Grade } from "../../api/services/types";
+=======
+<<<<<<< HEAD
+import { Member } from "../../api/services/types";
+=======
+>>>>>>> 4743ef2 (feat : convert profileurl to pass as prop)
+>>>>>>> 2647efc (feat : convert profileurl to pass as prop)
+=======
+import { Member } from "../../api/services/types";
+>>>>>>> 18e4279 (feat : complete progress component)
+>>>>>>> da91128 (feat : complete progress component)
 
 vi.mock("../../hooks/useMembers");
 
@@ -107,6 +133,12 @@ test("render page when query parameter is passed", async () => {
   // Wait for the member's name to appear
   const userNameElement = await screen.findByText(mockedMember.name);
   expect(userNameElement).toBeInTheDocument();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4743ef2 (feat : convert profileurl to pass as prop)
+>>>>>>> da91128 (feat : complete progress component)
 });
 
 function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
@@ -118,4 +150,11 @@ function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
     profileUrl: faker.internet.url(),
     solvedProblems: [],
   });
+<<<<<<< HEAD
 }
+=======
+}
+=======
+});
+>>>>>>> 18e4279 (feat : complete progress component)
+>>>>>>> da91128 (feat : complete progress component)

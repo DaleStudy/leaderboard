@@ -3,7 +3,11 @@ import { problemCounts, problemMap } from "../../constants/problems";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+<<<<<<< HEAD
 import { Table } from "../Table/Table";
+=======
+import Table from "../Table/Table";
+>>>>>>> da91128 (feat : complete progress component)
 import { getMembers } from "../../api/getMembers";
 import { problems, problemMap, problemCounts } from "../../constants/problems";
 
@@ -11,7 +15,11 @@ import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
 
 export default function Progress() {
+<<<<<<< HEAD
   const { members, isLoading, error } = useMembers({ getMembers });
+=======
+  const { members, isLoading, error } = useMembers({ getMembers });  
+>>>>>>> da91128 (feat : complete progress component)
 
   const memberId = new URL(location.href).searchParams.get("member");
 
@@ -52,6 +60,32 @@ export default function Progress() {
 
   const profileUrl = member.profileUrl || "Logo.png";
 
+<<<<<<< HEAD
+=======
+  // To be updated, this will be replaced by the real data in a seperate pr.
+  const mockedProblems = [
+  // Calculate total tasks dynamically
+    {
+      id: 1,
+      title: "Problem 1",
+      difficulty: "easy",
+      completed: true,
+    },
+    {
+      id: 2,
+      title: "Problem 2",
+      difficulty: "medium",
+      completed: false,
+    },
+    {
+      id: 3,
+      title: "Problem 3",
+      difficulty: "hard",
+      completed: true,
+    },
+  ];
+
+>>>>>>> da91128 (feat : complete progress component)
   return (
     <main className={styles.progress}>
       <h1>풀이 현황</h1>
