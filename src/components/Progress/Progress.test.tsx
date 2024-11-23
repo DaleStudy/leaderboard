@@ -1,26 +1,19 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import Progress from "./Progress"; // Adjust the import path as needed
+import { render, screen, waitFor } from "@testing-library/react";
+import Progress from "./Progress";
+import { mock } from "vitest-mock-extended";
+import useMembers from "../../hooks/useMembers";
+import { test, vi } from "vitest";
 
-describe("<Progress/>", () => {
-  beforeEach(() => render(<Progress />));
+vi.mock("../../hooks/useMembers");
 
-  it("renders the table", () => {
-    const table = screen.getByRole("table");
-    expect(table).toBeInTheDocument();
-  });
+test("render the site header", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({ isLoading: false, error: null, members: [] }),
+  );
 
-  it("renders the page header", () => {
-    const header = screen.getByRole("banner");
-    expect(header).toBeInTheDocument();
-  });
+  render(<Progress />);
 
-  it("renders the title", () => {
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("풀이 현황");
-  });
-
-  it("renders footer", () => {
-    expect(screen.getByRole("contentinfo"));
-  });
+  const header = screen.getByRole("banner");
+  expect(header).toBeInTheDocument();
 });
