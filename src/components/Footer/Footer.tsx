@@ -94,7 +94,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} aria-label="Site Footer">
       <section>
         <ul className={styles.leftMenu}>
           {leftMenu.map(({ label, link }) => (

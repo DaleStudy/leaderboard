@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import type { Member } from "../api/services/common/types";
 
 type UseMembers = (params: { getMembers: () => Promise<Member[]> }) => {
-  members: Member[] | null;
+  members: Member[];
   isLoading: boolean;
   error: unknown | null;
 };
 
 const useMembers: UseMembers = function ({ getMembers }) {
-  const [members, setMembers] = useState<Member[] | null>(null);
+  const [members, setMembers] = useState<Member[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<unknown | null>(null);
 
