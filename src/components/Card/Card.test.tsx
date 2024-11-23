@@ -31,24 +31,24 @@ test("render cohort", () => {
   ).toBeInTheDocument();
 });
 
-test("render progress button", () => {
+test("render progress link", () => {
   const id = "test";
   render(<Card id={id} name="user123" grade={Grade.BIG_TREE} cohort={1} />);
 
   const link = within(
-    screen.getByRole("navigation", { name: `card-navigation-${id}` }),
+    screen.getByRole("region", { name: `card-navigation-${id}` }),
   ).getByRole("link", { name: "풀이 현황" });
 
   expect(link).toBeInTheDocument();
   expect(link).toHaveAttribute("href", `/progress?member=${id}`);
 });
 
-test("render certificate button", () => {
+test("render certificate link", () => {
   const id = "test";
   render(<Card id={id} name="user123" grade={Grade.BIG_TREE} cohort={1} />);
 
   const link = within(
-    screen.getByRole("navigation", { name: `card-navigation-${id}` }),
+    screen.getByRole("region", { name: `card-navigation-${id}` }),
   ).getByRole("link", { name: "수료증" });
   expect(link).toBeInTheDocument();
   expect(link).toHaveAttribute("href", `/certificate?member=${id}`);

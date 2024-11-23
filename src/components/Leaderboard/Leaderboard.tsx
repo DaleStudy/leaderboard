@@ -19,13 +19,14 @@ export default function Leaderboard() {
       <h1>리더보드</h1>
       <ul>
         {members.map((member) => (
-          <Card
-            key={member.name}
-            id={member.id}
-            name={member.name}
-            cohort={member.cohort}
-            grade={member.grade}
-          />
+          <li key={member.id}>
+            <Card
+              id={member.id}
+              name={member.name}
+              cohort={member.cohort}
+              grade={member.grade}
+            />
+          </li>
         ))}
       </ul>
       <Footer />

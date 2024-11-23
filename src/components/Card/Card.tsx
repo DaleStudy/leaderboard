@@ -26,7 +26,7 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
     <article className={styles.item}>
       <img src={imageTable[grade]} alt={`${grade} image`} />
       <section>
-        <section aria-labelledby={`card-github-${id}`}>
+        <section aria-label={name}>
           <div>
             <svg
               width="10"
@@ -41,9 +41,9 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
               />
             </svg>
           </div>
-          <span id={`card-github-${id}`}>{name}</span>
+          <span>{name}</span>
         </section>
-        <section aria-labelledby={`card-cohort-${id}`}>
+        <section aria-label={`${cohort}기`}>
           <div>
             <svg
               width="10"
@@ -58,12 +58,12 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
               />
             </svg>
           </div>
-          <span id={`card-cohort-${id}`}>{cohort}기</span>
+          <span>{cohort}기</span>
         </section>
-        <nav aria-label={`card-navigation-${id}`}>
+        <section aria-label={`card-navigation-${id}`}>
           <Link href={`/progress?member=${id}`}>풀이 현황</Link>
           <Link href={`/certificate?member=${id}`}>수료증</Link>
-        </nav>
+        </section>
       </section>
     </article>
   );
