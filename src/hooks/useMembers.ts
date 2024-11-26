@@ -50,7 +50,9 @@ const useMembers: UseMembers = function ({ getMembers }) {
   const filteredMembers = useMemo(
     () =>
       members
-        .filter((member) => member.name.includes(filter.name))
+        .filter((member) =>
+          member.name.toLowerCase().includes(filter.name.toLowerCase()),
+        )
         .filter(
           (member) => filter.cohort === null || member.cohort === filter.cohort,
         ),

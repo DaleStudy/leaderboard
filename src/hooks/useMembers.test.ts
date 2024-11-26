@@ -111,3 +111,52 @@ test("total cohorts calculated correctly", async () => {
 
   expect(result.current.totalCohorts).toBe(3);
 });
+
+test("filter members by name case-insensitively", async () => {
+  const expectedMembers: Member[] = [
+    createMockMember({ name: "John Doe", cohort: 1 }),
+    createMockMember({ name: "jane doe", cohort: 2 }),
+    createMockMember({ name: "ALICE Cooper", cohort: 3 }),
+  ];
+  const [johnDoe, janeDoe, aliceCooper] = expectedMembers;
+
+  const getMembers = vi.fn().mockResolvedValue(expectedMembers);
+
+  const { result } = renderHook(() => useMembers({ getMembers }));
+
+  // Wait for members to load
+  await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+  // Initial state
+  expect(result.current.members).toEqual(expectedMembers);
+
+  // Act: Apply case-insensitive name filter
+  act(() => {
+    result.current.setFilter({
+      name: "doe",
+      cohort: null,
+    });
+  });
+
+  expect(result.current.members).toEqual([johnDoe, janeDoe]);
+
+  // Act: Apply case-insensitive name and cohort filter
+  act(() => {
+    result.current.setFilter({
+      name: "aLiCe",
+      cohort: null,
+    });
+  });
+
+  expect(result.current.members).toEqual([aliceCooper]);
+
+  // Act: Apply case-insensitive partial name filter
+  act(() => {
+    result.current.setFilter({
+      name: "JoHn",
+      cohort: null,
+    });
+  });
+
+  expect(result.current.members).toEqual([johnDoe]);
+});
