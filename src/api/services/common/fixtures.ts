@@ -7,7 +7,12 @@ import type {
   GitHubTeam,
   GitHubTree,
 } from "../../infra/gitHub/types";
-import { Grade, type MemberIdentity, type Submission } from "./types";
+import {
+  Grade,
+  type Member,
+  type MemberIdentity,
+  type Submission,
+} from "./types";
 
 export const dummyStudyConfig: StudyConfig = {
   organization: "test-org",
@@ -163,33 +168,53 @@ export const mockMembers = mockGitHubMembers.map((member) => ({
   grade: member.login === "algo" ? Grade.BIG_TREE : Grade.SPROUT,
 }));
 
-export const createMockMemberIdentity = (
+export function createMockMemberIdentity(
   customMember: Partial<MemberIdentity> = {},
-): MemberIdentity => ({
-  id: faker.internet.userName().toLowerCase(),
-  name: faker.internet.userName(),
-  cohort: faker.number.int({ min: 1, max: 10 }),
-  profileUrl: faker.internet.url(),
-  ...customMember,
-});
+): MemberIdentity {
+  return {
+    id: faker.internet.userName().toLowerCase(),
+    name: faker.internet.userName(),
+    cohort: faker.number.int({ min: 1, max: 10 }),
+    profileUrl: faker.internet.url(),
+    ...customMember,
+  };
+}
 
-export const createMockSubmission = (
+export function createMockSubmission(
   customSubmission: Partial<Submission> = {},
-): Submission => ({
-  memberId: faker.internet.userName(),
-  problemTitle: faker.word.words().replaceAll(" ", "-"),
-  language: faker.helpers.arrayElement(["js", "ts", "py"]),
-  ...customSubmission,
-});
+): Submission {
+  return {
+    memberId: faker.internet.userName(),
+    problemTitle: faker.word.words().replaceAll(" ", "-"),
+    language: faker.helpers.arrayElement(["js", "ts", "py"]),
+    ...customSubmission,
+  };
+}
 
-export const createMockSubmissions = (
+export function createMockSubmissions(
   memberId: string,
   count: number,
-): Submission[] => {
+): Submission[] {
   return faker.helpers.arrayElements(problems, count).map((problem) =>
     createMockSubmission({
       memberId,
       problemTitle: problem.title,
     }),
   );
-};
+}
+
+export function createMockMember(custom: Partial<Member> = {}): Member {
+  return {
+    id: faker.string.uuid(),
+    name: faker.person.fullName(),
+    cohort: faker.number.int({ min: 1, max: 10 }),
+    profileUrl: faker.internet.url(),
+    progress: faker.number.int({ min: 0, max: 100 }),
+    grade: faker.helpers.arrayElement(Object.values(Grade)),
+    solvedProblems: faker.helpers.arrayElements(
+      problems,
+      faker.number.int({ min: 0, max: 5 }),
+    ),
+    ...custom,
+  };
+}
