@@ -37,6 +37,5 @@ export interface Member {
   /** Unit: % */
   progress: number;
   grade: Grade;
-  /** Example: ["best-time-to-buy-and-sell-stock", "3sum", "climbing-stairs", ...] */
   solvedProblems: Problem[];
 }
