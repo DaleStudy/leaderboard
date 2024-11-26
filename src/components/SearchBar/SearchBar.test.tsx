@@ -1,23 +1,38 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, expect, test, vi } from "vitest";
 import SearchBar from "./SearchBar";
+import type { Filter } from "../../hooks/useMembers";
 
 const totalCohorts = 5;
 let onSearchMock: ReturnType<typeof vi.fn>;
+let filter: Filter;
 
 beforeEach(() => {
   onSearchMock = vi.fn();
+  filter = { name: "", cohort: null };
 });
 
 test("renders name input field", () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   expect(screen.getByPlaceholderText("검색")).toBeInTheDocument();
   expect(screen.getByLabelText("이름 검색")).toBeInTheDocument();
 });
 
 test("renders select field and options by totalCohorts", () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   expect(screen.getByText("기수")).toBeInTheDocument();
   expect(screen.getByLabelText("기수 선택")).toBeInTheDocument();
@@ -28,7 +43,13 @@ test("renders select field and options by totalCohorts", () => {
 });
 
 test("calls onSearch after 0.3 seconds when name is entered", async () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
 
@@ -48,7 +69,13 @@ test("calls onSearch after 0.3 seconds when name is entered", async () => {
 });
 
 test("debounces onSearch calls during name input", async () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
 
@@ -69,7 +96,13 @@ test("debounces onSearch calls during name input", async () => {
 });
 
 test("calls onSearch immediately when cohort is selected", () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   const select = screen.getByRole("combobox") as HTMLSelectElement;
 
@@ -80,7 +113,13 @@ test("calls onSearch immediately when cohort is selected", () => {
 });
 
 test("calls onSearch when only cohort is selected without name", () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   const select = screen.getByRole("combobox") as HTMLSelectElement;
 
@@ -91,7 +130,13 @@ test("calls onSearch when only cohort is selected without name", () => {
 });
 
 test("calls onSearch when name is empty and cohort is selected", () => {
-  render(<SearchBar onSearch={onSearchMock} totalCohorts={totalCohorts} />);
+  render(
+    <SearchBar
+      filter={filter}
+      onSearch={onSearchMock}
+      totalCohorts={totalCohorts}
+    />,
+  );
 
   const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
   const select = screen.getByRole("combobox") as HTMLSelectElement;
