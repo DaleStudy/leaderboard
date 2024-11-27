@@ -78,10 +78,14 @@ test.each([
   [1, Grade.SEED],
   [2, Grade.SPROUT],
   [3, Grade.SPROUT],
-  [4, Grade.SMALL_TREE],
-  [5, Grade.SMALL_TREE],
-  [6, Grade.BIG_TREE],
-  [7, Grade.BIG_TREE],
+  [4, Grade.LEAF],
+  [5, Grade.LEAF],
+  [6, Grade.BRANCH],
+  [7, Grade.BRANCH],
+  [8, Grade.FRUIT],
+  [9, Grade.FRUIT],
+  [10, Grade.TREE],
+  [11, Grade.TREE],
 ])(
   "assign grades based on submissions: totalSubmissions: %i, expectedGrade: %s",
   (totalSubmissions, expectedGrade) => {
@@ -90,8 +94,10 @@ test.each([
       gradeThresholds: [
         [Grade.SEED, 0],
         [Grade.SPROUT, 2],
-        [Grade.SMALL_TREE, 4],
-        [Grade.BIG_TREE, 6],
+        [Grade.LEAF, 4],
+        [Grade.BRANCH, 6],
+        [Grade.FRUIT, 8],
+        [Grade.TREE, 10],
       ],
     };
     const processService = createMockProcessService(config);

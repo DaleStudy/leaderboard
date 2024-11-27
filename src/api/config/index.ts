@@ -6,10 +6,12 @@ export const CONFIG: Config = {
   teamPrefix: "leetcode",
   totalProblemCount: 75,
   gradeThresholds: [
-    ["BIG_TREE", 70],
-    ["SMALL_TREE", 60],
-    ["SPROUT", 50],
-    ["SEED", 0],
+    ["TREE", 70], // 나무
+    ["FRUIT", 60], // 열매
+    ["BRANCH", 45], // 가지
+    ["LEAF", 30], // 잎새
+    ["SPROUT", 15], // 새싹
+    ["SEED", 0], // 씨앗
   ] as [Grade, number][],
   gitHubToken: import.meta.env.VITE_GITHUB_API_TOKEN,
 } as const;

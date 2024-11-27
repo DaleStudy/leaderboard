@@ -11,10 +11,12 @@ import { Grade, type MemberIdentity, type Submission } from "./types";
 export const dummyConfig = {
   branchName: "main",
   teamPrefix: "algodale",
-  totalProblemCount: 4,
+  totalProblemCount: 6,
   gradeThresholds: [
-    ["BIG_TREE", 3],
-    ["SMALL_TREE", 2],
+    ["TREE", 5],
+    ["FRUIT", 4],
+    ["BRANCH", 3],
+    ["LEAF", 2],
     ["SPROUT", 1],
     ["SEED", 0],
   ] as [Grade, number][],
@@ -147,14 +149,14 @@ export const mockMembers = mockGitHubMembers.map((member) => ({
     { memberId: member.login, problemTitle: "problem2", language: "ts" },
   ],
   progress: 50,
-  grade: member.login === "algo" ? Grade.BIG_TREE : Grade.SPROUT,
+  grade: member.login === "algo" ? Grade.TREE : Grade.SPROUT,
 }));
 
 export const createMockMemberIdentity = (
   customMember: Partial<MemberIdentity> = {},
 ): MemberIdentity => ({
-  id: faker.internet.userName().toLowerCase(),
-  name: faker.internet.userName(),
+  id: faker.internet.username().toLowerCase(),
+  name: faker.internet.username(),
   cohort: faker.number.int({ min: 1, max: 10 }),
   profileUrl: faker.internet.url(),
   ...customMember,
@@ -163,7 +165,7 @@ export const createMockMemberIdentity = (
 export const createMockSubmission = (
   customSubmission: Partial<Submission> = {},
 ): Submission => ({
-  memberId: faker.internet.userName(),
+  memberId: faker.internet.username(),
   problemTitle: faker.word.words().replaceAll(" ", "-"),
   language: faker.helpers.arrayElement(["js", "ts", "py"]),
   ...customSubmission,
