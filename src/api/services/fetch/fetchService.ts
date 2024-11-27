@@ -4,7 +4,7 @@ import type { GitHubTree } from "../../infra/gitHub/types";
 import type { Cohort, MemberIdentity, Submission } from "../common/types";
 
 export function createFetchService(config: Config) {
-  const gitHubClient = createGitHubClient(config.gitHub);
+  const gitHubClient = createGitHubClient(config.gitHubToken);
 
   return {
     fetchMembers: async (): Promise<MemberIdentity[]> => {

@@ -9,13 +9,7 @@ export type StudyConfig = {
   gradeThresholds: [Grade, number][];
 };
 
-export type GitHubConfig = {
-  baseUrl: string;
-  mediaType: string;
-  token: string;
-};
-
 export type Config = {
   study: StudyConfig;
-  gitHub: GitHubConfig;
+  gitHubToken: string;
 };

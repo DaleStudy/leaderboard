@@ -15,9 +15,5 @@ export const CONFIG: Config = {
       ["SEED", 0],
     ] as [Grade, number][],
   },
-  gitHub: {
-    baseUrl: "https://api.github.com",
-    mediaType: "application/vnd.github+json",
-    token: import.meta.env.VITE_GITHUB_API_TOKEN,
-  },
+  gitHubToken: import.meta.env.VITE_GITHUB_API_TOKEN,
 } as const;

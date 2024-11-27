@@ -23,15 +23,9 @@ export const dummyStudyConfig: StudyConfig = {
   ] as [Grade, number][],
 };
 
-export const dummyGithubConfig = {
-  baseUrl: "https://api.github.com",
-  mediaType: "application/vnd.github+json",
-  token: "test-token",
-};
-
 export const dummyConfig = {
   study: dummyStudyConfig,
-  gitHub: dummyGithubConfig,
+  gitHubToken: "test-token",
 };
 
 export const mockGitHubTeams: GitHubTeam[] = [
