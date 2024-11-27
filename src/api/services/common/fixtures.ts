@@ -155,8 +155,8 @@ export const mockMembers = mockGitHubMembers.map((member) => ({
 export const createMockMemberIdentity = (
   customMember: Partial<MemberIdentity> = {},
 ): MemberIdentity => ({
-  id: faker.internet.username().toLowerCase(),
-  name: faker.internet.username(),
+  id: faker.internet.userName().toLowerCase(),
+  name: faker.internet.userName(),
   cohort: faker.number.int({ min: 1, max: 10 }),
   profileUrl: faker.internet.url(),
   ...customMember,
@@ -165,7 +165,7 @@ export const createMockMemberIdentity = (
 export const createMockSubmission = (
   customSubmission: Partial<Submission> = {},
 ): Submission => ({
-  memberId: faker.internet.username(),
+  memberId: faker.internet.userName(),
   problemTitle: faker.word.words().replaceAll(" ", "-"),
   language: faker.helpers.arrayElement(["js", "ts", "py"]),
   ...customSubmission,
