@@ -9,7 +9,7 @@ export async function getMembers(): Promise<Member[]> {
 
   const [memberIdentities, submissions] = await Promise.all([
     fetchService.fetchMembers(),
-    fetchService.fetchSubmissions(CONFIG.study.repository),
+    fetchService.fetchSubmissions("leetcode-study"),
   ]);
 
   return processService.getMembers(memberIdentities, submissions);

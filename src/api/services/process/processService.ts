@@ -16,8 +16,8 @@ export function createProcessService(config: Config) {
       const memberMap = initializeMemberMap(memberIdentities);
 
       updateSubmissions(memberMap, submissions);
-      calculateProgress(memberMap, config.study.totalProblemCount);
-      updateGrades(memberMap, config.study.gradeThresholds);
+      calculateProgress(memberMap, config.totalProblemCount);
+      updateGrades(memberMap, config.gradeThresholds);
 
       return Object.values(memberMap);
     },

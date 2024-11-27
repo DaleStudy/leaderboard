@@ -11,7 +11,6 @@ import {
   createMockSubmission,
   createMockSubmissions,
   dummyConfig,
-  dummyStudyConfig,
 } from "../common/fixtures";
 
 const createMockProcessService = (customConfig: Partial<Config> = {}) => {
@@ -26,10 +25,7 @@ test("calculate submissions and progress", () => {
   const totalProblemCount = 75;
   const totalSubmissions = faker.number.int({ min: 1, max: 75 });
   const processService = createMockProcessService({
-    study: {
-      ...dummyStudyConfig,
-      totalProblemCount,
-    },
+    totalProblemCount,
   });
   const member = createMockMemberIdentity();
   const targetSubmissions = createMockSubmissions(member.id, totalSubmissions);
@@ -91,15 +87,12 @@ test.each([
   (totalSubmissions, expectedGrade) => {
     // Arrange
     const config: Partial<Config> = {
-      study: {
-        ...dummyStudyConfig,
-        gradeThresholds: [
-          [Grade.SEED, 0],
-          [Grade.SPROUT, 2],
-          [Grade.SMALL_TREE, 4],
-          [Grade.BIG_TREE, 6],
-        ],
-      },
+      gradeThresholds: [
+        [Grade.SEED, 0],
+        [Grade.SPROUT, 2],
+        [Grade.SMALL_TREE, 4],
+        [Grade.BIG_TREE, 6],
+      ],
     };
     const processService = createMockProcessService(config);
     const member = createMockMemberIdentity();

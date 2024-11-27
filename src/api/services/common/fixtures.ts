@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
 
 import { problems } from "../../../constants/problems";
-import type { StudyConfig } from "../../config/types";
 import type {
   GitHubMember,
   GitHubTeam,
@@ -9,9 +8,7 @@ import type {
 } from "../../infra/gitHub/types";
 import { Grade, type MemberIdentity, type Submission } from "./types";
 
-export const dummyStudyConfig: StudyConfig = {
-  organization: "test-org",
-  repository: "test-repo",
+export const dummyConfig = {
   branchName: "main",
   teamPrefix: "algodale",
   totalProblemCount: 4,
@@ -21,10 +18,6 @@ export const dummyStudyConfig: StudyConfig = {
     ["SPROUT", 1],
     ["SEED", 0],
   ] as [Grade, number][],
-};
-
-export const dummyConfig = {
-  study: dummyStudyConfig,
   gitHubToken: "test-token",
 };
 

@@ -36,7 +36,7 @@ test("fetchMembers should fetch and transform members correctly", async () => {
   const result = await fetchService.fetchMembers();
 
   // Assert
-  expect(mockGetTeamNames).toHaveBeenCalledWith(dummyConfig.study.organization);
+  expect(mockGetTeamNames).toHaveBeenCalledWith("DaleStudy");
   expect(mockGetTeamMembers).toHaveBeenCalledTimes(2); // Only algodale teams
   expect(result).toEqual(
     mockGitHubMembers.map((member) => ({
@@ -115,9 +115,9 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
 
   // Assert
   expect(mockGetDirectoryTree).toHaveBeenCalledWith(
-    dummyConfig.study.organization,
+    "DaleStudy",
     "test-repo",
-    dummyConfig.study.branchName,
+    dummyConfig.branchName,
   );
 
   expect(result).toEqual([
