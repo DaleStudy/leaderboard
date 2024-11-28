@@ -190,14 +190,14 @@ export default function Certificate() {
                 </defs>
               </svg>
 
-              <h3>CERTIFICATE OF ACHIEVEMENT</h3>
-              <h4>DaleStudy</h4>
-              <h5>{member?.id}</h5>
+              <h2>CERTIFICATE OF ACHIEVEMENT</h2>
+              <h3>DaleStudy</h3>
+              <h4>{member?.id}</h4>
 
               <p>{`For successfully completing ${member?.solvedProblems.length === 75 ? "all" : member?.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member?.cohort}${cohortSuffix?.[member?.cohort ?? 0] ?? "th"} DaleStudy.`}</p>
 
-              <img src={Signature} />
-              <h6>Dale Seo</h6>
+              <img src={Signature} alt="signature" />
+              <h5>Dale Seo</h5>
               <span>DaleStudy Organizer</span>
             </div>
 

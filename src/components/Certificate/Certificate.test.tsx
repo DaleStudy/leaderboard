@@ -78,7 +78,7 @@ test("render content id", () => {
   members.forEach(({ id, name }) => {
     location.href = new URL(`?member=${name}`, location.href).toString();
     render(<Certificate />);
-    expect(screen.getByRole("heading", { level: 5, name: id }));
+    expect(screen.getByRole("heading", { level: 4, name: id }));
   });
 });
 

@@ -29,19 +29,13 @@
 }
 
 .content {
-  margin-top: 18px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   height: 575px;
   min-height: 575px;
   border: 16px solid var(--bg-400);
   padding: 15px;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
 }
 
 .contentSide {
@@ -55,55 +49,56 @@
 }
 
 .description {
-  padding: 33px 0 58px 0;
+  margin-top: 35px;
   display: flex;
+  align-items: center;
   flex-direction: column;
 
-  & > h3 {
+  & > h2 {
     font-size: 20px;
     line-height: 15px;
     color: var(--bg-400);
-    margin-top: 15px;
     font-weight: 700;
+    margin-top: 30px;
+  }
+
+  & > h3 {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 400;
+    margin-top: 10px;
   }
 
   & > h4 {
-    font-size: 20px;
-    line-height: 25px;
-    margin-top: 8px;
-    font-weight: 400;
-  }
-
-  & > h5 {
     font-size: 40px;
     line-height: 50px;
-    margin-top: 8px;
     font-weight: 700;
     color: var(--bg-400);
+    margin-top: 35px;
   }
 
   & > p {
-    margin: 30px 0px 0px;
+    margin: 30px 0 0;
     font-size: 18px;
     text-align: center;
     white-space: pre;
   }
 
   & > img {
-    margin-top: 46px;
+    margin-top: 45px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--bg-400);
   }
 
-  & > h6 {
+  & > h5 {
     font-size: 18px;
     color: var(--bg-400);
-    margin-top: 4px;
+    line-height: 26px;
   }
 
   & > span {
     font-size: 14px;
-    margin-top: 4px;
+    margin-top: 5px;
   }
 }
 
