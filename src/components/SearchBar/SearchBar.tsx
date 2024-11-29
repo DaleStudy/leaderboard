@@ -44,22 +44,18 @@ export default function SearchBar({
   };
 
   return (
-    <section
-      role="searchbox"
-      aria-label="Search Bar"
-      className={style.searchBar}
-    >
+    <section aria-label="Search Bar" className={style.searchBar}>
       <img src="/search-icon.svg" alt="검색 아이콘" />
 
       <input
-        type="text"
+        type="search"
         value={localName}
         onChange={handleNameChange}
         aria-label="이름 검색"
         placeholder="검색"
       />
 
-      <div className={style.separator}></div>
+      <div role="separator" className="separator"></div>
 
       <select
         value={filter.cohort ?? ""}

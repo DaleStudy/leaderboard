@@ -19,7 +19,7 @@
     border: 0;
   }
 
-  .separator {
+  div[role="separator"] {
     width: 1px;
     height: 16px;
     border: 1px solid #846de9;

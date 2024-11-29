@@ -137,5 +137,5 @@ test("render the search bar", () => {
 
   render(<Leaderboard />);
 
-  expect(screen.getByRole("searchbox", { name: "Search Bar" }));
+  expect(screen.getByLabelText("Search Bar"));
 });
