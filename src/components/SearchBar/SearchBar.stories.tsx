@@ -12,5 +12,6 @@ export const Default: StoryObj<typeof meta> = {
   args: {
     onSearch: fn(),
     totalCohorts: 5,
+    filter: { name: "", cohort: null },
   },
 };
