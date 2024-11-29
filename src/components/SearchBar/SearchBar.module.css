@@ -6,7 +6,7 @@
   border: 2px solid #846de9;
   border-radius: 10px;
 
-  width: 276px;
+  width: max-content;
   height: 40px;
   padding: 13px 15px;
 
@@ -27,6 +27,7 @@
   }
 
   select {
+    width: 75px;
     border: 0;
 
     &:hover {

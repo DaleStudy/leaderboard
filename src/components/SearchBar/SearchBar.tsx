@@ -62,7 +62,7 @@ export default function SearchBar({
         onChange={handleCohortChange}
         aria-label="기수 선택"
       >
-        <option value="">기수</option>
+        <option value="">전체 기수</option>
         {[...Array(totalCohorts)].map((_, index) => (
           <option key={index} value={index + 1}>
             {index + 1}기

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, expect, test, vi } from "vitest";
-import SearchBar from "./SearchBar";
 import type { Filter } from "../../hooks/useMembers";
+import SearchBar from "./SearchBar";
 
 const totalCohorts = 5;
 let onSearchMock: ReturnType<typeof vi.fn>;
@@ -34,7 +34,7 @@ test("renders select field and options by totalCohorts", () => {
     />,
   );
 
-  expect(screen.getByText("기수")).toBeInTheDocument();
+  expect(screen.getByText("전체 기수")).toBeInTheDocument();
   expect(screen.getByLabelText("기수 선택")).toBeInTheDocument();
 
   for (let i = 1; i <= totalCohorts; i++) {
