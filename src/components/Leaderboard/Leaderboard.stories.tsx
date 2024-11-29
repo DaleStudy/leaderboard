@@ -47,31 +47,8 @@ export const Default: StoryObj<typeof meta> = {
               },
               {
                 login: "HC-kang",
-                id: 81678439,
-                node_id: "MDQ6VXNlcjgxNjc4NDM5",
                 avatar_url:
                   "https://avatars.githubusercontent.com/u/81678439?v=4",
-                gravatar_id: "",
-                url: "https://api.github.com/users/HC-kang",
-                html_url: "https://github.com/HC-kang",
-                followers_url: "https://api.github.com/users/HC-kang/followers",
-                following_url:
-                  "https://api.github.com/users/HC-kang/following{/other_user}",
-                gists_url:
-                  "https://api.github.com/users/HC-kang/gists{/gist_id}",
-                starred_url:
-                  "https://api.github.com/users/HC-kang/starred{/owner}{/repo}",
-                subscriptions_url:
-                  "https://api.github.com/users/HC-kang/subscriptions",
-                organizations_url: "https://api.github.com/users/HC-kang/orgs",
-                repos_url: "https://api.github.com/users/HC-kang/repos",
-                events_url:
-                  "https://api.github.com/users/HC-kang/events{/privacy}",
-                received_events_url:
-                  "https://api.github.com/users/HC-kang/received_events",
-                type: "User",
-                user_view_type: "public",
-                site_admin: false,
               },
             ]),
         ),
