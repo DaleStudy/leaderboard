@@ -24,27 +24,29 @@ export default function Leaderboard() {
     <main className={styles.leaderboard}>
       <Header />
 
-      <section className={styles.toolbar}>
-        <h1>리더보드</h1>
-        <SearchBar
-          filter={filter}
-          onSearch={handleSearch}
-          totalCohorts={totalCohorts}
-        />
-      </section>
+      <div className={styles.contentWrapper}>
+        <section className={styles.toolbar}>
+          <h1>리더보드</h1>
+          <SearchBar
+            filter={filter}
+            onSearch={handleSearch}
+            totalCohorts={totalCohorts}
+          />
+        </section>
 
-      <ul>
-        {sortedMembers.map((member) => (
-          <li key={member.id}>
-            <Card
-              id={member.id}
-              name={member.name}
-              cohort={member.cohort}
-              grade={member.grade}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {sortedMembers.map((member) => (
+            <li key={member.id}>
+              <Card
+                id={member.id}
+                name={member.name}
+                cohort={member.cohort}
+                grade={member.grade}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <Footer />
     </main>
