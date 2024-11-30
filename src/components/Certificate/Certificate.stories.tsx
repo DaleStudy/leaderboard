@@ -3,6 +3,11 @@ import Certificate from "./Certificate";
 
 const meta: Meta<typeof Certificate> = {
   component: Certificate,
+  parameters: {
+    query: {
+      member: "sunjae95",
+    },
+  },
 };
 
 export default meta;

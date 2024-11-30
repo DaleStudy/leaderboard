@@ -15,7 +15,8 @@ export default function Certificate() {
   const { members, isLoading, error } = useMembers({ getMembers });
 
   const member = members.find(
-    ({ name }) => name === new URL(location.href).searchParams.get("member"),
+    ({ id }) =>
+      id === new URLSearchParams(document.location.search).get("member"),
   );
   const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${location.href}`;
 
