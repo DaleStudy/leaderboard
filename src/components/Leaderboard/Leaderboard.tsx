@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { getMembers } from "../../api/services/store/storeService";
-import useMembers from "../../hooks/useMembers";
+import useMembers, { type Filter } from "../../hooks/useMembers";
 import Card from "../Card/Card";
 
 import styles from "./Leaderboard.module.css";
@@ -12,7 +12,7 @@ export default function Leaderboard() {
   const { members, isLoading, error, totalCohorts, filter, setFilter } =
     useMembers({ getMembers });
 
-  const handleSearch = (name: string, cohort: number | null): void =>
+  const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
 
   if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component

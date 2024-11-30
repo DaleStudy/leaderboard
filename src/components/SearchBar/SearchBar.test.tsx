@@ -62,7 +62,10 @@ test("calls onSearch after 0.3 seconds when name is entered", async () => {
   // Wait 300ms and check if onSearch was called
   await waitFor(
     () => {
-      expect(onSearchMock).toHaveBeenCalledWith("John", null);
+      expect(onSearchMock).toHaveBeenCalledWith({
+        name: "John",
+        cohort: null,
+      });
     },
     { timeout: 300 },
   );
@@ -89,7 +92,10 @@ test("debounces onSearch calls during name input", async () => {
   await waitFor(
     () => {
       expect(onSearchMock).toHaveBeenCalledTimes(1);
-      expect(onSearchMock).toHaveBeenCalledWith("John", null);
+      expect(onSearchMock).toHaveBeenCalledWith({
+        name: "John",
+        cohort: null,
+      });
     },
     { timeout: 300 },
   );
@@ -109,7 +115,10 @@ test("calls onSearch immediately when cohort is selected", () => {
   // Select cohort 2
   fireEvent.change(select, { target: { value: "2" } });
 
-  expect(onSearchMock).toHaveBeenCalledWith("", 2);
+  expect(onSearchMock).toHaveBeenCalledWith({
+    name: "",
+    cohort: 2,
+  });
 });
 
 test("calls onSearch when only cohort is selected without name", () => {
@@ -126,7 +135,10 @@ test("calls onSearch when only cohort is selected without name", () => {
   // Select cohort 3
   fireEvent.change(select, { target: { value: "3" } });
 
-  expect(onSearchMock).toHaveBeenCalledWith("", 3);
+  expect(onSearchMock).toHaveBeenCalledWith({
+    name: "",
+    cohort: 3,
+  });
 });
 
 test("calls onSearch when name is empty and cohort is selected", () => {
@@ -148,5 +160,8 @@ test("calls onSearch when name is empty and cohort is selected", () => {
   fireEvent.change(input, { target: { value: "" } });
 
   // Wait for trigger
-  expect(onSearchMock).toHaveBeenCalledWith("", 1);
+  expect(onSearchMock).toHaveBeenCalledWith({
+    name: "",
+    cohort: 1,
+  });
 });

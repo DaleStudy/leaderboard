@@ -6,7 +6,7 @@ import style from "./SearchBar.module.css";
 
 interface SearchBarProps {
   filter: Filter;
-  onSearch: (name: string, cohort: number | null) => void;
+  onSearch: (filter: Filter) => void;
   totalCohorts: number;
 }
 
@@ -31,7 +31,10 @@ export default function SearchBar({
     }
 
     const timeout = window.setTimeout(() => {
-      onSearch(value.trim(), filter.cohort);
+      onSearch({
+        name: value.trim(),
+        cohort: filter.cohort,
+      });
     }, 200);
 
     setDebounceTimeout(timeout);
@@ -40,7 +43,10 @@ export default function SearchBar({
   const handleCohortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
 
-    onSearch(filter.name, value === "" ? null : Number(value));
+    onSearch({
+      name: filter.name,
+      cohort: value ? parseInt(value) : null,
+    });
   };
 
   return (
