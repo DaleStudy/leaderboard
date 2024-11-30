@@ -74,7 +74,6 @@ test("remove duplicate problem submissions", () => {
 });
 
 test.each([
-  [0, Grade.SEED],
   [1, Grade.SEED],
   [2, Grade.SPROUT],
   [3, Grade.SPROUT],

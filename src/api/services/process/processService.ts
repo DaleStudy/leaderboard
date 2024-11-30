@@ -16,6 +16,7 @@ export function createProcessService(config: Config) {
       const memberMap = initializeMemberMap(memberIdentities);
 
       updateSubmissions(memberMap, submissions);
+      dropMembersWithoutSubmissions(memberMap);
       calculateProgress(memberMap, config.totalProblemCount);
       updateGrades(memberMap, config.gradeThresholds);
 
@@ -61,6 +62,16 @@ const updateSubmissions = (
     }
 
     member.solvedProblems.push(problemMap[submission.problemTitle]);
+  });
+};
+
+const dropMembersWithoutSubmissions = (
+  memberMap: Record<string, Member>,
+): void => {
+  Object.keys(memberMap).forEach((memberId) => {
+    if (memberMap[memberId].solvedProblems.length === 0) {
+      delete memberMap[memberId];
+    }
   });
 };
 
