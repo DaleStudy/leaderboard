@@ -14,3 +14,18 @@ jobs:
       - run: bun run lint
       - run: bun run coverage
       - run: bun run build
+
+  chromatic:
+    environment:
+      name: chromatic
+      url: https://${{ github.head_ref }}--67451d0423c813a4784afd4a.chromatic.com
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
