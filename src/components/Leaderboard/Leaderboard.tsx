@@ -1,7 +1,7 @@
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
-import { getMembers } from "../../api/services/getMembers/getMembers";
+import { getMembers } from "../../api/getMembers";
 import useMembers from "../../hooks/useMembers";
 
 import styles from "./Leaderboard.module.css";

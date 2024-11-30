@@ -2,7 +2,7 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Table from "../Table/Table";
 
-import { getMembers } from "../../api/services/getMembers/getMembers";
+import { getMembers } from "../../api/getMembers";
 import useMembers from "../../hooks/useMembers";
 
 import styles from "./Progress.module.css";

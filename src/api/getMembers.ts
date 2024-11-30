@@ -1,7 +1,7 @@
-import { CONFIG } from "../../config";
-import type { Member } from "../types";
-import { createFetchService } from "../fetch/fetchService";
-import { createProcessService } from "../process/processService";
+import { CONFIG } from "./config";
+import { createFetchService } from "./services/fetch/fetchService";
+import { createProcessService } from "./services/process/processService";
+import { type Member } from "./services/types";
 
 export async function getMembers(): Promise<Member[]> {
   const fetchService = createFetchService(CONFIG);

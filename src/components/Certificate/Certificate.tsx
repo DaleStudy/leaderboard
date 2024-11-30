@@ -1,4 +1,4 @@
-import { getMembers } from "../../api/services/getMembers/getMembers";
+import { getMembers } from "../../api/getMembers";
 import useMembers from "../../hooks/useMembers";
 
 import Footer from "../Footer/Footer";

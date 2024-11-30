@@ -1,9 +1,9 @@
 import { beforeEach, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
-import { createFetchService } from "../fetch/fetchService";
-import { createProcessService } from "../process/processService";
+import { createFetchService } from "./services/fetch/fetchService";
+import { createProcessService } from "./services/process/processService";
 import { getMembers } from "./getMembers";
-import { Member } from "../types";
+import { type Member } from "./services/types";
 
 // Mock data
 const mockMembers = mock<Member[]>();
@@ -13,13 +13,13 @@ const mockFetchMembers = vi.fn();
 const mockFetchSubmissions = vi.fn();
 const mockGetMembers = vi.fn();
 
-vi.mock("../fetch/fetchService");
+vi.mock("./services/fetch/fetchService");
 vi.mocked(createFetchService).mockReturnValue({
   fetchMembers: mockFetchMembers,
   fetchSubmissions: mockFetchSubmissions,
 });
 
-vi.mock("../process/processService");
+vi.mock("./services/process/processService");
 vi.mocked(createProcessService).mockReturnValue({
   getMembers: mockGetMembers,
 });
