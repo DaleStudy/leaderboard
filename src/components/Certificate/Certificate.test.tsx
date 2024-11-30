@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { mock } from "vitest-mock-extended";
 
 import useMembers from "../../hooks/useMembers";
-import { Member } from "../../api/services/common/types";
 
 import Certificate from "./Certificate";
+import { Member } from "../../api/services/types";
 
 vi.mock("../../hooks/useMembers");
 
@@ -16,7 +16,14 @@ afterAll(() => {
 
 test("render the loading message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: true, error: null, members: [] }),
+    mock({
+      isLoading: true,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Certificate />);
@@ -26,7 +33,14 @@ test("render the loading message while fetching members", () => {
 
 test("render the error message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: new Error(), members: [] }),
+    mock({
+      isLoading: false,
+      error: new Error(),
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Certificate />);
@@ -36,7 +50,14 @@ test("render the error message while fetching members", () => {
 
 test("renders the page header", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Certificate />);
@@ -47,7 +68,14 @@ test("renders the page header", () => {
 
 test("render page title", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Certificate />);
@@ -58,12 +86,12 @@ test("render page title", () => {
 test("render content id", () => {
   const members = [
     mock<Member>({
-      id: "테스트1",
-      name: "test1",
+      id: "test1",
+      name: "테스트1",
     }),
     mock<Member>({
-      id: "테스트2",
-      name: "test2",
+      id: "test2",
+      name: "테스트2",
     }),
   ];
 
@@ -72,13 +100,16 @@ test("render content id", () => {
       isLoading: false,
       error: null,
       members,
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
     }),
   );
 
   members.forEach(({ id, name }) => {
-    location.href = new URL(`?member=${name}`, location.href).toString();
+    location.href = new URL(`?member=${id}`, location.href).toString();
     render(<Certificate />);
-    expect(screen.getByRole("heading", { level: 4, name: id }));
+    expect(screen.getByRole("heading", { level: 4, name }));
   });
 });
 
@@ -87,22 +118,26 @@ test("render content solved problems, cohort", () => {
     mock<Member>({
       solvedProblems: Array(5).fill({}),
       cohort: 1,
-      name: "test1",
+      id: "test1",
+      name: "테스트1",
     }),
     mock<Member>({
       solvedProblems: Array(10).fill({}),
       cohort: 2,
-      name: "test2",
+      id: "test2",
+      name: "테스트2",
     }),
     mock<Member>({
       solvedProblems: Array(20).fill({}),
       cohort: 3,
-      name: "test3",
+      id: "test3",
+      name: "테스트3",
     }),
     mock<Member>({
       solvedProblems: Array(75).fill({}),
       cohort: 4,
-      name: "test4",
+      id: "test4",
+      name: "테스트4",
     }),
   ];
 
@@ -111,11 +146,14 @@ test("render content solved problems, cohort", () => {
       isLoading: false,
       error: null,
       members,
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
     }),
   );
   const cohortSuffix = ["th", "st", "nd", "rd"];
-  members.forEach(({ name, solvedProblems, cohort }) => {
-    location.href = new URL(`?member=${name}`, location.href).toString();
+  members.forEach(({ id, solvedProblems, cohort }) => {
+    location.href = new URL(`?member=${id}`, location.href).toString();
 
     render(<Certificate />);
 
@@ -133,7 +171,14 @@ test("render content solved problems, cohort", () => {
 
 test("render print button", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>()],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Certificate />);
@@ -144,7 +189,14 @@ test("render print button", () => {
 
 test("calls window.print when the print button is clicked", async () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>()],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
   vi.spyOn(window, "print").mockImplementation(() => {});
 
@@ -157,18 +209,18 @@ test("calls window.print when the print button is clicked", async () => {
 });
 
 test("render LinkedIn link", () => {
-  const members = [mock<Member>({ name: "test1" })];
+  const members = [mock<Member>({ id: "test1", name: "테스트1" })];
   vi.mocked(useMembers).mockReturnValue(
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ name: "test1" })],
+      members,
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
     }),
   );
-  location.href = new URL(
-    `?member=${members[0].name}`,
-    location.href,
-  ).toString();
+  location.href = new URL(`?member=${members[0].id}`, location.href).toString();
 
   render(<Certificate />);
 
@@ -184,7 +236,14 @@ test("render LinkedIn link", () => {
 
 test("render footer", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>()],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
   render(<Certificate />);
 

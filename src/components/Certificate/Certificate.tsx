@@ -193,7 +193,7 @@ export default function Certificate() {
 
               <h2>CERTIFICATE OF ACHIEVEMENT</h2>
               <h3>DaleStudy</h3>
-              <h4>{member?.id}</h4>
+              <h4>{member?.name}</h4>
 
               <p>{`For successfully completing ${member?.solvedProblems.length === 75 ? "all" : member?.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member?.cohort}${cohortSuffix?.[member?.cohort ?? 0] ?? "th"} DaleStudy.`}</p>
 
