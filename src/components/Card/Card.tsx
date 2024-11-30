@@ -2,7 +2,7 @@ import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
 import LargeTree from "../../assets/LargeTree.png";
-import type { Grade } from "../../api";
+import { Grade } from "../../api/services/types";
 import Link from "../Link/Link";
 
 import styles from "./Card.module.css";
@@ -17,8 +17,10 @@ interface CardProps {
 const imageTable = {
   SEED: Seed,
   SPROUT: Sprout,
-  SMALL_TREE: YoungTree,
-  BIG_TREE: LargeTree,
+  LEAF: Sprout,
+  BRANCH: Sprout,
+  FRUIT: YoungTree,
+  TREE: LargeTree,
 };
 
 export default function Card({ id, name, cohort, grade }: CardProps) {
