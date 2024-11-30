@@ -86,7 +86,6 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
   const expectedUrl = `${mockConfig.baseUrl}/repos/test-owner/test-repo/git/trees/main?recursive=1`;
   const expectedHeaders = {
     Accept: mockConfig.mediaType,
-    Authorization: `token ${mockConfig.token}`,
   };
 
   // Act

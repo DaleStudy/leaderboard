@@ -7,13 +7,16 @@ import type {
 } from "./types";
 
 export function createGitHubClient(config: GitHubConfig) {
-  const request = async (url: string, token: string): Promise<unknown> => {
-    const response = await fetch(url, {
-      headers: {
-        Accept: config.mediaType,
-        Authorization: `token ${token}`,
-      },
-    });
+  const request = async (url: string, token?: string): Promise<unknown> => {
+    const headers: Record<string, string> = {
+      Accept: config.mediaType,
+    };
+
+    if (token) {
+      headers.Authorization = `token ${token}`;
+    }
+
+    const response = await fetch(url, { headers });
 
     if (!response.ok) {
       throw new Error(
@@ -48,7 +51,6 @@ export function createGitHubClient(config: GitHubConfig) {
     ): Promise<GitHubTree[]> =>
       request(
         `${config.baseUrl}/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
-        config.token,
       ).then((response) => (response as GitHubTreeResponse).tree),
   };
 }
