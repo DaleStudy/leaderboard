@@ -2,8 +2,6 @@ import type { Grade } from "../services/types";
 import type { Config } from "./types";
 
 export const CONFIG: Config = {
-  branchName: "main",
-  teamPrefix: "leetcode",
   totalProblemCount: 75,
   gradeThresholds: [
     ["TREE", 70], // 나무

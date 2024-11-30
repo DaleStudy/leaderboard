@@ -7,8 +7,6 @@ import { GitHubMember, GitHubTeam, GitHubTree } from "../../infra/gitHub/types";
 
 // Mock data
 const dummyConfig = {
-  branchName: "main",
-  teamPrefix: "algodale",
   totalProblemCount: 6,
   gradeThresholds: [
     ["TREE", 5],
@@ -28,8 +26,8 @@ const mockGitHubMembers = Array.from({ length: 10 }, (_, idx) => ({
 }));
 
 const mockGitHubTeams = [
-  { ...mock<GitHubTeam>(), name: "algodale1" },
-  { ...mock<GitHubTeam>(), name: "algodale2" },
+  { ...mock<GitHubTeam>(), name: "leetcode1" },
+  { ...mock<GitHubTeam>(), name: "leetcode2" },
   { ...mock<GitHubTeam>(), name: "another-team" },
 ];
 
@@ -155,7 +153,7 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
   expect(mockGetDirectoryTree).toHaveBeenCalledWith(
     "DaleStudy",
     "test-repo",
-    dummyConfig.branchName,
+    "main",
   );
 
   expect(result).toEqual([

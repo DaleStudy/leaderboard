@@ -8,17 +8,18 @@ export function createFetchService(config: Config) {
 
   return {
     fetchMembers: async (): Promise<MemberIdentity[]> => {
+      const teamPrefix = "leetcode";
       const teamNames = await gitHubClient.getTeamNames("DaleStudy");
 
       const members = await Promise.all(
         teamNames
-          .filter((name) => name.startsWith(config.teamPrefix))
+          .filter((name) => name.startsWith(teamPrefix))
           .map(async (teamName) => {
             const members = await gitHubClient.getTeamMembers(
               "DaleStudy",
               teamName,
             );
-            const cohort = parseCohort(teamName, config.teamPrefix);
+            const cohort = parseCohort(teamName, teamPrefix);
 
             return members.map(
               (member): MemberIdentity => ({
@@ -38,7 +39,7 @@ export function createFetchService(config: Config) {
       const submissions = await gitHubClient.getDirectoryTree(
         "DaleStudy",
         repoName,
-        config.branchName,
+        "main",
       );
 
       return submissions

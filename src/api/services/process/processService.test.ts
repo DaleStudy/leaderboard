@@ -9,8 +9,6 @@ import { createProcessService } from "./processService";
 
 // Mock data
 const dummyConfig = {
-  branchName: "main",
-  teamPrefix: "algodale",
   totalProblemCount: 6,
   gradeThresholds: [
     ["TREE", 5],
