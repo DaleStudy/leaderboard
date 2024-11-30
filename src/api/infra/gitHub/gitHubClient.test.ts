@@ -1,8 +1,14 @@
 import { test, expect, beforeEach, vi } from "vitest";
+import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "./gitHubClient";
-import { mockGitHubTeams, mockGitHubMembers, mockGitHubTree } from "./fixtures";
+import { GitHubMember, GitHubTeam, GitHubTree } from "./types";
 
 const mockGithubToken = "test-token";
+
+// Mock data
+const mockGitHubTeams = mock<GitHubTeam[]>();
+const mockGitHubMembers = mock<GitHubMember[]>();
+const mockGitHubTrees = mock<GitHubTree[]>();
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -31,7 +37,7 @@ test("getTeamNames should fetch and return team names", async () => {
   expect(mockFetch).toHaveBeenCalledWith(expectedUrl, {
     headers: expectedHeaders,
   });
-  expect(result).toEqual(["leetcode01", "leetcode02"]);
+  expect(result).toEqual(mockGitHubTeams.map((team) => team.name));
 });
 
 test("getTeamNames should throw error when fetch fails", async () => {
@@ -76,7 +82,7 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
   // Arrange
   mockFetch.mockResolvedValue({
     ok: true,
-    json: () => Promise.resolve({ tree: mockGitHubTree }),
+    json: () => Promise.resolve({ tree: mockGitHubTrees }),
   });
   const client = createGitHubClient(mockGithubToken);
   const expectedUrl = `https://api.github.com/repos/test-owner/test-repo/git/trees/main?recursive=1`;
@@ -96,7 +102,7 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
   expect(mockFetch).toHaveBeenCalledWith(expectedUrl, {
     headers: expectedHeaders,
   });
-  expect(result).toEqual(mockGitHubTree);
+  expect(result).toEqual(mockGitHubTrees);
 });
 
 test("error should include detailed information", async () => {

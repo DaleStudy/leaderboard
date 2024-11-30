@@ -1,8 +1,12 @@
 import { beforeEach, expect, test, vi } from "vitest";
-import { mockMembers } from "../common/fixtures";
+import { mock } from "vitest-mock-extended";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 import { getMembers } from "./getMembers";
+import { Member } from "../common/types";
+
+// Mock data
+const mockMembers = mock<Member[]>();
 
 // Mock services
 const mockFetchMembers = vi.fn();
