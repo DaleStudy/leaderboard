@@ -1,0 +1,48 @@
+.item {
+  padding: 25px 35px;
+  background-color: var(--bg-300);
+  border-radius: 10px;
+  display: flex;
+  column-gap: 35px;
+  align-items: flex-end;
+
+  > img {
+    width: 105px;
+    height: 128px;
+    object-fit: fill;
+  }
+
+  > section {
+    > section {
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: var(--primary);
+      }
+
+      > span {
+        font-size: 14px;
+        font-weight: var(--font-weight-medium);
+      }
+    }
+
+    > section:nth-child(2) {
+      margin-top: 15px;
+    }
+  }
+}
+
+.link {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  color: var(--bg-100);
+}
