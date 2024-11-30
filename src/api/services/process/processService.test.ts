@@ -1,17 +1,29 @@
 import { faker } from "@faker-js/faker";
 import { expect, test } from "vitest";
+import { mock } from "vitest-mock-extended";
 
 import { problems } from "../../../constants/problems";
 import type { Config } from "../../config/types";
-import { Grade } from "../common/types";
+import { Grade, MemberIdentity, Submission } from "../common/types";
 import { createProcessService } from "./processService";
 
-import {
-  createMockMemberIdentity,
-  createMockSubmission,
-  createMockSubmissions,
-  dummyConfig,
-} from "../common/fixtures";
+// Mock data
+const dummyConfig = {
+  branchName: "main",
+  teamPrefix: "algodale",
+  totalProblemCount: 6,
+  gradeThresholds: [
+    ["TREE", 5],
+    ["FRUIT", 4],
+    ["BRANCH", 3],
+    ["LEAF", 2],
+    ["SPROUT", 1],
+    ["SEED", 0],
+  ] as [Grade, number][],
+  gitHubToken: "test-token",
+};
+const mockMemberIdentity = mock<MemberIdentity>();
+const mockSubmission = mock<Submission>();
 
 const createMockProcessService = (customConfig: Partial<Config> = {}) => {
   return createProcessService({
@@ -27,17 +39,30 @@ test("calculate submissions and progress", () => {
   const processService = createMockProcessService({
     totalProblemCount,
   });
-  const member = createMockMemberIdentity();
-  const targetSubmissions = createMockSubmissions(member.id, totalSubmissions);
-  const dummySubmissions = createMockSubmissions(
-    "dummyMemberId",
-    faker.number.int({ min: 1, max: 10 }),
+  const member = mockMemberIdentity;
+  const targetSubmissions = Array.from(
+    { length: totalSubmissions },
+    (_, idx) => ({
+      ...mockSubmission,
+      memberId: member.id,
+      problemTitle: problems[idx].title,
+      language: faker.helpers.arrayElement(["js", "ts", "py"]),
+    }),
+  );
+
+  const submissionsOfOtherMember = Array.from(
+    { length: faker.number.int({ min: 1, max: 10 }) },
+    (_, idx) => ({
+      ...mockSubmission,
+      memberId: "OtherMemberId",
+      problemTitle: problems[idx].title,
+    }),
   );
 
   // Act
   const members = processService.getMembers(
-    [member, createMockMemberIdentity()],
-    [...targetSubmissions, ...dummySubmissions],
+    [member, mockMemberIdentity],
+    [...targetSubmissions, ...submissionsOfOtherMember],
   );
   const { progress } = members.find((member) => member.id === member.id)!;
 
@@ -50,17 +75,19 @@ test("calculate submissions and progress", () => {
 test("remove duplicate problem submissions", () => {
   // Arrange
   const processService = createMockProcessService();
-  const memberIdentity = createMockMemberIdentity();
+  const memberIdentity = mockMemberIdentity;
   const sameProblemTitle = faker.helpers.arrayElement(problems).title;
   const duplicateSubmissions = [
-    createMockSubmission({
+    {
+      ...mockSubmission,
       memberId: memberIdentity.id,
       problemTitle: sameProblemTitle,
-    }),
-    createMockSubmission({
+    },
+    {
+      ...mockSubmission,
       memberId: memberIdentity.id,
       problemTitle: sameProblemTitle,
-    }),
+    },
   ];
 
   // Act
@@ -71,6 +98,18 @@ test("remove duplicate problem submissions", () => {
 
   // Assert
   expect(solvedProblems.length).toBe(1);
+});
+
+test("remove member with no submissions", () => {
+  // Arrange
+  const processService = createMockProcessService();
+  const memberIdentity = mockMemberIdentity; // no submissions
+
+  // Act
+  const members = processService.getMembers([memberIdentity], []);
+
+  // Assert
+  expect(members).toHaveLength(0);
 });
 
 test.each([
@@ -100,8 +139,12 @@ test.each([
       ],
     };
     const processService = createMockProcessService(config);
-    const member = createMockMemberIdentity();
-    const submissions = createMockSubmissions(member.id, totalSubmissions);
+    const member = mockMemberIdentity;
+    const submissions = Array.from({ length: totalSubmissions }, (_, idx) => ({
+      ...mockSubmission,
+      memberId: member.id,
+      problemTitle: problems[idx].title,
+    }));
 
     // Act
     const { grade } = processService.getMembers([member], submissions)[0];

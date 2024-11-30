@@ -3,8 +3,6 @@ import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "./gitHubClient";
 import { GitHubMember, GitHubTeam, GitHubTree } from "./types";
 
-const mockGithubToken = "test-token";
-
 // Mock data
 const mockGitHubTeams = mock<GitHubTeam[]>();
 const mockGitHubMembers = mock<GitHubMember[]>();
@@ -23,11 +21,11 @@ test("getTeamNames should fetch and return team names", async () => {
     ok: true,
     json: () => Promise.resolve(mockGitHubTeams),
   });
-  const client = createGitHubClient(mockGithubToken);
+  const client = createGitHubClient("test-token");
   const expectedUrl = `https://api.github.com/orgs/test-org/teams`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${mockGithubToken}`,
+    Authorization: `token ${"test-token"}`,
   };
 
   // Act
@@ -47,7 +45,7 @@ test("getTeamNames should throw error when fetch fails", async () => {
     status: 404,
     statusText: "Not Found",
   });
-  const client = createGitHubClient(mockGithubToken);
+  const client = createGitHubClient("test-token");
 
   // Act & Assert
   await expect(client.getTeamNames("test-org")).rejects.toThrow(
@@ -61,11 +59,11 @@ test("getTeamMembers should fetch and return team members", async () => {
     ok: true,
     json: () => Promise.resolve(mockGitHubMembers),
   });
-  const client = createGitHubClient(mockGithubToken);
+  const client = createGitHubClient("test-token");
   const expectedUrl = `https://api.github.com/orgs/test-org/teams/test-team/members`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${mockGithubToken}`,
+    Authorization: `token ${"test-token"}`,
   };
 
   // Act
@@ -84,11 +82,11 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
     ok: true,
     json: () => Promise.resolve({ tree: mockGitHubTrees }),
   });
-  const client = createGitHubClient(mockGithubToken);
+  const client = createGitHubClient("test-token");
   const expectedUrl = `https://api.github.com/repos/test-owner/test-repo/git/trees/main?recursive=1`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${mockGithubToken}`,
+    Authorization: `token ${"test-token"}`,
   };
 
   // Act
@@ -114,7 +112,7 @@ test("error should include detailed information", async () => {
     status,
     statusText,
   });
-  const client = createGitHubClient(mockGithubToken);
+  const client = createGitHubClient("test-token");
   const expectedErrorMessage = `Failed to fetch url: https://api.github.com/orgs/test-org/teams, status: ${status}, statusText: ${statusText}`;
 
   // Act & Assert
