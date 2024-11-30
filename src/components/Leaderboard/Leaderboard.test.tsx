@@ -9,7 +9,7 @@ import Leaderboard from "./Leaderboard";
 
 vi.mock("../../hooks/useMembers");
 
-test("render the loading message while fetching members", () => {
+test("render the loading while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
       isLoading: true,
@@ -23,7 +23,7 @@ test("render the loading message while fetching members", () => {
 
   render(<Leaderboard />);
 
-  expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  expect(screen.getByRole("status")).toHaveAccessibleName(/spinner/i);
 });
 
 test("render the error message while fetching members", () => {
