@@ -1,4 +1,4 @@
-import type { Problem } from "../api/services/common/types";
+import type { Problem } from "../api/services/types";
 
 export const problems: Problem[] = [
   { title: "3sum", difficulty: "medium" },

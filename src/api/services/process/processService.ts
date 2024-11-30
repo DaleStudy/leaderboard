@@ -5,7 +5,7 @@ import {
   type Member,
   type MemberIdentity,
   type Submission,
-} from "../common/types";
+} from "../types";
 
 export function createProcessService(config: Config) {
   return {

@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { renderHook, waitFor } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
-import { Grade, type Member } from "../api/services/common/types";
+import { Grade, type Member } from "../api/services/types";
 import useMembers from "./useMembers";
 
 test("fetch member info successfully and update state", async () => {

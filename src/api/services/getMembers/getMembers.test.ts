@@ -3,7 +3,7 @@ import { mock } from "vitest-mock-extended";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 import { getMembers } from "./getMembers";
-import { Member } from "../common/types";
+import { Member } from "../types";
 
 // Mock data
 const mockMembers = mock<Member[]>();

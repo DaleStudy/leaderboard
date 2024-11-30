@@ -1,4 +1,4 @@
-import type { Grade } from "../services/common/types";
+import type { Grade } from "../services/types";
 
 export type Config = {
   branchName: string;

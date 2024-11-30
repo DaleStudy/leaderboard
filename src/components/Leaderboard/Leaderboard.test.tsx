@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { render, screen } from "@testing-library/react";
-import type { Member } from "../../api/services/common/types";
+import type { Member } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Leaderboard from "./Leaderboard";
 

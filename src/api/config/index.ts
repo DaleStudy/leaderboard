@@ -1,4 +1,4 @@
-import type { Grade } from "../services/common/types";
+import type { Grade } from "../services/types";
 import type { Config } from "./types";
 
 export const CONFIG: Config = {

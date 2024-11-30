@@ -1,5 +1,5 @@
 import { CONFIG } from "../../config";
-import type { Member } from "../common/types";
+import type { Member } from "../types";
 import { createFetchService } from "../fetch/fetchService";
 import { createProcessService } from "../process/processService";
 

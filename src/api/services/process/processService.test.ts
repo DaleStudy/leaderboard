@@ -4,7 +4,7 @@ import { mock } from "vitest-mock-extended";
 
 import { problems } from "../../../constants/problems";
 import type { Config } from "../../config/types";
-import { Grade, MemberIdentity, Submission } from "../common/types";
+import { Grade, MemberIdentity, Submission } from "../types";
 import { createProcessService } from "./processService";
 
 // Mock data
