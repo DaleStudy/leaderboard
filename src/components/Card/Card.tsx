@@ -62,7 +62,7 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
         </section>
         <section className={styles.link} aria-label={`card-navigation-${id}`}>
           <Link href={`/progress?member=${id}`} variant="primaryButton">
-            풀이 현황
+            풀이 현황 보기
           </Link>
           <Link href={`/certificate?member=${id}`} variant="primaryButton">
             수료증
