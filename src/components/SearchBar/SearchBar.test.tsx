@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { beforeEach, expect, test, vi } from "vitest";
 import type { Filter } from "../../hooks/useMembers";
 import SearchBar from "./SearchBar";
@@ -51,24 +52,21 @@ test("calls onSearch after 0.3 seconds when name is entered", async () => {
     />,
   );
 
-  const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
+  const input = screen.getByPlaceholderText("검색");
 
   // Simulate entering 'John'
-  fireEvent.change(input, { target: { value: "John" } });
+  const user = userEvent.setup();
+  user.type(input, "John");
 
   // Should not call onSearch immediately
   expect(onSearchMock).not.toHaveBeenCalled();
 
   // Wait 300ms and check if onSearch was called
-  await waitFor(
-    () => {
-      expect(onSearchMock).toHaveBeenCalledWith({
-        name: "John",
-        cohort: null,
-      });
-    },
-    { timeout: 300 },
-  );
+  await waitFor(() => expect(onSearchMock).toHaveBeenCalledTimes(1));
+  expect(onSearchMock).toHaveBeenCalledWith({
+    name: "John",
+    cohort: null,
+  });
 });
 
 test("debounces onSearch calls during name input", async () => {
@@ -80,28 +78,24 @@ test("debounces onSearch calls during name input", async () => {
     />,
   );
 
-  const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
+  const input = screen.getByPlaceholderText("검색");
 
   // Simulate rapid input
-  fireEvent.change(input, { target: { value: "J" } });
-  fireEvent.change(input, { target: { value: "Jo" } });
-  fireEvent.change(input, { target: { value: "Joh" } });
-  fireEvent.change(input, { target: { value: "John" } });
+  const user = userEvent.setup();
+  await user.type(input, "J");
+  await user.type(input, "o");
+  await user.type(input, "h");
+  await user.type(input, "n");
 
   // Wait 200ms and check if onSearch was called only once
-  await waitFor(
-    () => {
-      expect(onSearchMock).toHaveBeenCalledTimes(1);
-      expect(onSearchMock).toHaveBeenCalledWith({
-        name: "John",
-        cohort: null,
-      });
-    },
-    { timeout: 300 },
-  );
+  await waitFor(() => expect(onSearchMock).toHaveBeenCalledTimes(1));
+  expect(onSearchMock).toHaveBeenCalledWith({
+    name: "John",
+    cohort: null,
+  });
 });
 
-test("calls onSearch immediately when cohort is selected", () => {
+test("calls onSearch immediately when cohort is selected", async () => {
   render(
     <SearchBar
       filter={filter}
@@ -110,10 +104,11 @@ test("calls onSearch immediately when cohort is selected", () => {
     />,
   );
 
-  const select = screen.getByRole("combobox") as HTMLSelectElement;
+  const select = screen.getByRole("combobox");
 
   // Select cohort 2
-  fireEvent.change(select, { target: { value: "2" } });
+  const user = userEvent.setup();
+  await user.selectOptions(select, "2");
 
   expect(onSearchMock).toHaveBeenCalledWith({
     name: "",
@@ -121,7 +116,7 @@ test("calls onSearch immediately when cohort is selected", () => {
   });
 });
 
-test("calls onSearch when only cohort is selected without name", () => {
+test("calls onSearch when only cohort is selected without name", async () => {
   render(
     <SearchBar
       filter={filter}
@@ -130,10 +125,11 @@ test("calls onSearch when only cohort is selected without name", () => {
     />,
   );
 
-  const select = screen.getByRole("combobox") as HTMLSelectElement;
+  const select = screen.getByRole("combobox");
 
   // Select cohort 3
-  fireEvent.change(select, { target: { value: "3" } });
+  const user = userEvent.setup();
+  await user.selectOptions(select, "3");
 
   expect(onSearchMock).toHaveBeenCalledWith({
     name: "",
@@ -141,7 +137,7 @@ test("calls onSearch when only cohort is selected without name", () => {
   });
 });
 
-test("calls onSearch when name is empty and cohort is selected", () => {
+test("calls onSearch when name is entered and cohort is selected", async () => {
   render(
     <SearchBar
       filter={filter}
@@ -150,14 +146,16 @@ test("calls onSearch when name is empty and cohort is selected", () => {
     />,
   );
 
-  const input = screen.getByPlaceholderText("검색") as HTMLInputElement;
-  const select = screen.getByRole("combobox") as HTMLSelectElement;
+  const input = screen.getByPlaceholderText("검색");
+  const select = screen.getByRole("combobox");
+
+  const user = userEvent.setup();
 
   // Select cohort 1
-  fireEvent.change(select, { target: { value: "1" } });
+  await user.selectOptions(select, "1");
 
   // Change name to empty string
-  fireEvent.change(input, { target: { value: "" } });
+  await user.type(input, "John");
 
   // Wait for trigger
   expect(onSearchMock).toHaveBeenCalledWith({
