@@ -36,7 +36,7 @@ jobs:
   chromatic:
     environment:
       name: chromatic
-      url: https://${{ github.head_ref }}--67451d0423c813a4784afd4a.chromatic.com
+      url: https://${{ github.ref_name }}--67451d0423c813a4784afd4a.chromatic.com
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
