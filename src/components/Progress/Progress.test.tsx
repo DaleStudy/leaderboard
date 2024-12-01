@@ -4,7 +4,7 @@ import Progress from "./Progress";
 import { mock } from "vitest-mock-extended";
 import useMembers from "../../hooks/useMembers";
 import { test, vi } from "vitest";
-import { Member } from "../../api/services/common/types";
+import { Member } from "../../api/services/types";
 
 vi.mock("../../hooks/useMembers");
 

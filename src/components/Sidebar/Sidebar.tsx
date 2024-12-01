@@ -1,20 +1,20 @@
-import { useEffect } from "react";
-import styles from "./Aside.module.css";
+import { useEffect, useRef } from "react";
+import styles from "./Sidebar.module.css";
 import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
 import LargeTree from "../../assets/LargeTree.png";
 import Github from "../../assets/Github.png";
-import { Grade } from "../../api/services/common/types.ts";
+import { Grade } from "../../api/services/types";
 
-interface AsideProps {
+interface SidebarProps {
   githubUsername: string;
   easyProgress: string;
   mediumProgress: string;
   hardProgress: string;
-  solvedTasks: number;
-  totalTasks: number;
-  profile_url: string;
+  solvedProblems: number;
+  totalProblems: number;
+  profileUrl: string;
   cohort: number;
   grade: Grade;
 }
@@ -22,28 +22,33 @@ interface AsideProps {
 const imageTable = {
   SEED: Seed,
   SPROUT: Sprout,
-  SMALL_TREE: YoungTree,
-  BIG_TREE: LargeTree,
+  LEAF: Sprout,
+  BRANCH: Sprout,
+  FRUIT: YoungTree,
+  TREE: LargeTree,
 };
 
-export default function Aside({
+export default function Sidebar({
   githubUsername,
   easyProgress,
   mediumProgress,
   hardProgress,
-  solvedTasks,
-  totalTasks,
-  profile_url,
+  solvedProblems,
+  totalProblems,
+  profileUrl,
   cohort,
   grade,
-}: AsideProps) {
-  const progressPercent = Math.min((solvedTasks / totalTasks) * 100, 100);
+}: SidebarProps) {
+  const progressContainerRef = useRef<HTMLDivElement>(null);
+  const progressPercent = Math.min((solvedProblems / totalProblems) * 100, 100);
 
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--progress",
-      `${progressPercent}%`,
-    );
+    if (progressContainerRef.current) {
+      progressContainerRef.current.style.setProperty(
+        "--progress",
+        `${progressPercent}%`,
+      );
+    }
   }, [progressPercent]);
 
   const taskProgress = [
@@ -54,15 +59,15 @@ export default function Aside({
 
   return (
     <aside>
-      <div className={styles.container}>
+      <div className={styles.container} ref={progressContainerRef}>
         <span className={styles.cohort}>{cohort}기</span>
         <section className={styles.profile}>
           <div className={styles.avatar}>
             <div className={styles["progress-circle"]}></div>
-            <img src={profile_url} alt="User's profile picture" />
+            <img src={profileUrl} alt="User's profile picture" />
           </div>
           <div>
-            <span className={styles.gradientText}>{solvedTasks} </span>
+            <span className={styles.gradientText}>{solvedProblems} </span>
             <span className={styles.solidText}> 문제</span>
           </div>
           <div className={styles.progress}>
