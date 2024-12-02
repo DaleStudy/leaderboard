@@ -1,21 +1,7 @@
-import type { Grade } from "../services/common/types";
-
-export type StudyConfig = {
-  organization: string;
-  repository: string;
-  branchName: string;
-  teamPrefix: string;
-  totalProblemCount: number;
-  gradeThresholds: [Grade, number][];
-};
-
-export type GitHubConfig = {
-  baseUrl: string;
-  mediaType: string;
-  token: string;
-};
+import type { Grade } from "../services/types";
 
 export type Config = {
-  study: StudyConfig;
-  gitHub: GitHubConfig;
+  totalProblemCount: number;
+  gradeThresholds: [Grade, number][];
+  gitHubToken: string;
 };

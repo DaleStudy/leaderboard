@@ -3,8 +3,10 @@ export type Cohort = number;
 export enum Grade {
   SEED = "SEED",
   SPROUT = "SPROUT",
-  SMALL_TREE = "SMALL_TREE",
-  BIG_TREE = "BIG_TREE",
+  LEAF = "LEAF",
+  BRANCH = "BRANCH",
+  FRUIT = "FRUIT",
+  TREE = "TREE",
 }
 
 export type MemberIdentity = {

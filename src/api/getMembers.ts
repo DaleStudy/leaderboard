@@ -1,7 +1,7 @@
-import { CONFIG } from "../../config";
-import type { Member } from "../common/types";
-import { createFetchService } from "../fetch/fetchService";
-import { createProcessService } from "../process/processService";
+import { CONFIG } from "./config";
+import { createFetchService } from "./services/fetch/fetchService";
+import { createProcessService } from "./services/process/processService";
+import { type Member } from "./services/types";
 
 export async function getMembers(): Promise<Member[]> {
   const fetchService = createFetchService(CONFIG);
@@ -9,7 +9,7 @@ export async function getMembers(): Promise<Member[]> {
 
   const [memberIdentities, submissions] = await Promise.all([
     fetchService.fetchMembers(),
-    fetchService.fetchSubmissions(CONFIG.study.repository),
+    fetchService.fetchSubmissions("leetcode-study"),
   ]);
 
   return processService.getMembers(memberIdentities, submissions);

@@ -2,8 +2,9 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 
-import { getMembers } from "../../api/services/store/storeService";
+import { getMembers } from "../../api/getMembers";
 import useMembers, { type Filter } from "../../hooks/useMembers";
+
 import Card from "../Card/Card";
 
 import styles from "./Leaderboard.module.css";

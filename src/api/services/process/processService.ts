@@ -5,7 +5,7 @@ import {
   type Member,
   type MemberIdentity,
   type Submission,
-} from "../common/types";
+} from "../types";
 
 export function createProcessService(config: Config) {
   return {
@@ -16,8 +16,9 @@ export function createProcessService(config: Config) {
       const memberMap = initializeMemberMap(memberIdentities);
 
       updateSubmissions(memberMap, submissions);
-      calculateProgress(memberMap, config.study.totalProblemCount);
-      updateGrades(memberMap, config.study.gradeThresholds);
+      dropMembersWithoutSubmissions(memberMap);
+      calculateProgress(memberMap, config.totalProblemCount);
+      updateGrades(memberMap, config.gradeThresholds);
 
       return Object.values(memberMap);
     },
@@ -61,6 +62,16 @@ const updateSubmissions = (
     }
 
     member.solvedProblems.push(problemMap[submission.problemTitle]);
+  });
+};
+
+const dropMembersWithoutSubmissions = (
+  memberMap: Record<string, Member>,
+): void => {
+  Object.keys(memberMap).forEach((memberId) => {
+    if (memberMap[memberId].solvedProblems.length === 0) {
+      delete memberMap[memberId];
+    }
   });
 };
 

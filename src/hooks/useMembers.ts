@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Member } from "../api/services/common/types";
+import type { Member } from "../api/services/types";
 
 type UseMembers = (params: { getMembers: () => Promise<Member[]> }) => {
   members: Member[];

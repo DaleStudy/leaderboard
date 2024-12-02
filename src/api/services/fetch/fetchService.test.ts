@@ -1,13 +1,49 @@
 import { beforeEach, expect, test, vi } from "vitest";
+import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
-import {
-  dummyConfig,
-  mockGitHubMembers,
-  mockGitHubTeams,
-  mockGitHubTree,
-} from "../common/fixtures";
 import { createFetchService } from "./fetchService";
+import { Grade } from "../types";
+import { GitHubMember, GitHubTeam, GitHubTree } from "../../infra/gitHub/types";
 
+// Mock data
+const dummyConfig = {
+  totalProblemCount: 6,
+  gradeThresholds: [
+    ["TREE", 5],
+    ["FRUIT", 4],
+    ["BRANCH", 3],
+    ["LEAF", 2],
+    ["SPROUT", 1],
+    ["SEED", 0],
+  ] as [Grade, number][],
+  gitHubToken: "test-token",
+};
+
+const mockGitHubMembers = Array.from({ length: 10 }, (_, idx) => ({
+  ...mock<GitHubMember>(),
+  login: `member${idx}`,
+  id: idx,
+}));
+
+const mockGitHubTeams = [
+  { ...mock<GitHubTeam>(), name: "leetcode1" },
+  { ...mock<GitHubTeam>(), name: "leetcode2" },
+  { ...mock<GitHubTeam>(), name: "another-team" },
+];
+
+const mockGitHubTrees: GitHubTree[] = [
+  "problem1/algo.js",
+  "problem1/dale.py",
+  "problem2/algo.ts",
+  "invalid/path",
+  "README.md",
+].map((path) => ({
+  ...mock<GitHubTree>(),
+  type: "blob",
+  path,
+}));
+
+// Mock services
 const mockGetTeamNames = vi.fn();
 const mockGetTeamMembers = vi.fn();
 const mockGetDirectoryTree = vi.fn();
@@ -36,7 +72,7 @@ test("fetchMembers should fetch and transform members correctly", async () => {
   const result = await fetchService.fetchMembers();
 
   // Assert
-  expect(mockGetTeamNames).toHaveBeenCalledWith(dummyConfig.study.organization);
+  expect(mockGetTeamNames).toHaveBeenCalledWith("DaleStudy");
   expect(mockGetTeamMembers).toHaveBeenCalledTimes(2); // Only algodale teams
   expect(result).toEqual(
     mockGitHubMembers.map((member) => ({
@@ -108,16 +144,16 @@ test("fetchMembers should handle duplicate members keeping the latest cohort", a
 
 test("fetchSubmissions should fetch and parse submissions correctly", async () => {
   // Arrange
-  mockGetDirectoryTree.mockResolvedValue(mockGitHubTree);
+  mockGetDirectoryTree.mockResolvedValue(mockGitHubTrees);
 
   // Act
   const result = await fetchService.fetchSubmissions("test-repo");
 
   // Assert
   expect(mockGetDirectoryTree).toHaveBeenCalledWith(
-    dummyConfig.study.organization,
+    "DaleStudy",
     "test-repo",
-    dummyConfig.study.branchName,
+    "main",
   );
 
   expect(result).toEqual([
@@ -142,7 +178,7 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
 test("fetchSubmissions should filter out invalid submission paths", async () => {
   // Arrange
   const treeWithInvalidPaths = [
-    ...mockGitHubTree,
+    ...mockGitHubTrees,
     {
       path: "invalid/path/format",
       type: "blob",
@@ -170,7 +206,7 @@ test("fetchSubmissions should filter out invalid submission paths", async () => 
 test("fetchSubmissions should filter out non-submission files", async () => {
   // Arrange
   mockGetDirectoryTree.mockResolvedValue([
-    ...mockGitHubTree,
+    ...mockGitHubTrees,
     {
       path: "README.md",
       type: "blob",

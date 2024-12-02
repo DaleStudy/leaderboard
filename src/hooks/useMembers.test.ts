@@ -1,9 +1,26 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
+import { faker } from "@faker-js/faker";
 
-import { createMockMember } from "../api/services/common/fixtures";
-import { type Member } from "../api/services/common/types";
+import { Grade, type Member } from "../api/services/types";
 import useMembers from "./useMembers";
+import { problems } from "../constants/problems";
+
+function createMockMember(custom: Partial<Member> = {}): Member {
+  return {
+    id: faker.string.uuid(),
+    name: faker.person.fullName(),
+    cohort: faker.number.int({ min: 1, max: 10 }),
+    profileUrl: faker.internet.url(),
+    progress: faker.number.int({ min: 0, max: 100 }),
+    grade: faker.helpers.arrayElement(Object.values(Grade)),
+    solvedProblems: faker.helpers.arrayElements(
+      problems,
+      faker.number.int({ min: 0, max: 5 }),
+    ),
+    ...custom,
+  };
+}
 
 test("fetch member info successfully and update state", async () => {
   const expectedMembers: Member[] = [

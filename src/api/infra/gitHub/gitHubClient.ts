@@ -1,4 +1,3 @@
-import type { GitHubConfig } from "../../config/types";
 import type {
   GitHubMember,
   GitHubTeam,
@@ -6,10 +5,10 @@ import type {
   GitHubTreeResponse,
 } from "./types";
 
-export function createGitHubClient(config: GitHubConfig) {
-  const request = async (url: string, token?: string): Promise<unknown> => {
+export function createGitHubClient(token: string) {
+  const request = async (url: string): Promise<unknown> => {
     const headers: Record<string, string> = {
-      Accept: config.mediaType,
+      Accept: "application/vnd.github+json",
     };
 
     if (token) {
@@ -29,18 +28,16 @@ export function createGitHubClient(config: GitHubConfig) {
 
   return {
     getTeamNames: async (organization: string): Promise<string[]> =>
-      request(
-        `${config.baseUrl}/orgs/${organization}/teams`,
-        config.token,
-      ).then((response) => (response as GitHubTeam[]).map((team) => team.name)),
+      request(`https://api.github.com/orgs/${organization}/teams`).then(
+        (response) => (response as GitHubTeam[]).map((team) => team.name),
+      ),
 
     getTeamMembers: async (
       organization: string,
       teamName: string,
     ): Promise<GitHubMember[]> =>
       request(
-        `${config.baseUrl}/orgs/${organization}/teams/${teamName}/members`,
-        config.token,
+        `https://api.github.com/orgs/${organization}/teams/${teamName}/members`,
       ).then((response) => response as GitHubMember[]),
 
     getDirectoryTree: async (
@@ -50,7 +47,7 @@ export function createGitHubClient(config: GitHubConfig) {
       recursive = 1,
     ): Promise<GitHubTree[]> =>
       request(
-        `${config.baseUrl}/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
+        `https://api.github.com/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
       ).then((response) => (response as GitHubTreeResponse).tree),
   };
 }
