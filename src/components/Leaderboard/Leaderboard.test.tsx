@@ -1,6 +1,8 @@
+import { faker } from "@faker-js/faker";
 import { expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { render, screen } from "@testing-library/react";
+
 import type { Member } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Leaderboard from "./Leaderboard";
@@ -9,7 +11,14 @@ vi.mock("../../hooks/useMembers");
 
 test("render the loading message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: true, error: null, members: [] }),
+    mock({
+      isLoading: true,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
@@ -19,7 +28,14 @@ test("render the loading message while fetching members", () => {
 
 test("render the error message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: new Error(), members: [] }),
+    mock({
+      isLoading: false,
+      error: new Error(),
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
@@ -29,7 +45,14 @@ test("render the error message while fetching members", () => {
 
 test("render the site header", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
@@ -40,7 +63,14 @@ test("render the site header", () => {
 
 test("render the page title", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
@@ -50,16 +80,23 @@ test("render the page title", () => {
 
 test("render the member cards", () => {
   const members = [
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
-    mock<Member>(),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
+    mock<Member>({ name: faker.person.fullName() }),
   ];
 
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members }),
+    mock({
+      isLoading: false,
+      error: null,
+      members,
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
@@ -71,10 +108,34 @@ test("render the member cards", () => {
 
 test("render the site footer", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ isLoading: false, error: null, members: [mock<Member>()] }),
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ name: faker.person.fullName() })],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
   );
 
   render(<Leaderboard />);
 
   expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
+});
+
+test("render the search bar", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ name: faker.person.fullName() })],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  render(<Leaderboard />);
+
+  expect(screen.getByLabelText("Search Bar"));
 });

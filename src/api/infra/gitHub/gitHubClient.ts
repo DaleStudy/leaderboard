@@ -7,12 +7,15 @@ import type {
 
 export function createGitHubClient(token: string) {
   const request = async (url: string): Promise<unknown> => {
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `token ${token}`,
-      },
-    });
+    const headers: Record<string, string> = {
+      Accept: "application/vnd.github+json",
+    };
+
+    if (token) {
+      headers.Authorization = `token ${token}`;
+    }
+
+    const response = await fetch(url, { headers });
 
     if (!response.ok) {
       throw new Error(

@@ -1,4 +1,4 @@
-name: 🚢 Deployment
+name: Deployment 🚢
 
 on:
   push:
@@ -32,3 +32,18 @@ jobs:
           path: "./dist"
       - uses: actions/deploy-pages@v4
         id: deployment
+
+  chromatic:
+    environment:
+      name: chromatic
+      url: https://${{ github.ref_name }}--67451d0423c813a4784afd4a.chromatic.com
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

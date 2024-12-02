@@ -1,11 +1,46 @@
 .leaderboard {
-  /* 컴포넌트가 헤더에 가려져서 임의로 지정했으니 컴포넌트 개발자가 설계에 맞게 수정해주시면 됩니다  */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 1080px;
   margin-top: 100px;
-  /* TODO remove after replacing the inline article with the card component */
-  article {
-    border: 1px solid gray;
-    border-radius: 16px;
-    padding: 16px;
-    margin: 16px;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    margin-top: 30px;
+    margin-bottom: 60px;
+
+    li {
+      flex: 1;
+    }
+  }
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 10px;
+
+  width: 100%;
+  margin-bottom: 30px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 24px;
   }
 }

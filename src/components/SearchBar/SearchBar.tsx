@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from "react";
 
+import type { Filter } from "../../hooks/useMembers";
+
+import style from "./SearchBar.module.css";
+
 interface SearchBarProps {
-  onSearch: (name: string, cohort: number | null) => void;
+  filter: Filter;
+  onSearch: (filter: Filter) => void;
   totalCohorts: number;
 }
 
-export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
-  const [name, setName] = useState<string>("");
-  const [cohort, setCohort] = useState<number | null>(null);
+export default function SearchBar({
+  filter,
+  onSearch,
+  totalCohorts,
+}: SearchBarProps) {
   const [debounceTimeout, setDebounceTimeout] = useState<number | null>(null);
+  const [localName, setLocalName] = useState<string>(filter.name);
+
+  useEffect(() => {
+    setLocalName(filter.name);
+  }, [filter.name]);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.trim();
-    setName(value);
+    const value = event.target.value;
+    setLocalName(value);
 
     if (debounceTimeout) {
       clearTimeout(debounceTimeout);
     }
 
     const timeout = window.setTimeout(() => {
-      onSearch(value, cohort);
+      onSearch({
+        name: value.trim(),
+        cohort: filter.cohort,
+      });
     }, 200);
 
     setDebounceTimeout(timeout);
@@ -28,38 +43,38 @@ export default function SearchBar({ onSearch, totalCohorts }: SearchBarProps) {
   const handleCohortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
 
-    setCohort(value === "" ? null : Number(value));
-    onSearch(name, value === "" ? null : Number(value));
+    onSearch({
+      name: filter.name,
+      cohort: value ? parseInt(value) : null,
+    });
   };
 
-  useEffect(() => {
-    if (name === "" && cohort) {
-      onSearch(name, cohort);
-    }
-  }, [name, cohort, onSearch]);
-
   return (
-    <div>
+    <section aria-label="Search Bar" className={style.searchBar}>
+      <img src="/search-icon.svg" alt="검색 아이콘" />
+
       <input
-        type="text"
-        value={name}
+        type="search"
+        value={localName}
         onChange={handleNameChange}
         aria-label="이름 검색"
         placeholder="검색"
       />
 
+      <div role="separator" className="separator"></div>
+
       <select
-        value={cohort ?? ""}
+        value={filter.cohort ?? ""}
         onChange={handleCohortChange}
         aria-label="기수 선택"
       >
-        <option value="">기수</option>
+        <option value="">전체 기수</option>
         {[...Array(totalCohorts)].map((_, index) => (
           <option key={index} value={index + 1}>
             {index + 1}기
           </option>
         ))}
       </select>
-    </div>
+    </section>
   );
 }

@@ -25,7 +25,7 @@ test("getTeamNames should fetch and return team names", async () => {
   const expectedUrl = `https://api.github.com/orgs/test-org/teams`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${"test-token"}`,
+    Authorization: "token test-token",
   };
 
   // Act
@@ -63,7 +63,7 @@ test("getTeamMembers should fetch and return team members", async () => {
   const expectedUrl = `https://api.github.com/orgs/test-org/teams/test-team/members`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${"test-token"}`,
+    Authorization: "token test-token",
   };
 
   // Act
@@ -86,7 +86,7 @@ test("getDirectoryTree should fetch and return directory tree", async () => {
   const expectedUrl = `https://api.github.com/repos/test-owner/test-repo/git/trees/main?recursive=1`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
-    Authorization: `token ${"test-token"}`,
+    Authorization: "token test-token",
   };
 
   // Act
