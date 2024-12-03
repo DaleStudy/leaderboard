@@ -1,10 +1,11 @@
+import { faker } from "@faker-js/faker";
 import { expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Progress from "./Progress";
 import { mock } from "vitest-mock-extended";
 import useMembers from "../../hooks/useMembers";
 import { test, vi } from "vitest";
-import { Member } from "../../api/services/types";
+import { type Member, Grade } from "../../api/services/types";
 
 vi.mock("../../hooks/useMembers");
 
@@ -13,7 +14,7 @@ test("render the site header", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "sam", solvedProblems: [] })],
+      members: [mockMember({ id: "sam" })],
       totalCohorts: 3, // Add missing property
       filter: { name: "", cohort: null }, // Add missing property
       setFilter: vi.fn(), // Add mock function
@@ -70,7 +71,7 @@ test("display member is not found when query parameter is not passed", () => {
 });
 
 test("render page when query parameter is passed", async () => {
-  const mockedMember = mock<Member>();
+  const mockedMember = mockMember();
   const mockedQueryParam = "evan";
 
   mockedMember.id = mockedQueryParam;
@@ -107,3 +108,14 @@ test("render page when query parameter is passed", async () => {
   const userNameElement = await screen.findByText(mockedMember.name);
   expect(userNameElement).toBeInTheDocument();
 });
+
+function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
+  return mock<Member>({
+    id,
+    name: id,
+    cohort: faker.number.int({ min: 1, max: 9 }),
+    grade: faker.helpers.arrayElement(Object.values(Grade)),
+    profileUrl: faker.internet.url(),
+    solvedProblems: [],
+  });
+}
