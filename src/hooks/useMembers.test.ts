@@ -49,6 +49,8 @@ test("fetch member info successfully and update state", async () => {
 });
 
 test("handle error when fetching member info fails", async () => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+
   const mockError = new Error("Fetch error");
   const getMembers = vi.fn().mockRejectedValue(mockError);
 
@@ -66,6 +68,8 @@ test("handle error when fetching member info fails", async () => {
   expect(result.current.members).toEqual([]);
   expect(result.current.error).toEqual(mockError);
   expect(getMembers).toHaveBeenCalledTimes(1);
+
+  vi.mocked(console.error).mockRestore();
 });
 
 test("filter members by name and cohort", async () => {
