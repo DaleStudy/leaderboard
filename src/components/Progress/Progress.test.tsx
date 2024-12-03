@@ -1,41 +1,109 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Progress from "./Progress"; // Adjust the import path as needed
+import Progress from "./Progress";
+import { mock } from "vitest-mock-extended";
+import useMembers from "../../hooks/useMembers";
+import { test, vi } from "vitest";
+import { Member } from "../../api/services/types";
 
-describe("<Progress/>", () => {
-  beforeEach(() => render(<Progress />));
+vi.mock("../../hooks/useMembers");
 
-  it("renders the table", () => {
-    const table = screen.getByRole("table");
-    expect(table).toBeInTheDocument();
+test("render the site header", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ id: "sam", solvedProblems: [] })],
+      totalCohorts: 3, // Add missing property
+      filter: { name: "", cohort: null }, // Add missing property
+      setFilter: vi.fn(), // Add mock function
+    }),
+  );
+
+  vi.stubGlobal("location", {
+    href: `http://example.com?member=sam`,
+    search: `?member=sam`,
   });
 
-  it("renders the page header", () => {
-    const header = screen.getByRole("banner");
-    expect(header).toBeInTheDocument();
+  render(<Progress />);
+
+  const header = screen.getByRole("banner");
+  expect(header).toBeInTheDocument();
+});
+
+test("display error message if member is not found", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 3,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  render(<Progress />);
+
+  const errorMessage = screen.getByText("Member not found!");
+  expect(errorMessage).toBeInTheDocument();
+});
+
+test("display member is not found when query parameter is not passed", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [],
+      totalCohorts: 3,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+  vi.stubGlobal("location", {
+    href: "http://example.com",
+  });
+  render(<Progress />);
+
+  const errorMessage = screen.getByText("Member not found!");
+  expect(errorMessage).toBeInTheDocument();
+});
+
+test("render page when query parameter is passed", async () => {
+  const mockedMember = mock<Member>();
+  const mockedQueryParam = "evan";
+
+  mockedMember.id = mockedQueryParam;
+  mockedMember.name = "soundmin";
+  mockedMember.solvedProblems = [
+    { title: "Problem 1", difficulty: "easy" },
+    { title: "Problem 2", difficulty: "medium" },
+    { title: "Problem 3", difficulty: "easy" },
+  ];
+
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mockedMember],
+      totalCohorts: 3,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  vi.stubGlobal("location", {
+    href: `http://example.com?member=${mockedQueryParam}`,
+    search: `?member=${mockedQueryParam}`,
   });
 
-  it("renders the title", () => {
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Progress");
-  });
+  render(<Progress />);
 
-  it("renders the profile information", () => {
-    const profileSection = screen.getByRole("heading", {
-      level: 2,
-      name: /Profile Section/i,
-    });
-    expect(profileSection).toBeInTheDocument();
+  // Assert that the error message is not shown
+  const errorMessage = screen.queryByText("Member not found!");
+  expect(errorMessage).not.toBeInTheDocument();
 
-    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "0 Attempting",
-    );
-    expect(screen.getByText(/^Easy: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
-    expect(screen.getByText(/^Med.: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
-    expect(screen.getByText(/^Hard: \d{1,2}\/\d{1,2}$/)).toBeInTheDocument();
-  });
-
-  it("renders footer", () => {
-    expect(screen.getByRole("contentinfo"));
-  });
+  // Wait for the member's name to appear
+  const userNameElement = await screen.findByText(mockedMember.name);
+  expect(userNameElement).toBeInTheDocument();
 });

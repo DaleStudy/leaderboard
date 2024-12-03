@@ -1,52 +1,99 @@
+import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Table from "../Table/Table";
-
 import { getMembers } from "../../api/getMembers";
-import useMembers from "../../hooks/useMembers";
+import { problemMap, problemCounts } from "../../constants/problems";
 
+import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
 
 export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
   console.log({ members, isLoading, error });
 
-  const problems = [
+  const memberId = new URL(location.href).searchParams.get("member");
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
+  const member = members.find((m) => m.id === memberId);
+  if (!member) return <p>Member not found!</p>;
+
+  const totalProblems = Object.values(problemMap).length;
+  const {
+    easy: easyProblemsCount,
+    medium: mediumProblemsCount,
+    hard: hardProblemsCount,
+  } = problemCounts;
+
+  const solvedCounts = member.solvedProblems.reduce(
+    (acc, problem) => {
+      acc[problem.difficulty] = (acc[problem.difficulty] || 0) + 1;
+      acc.total += 1;
+      return acc;
+    },
+    { easy: 0, medium: 0, hard: 0, total: 0 },
+  );
+
+  const {
+    easy: easySolved,
+    medium: mediumSolved,
+    hard: hardSolved,
+    total: totalSolved,
+  } = solvedCounts;
+
+  const easyProgress = `${easySolved}/${easyProblemsCount}`;
+  const mediumProgress = `${mediumSolved}/${mediumProblemsCount}`;
+  const hardProgress = `${hardSolved}/${hardProblemsCount}`;
+
+  const { grade, cohort } = member;
+
+  const profileUrl = member.profileUrl || "Logo.png";
+
+  // To be updated, this will be replaced by the real data in a seperate pr.
+  const mockedProblems = [
     {
-      id: 128,
-      title: "Longest Consecutive Sequence",
-      difficulty: "Med.",
+      id: 1,
+      title: "Problem 1",
+      difficulty: "easy",
       completed: true,
     },
-    { id: 1, title: "Two Sum", difficulty: "Easy", completed: true },
     {
-      id: 257,
-      title: "Binary Tree Paths",
-      difficulty: "Easy",
+      id: 2,
+      title: "Problem 2",
+      difficulty: "medium",
       completed: false,
     },
-    { id: 133, title: "Clone Graph", difficulty: "Med.", completed: true },
+    {
+      id: 3,
+      title: "Problem 3",
+      difficulty: "hard",
+      completed: true,
+    },
   ];
 
   return (
     <main className={styles.progress}>
       <Header />
-      <h1>Progress</h1>
+      <h1>풀이 현황</h1>
       <div className={styles.container}>
         <section aria-labelledby="profile">
-          <h2 id="profile">Profile Section</h2>
-          <div>
-            <img src="profile_image_url" alt="Profile" />
-            <h3>0 Attempting</h3>
-            <p>Easy: 12/12</p>
-            <p>Med.: 22/22</p>
-            <p>Hard: 1/1</p>
-          </div>
-          <button>PR 리스트</button>
+          <Sidebar
+            githubUsername={member.name}
+            easyProgress={easyProgress}
+            mediumProgress={mediumProgress}
+            hardProgress={hardProgress}
+            solvedProblems={totalSolved}
+            totalProblems={totalProblems}
+            profileUrl={profileUrl}
+            cohort={cohort}
+            grade={grade}
+          />
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
-          <Table problems={problems} />
+          <Table problems={mockedProblems} />
         </section>
       </div>
 

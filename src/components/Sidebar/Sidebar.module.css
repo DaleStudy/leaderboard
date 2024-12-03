@@ -1,0 +1,191 @@
+aside {
+  position: sticky;
+  top: 87px;
+  width: 260px;
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+  align-items: center;
+}
+
+.cohort {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container {
+  top: 230px;
+  left: 20px;
+  width: 250px;
+  padding: 20px 35px;
+  background-color: var(--bg-200);
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+  position: relative;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar img {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.progress-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    var(--secondary) 0%,
+    var(--primary) var(--progress),
+    var(--bg-200) var(--progress)
+  );
+}
+
+.progress-text {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-secondary);
+}
+
+.username {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.currentStatus {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+  padding-bottom: 31px;
+  border-bottom: 2px solid #846de9;
+}
+
+.currentStatus img {
+  width: 80px;
+  height: 103px;
+}
+
+.taskCounts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 35px;
+  gap: 35px;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  gap: 5px;
+}
+
+.easy {
+  color: #1cbaba;
+}
+
+.medium {
+  color: #ffb700;
+}
+
+.hard {
+  color: #f63737;
+}
+
+.gradientText {
+  background: linear-gradient(to right, #24faca, #846de9);
+  color: transparent;
+  background-clip: text;
+  font-size: 17px;
+}
+
+.solidText {
+  font-size: 13px;
+}
+
+.returnButtonLink {
+  display: block;
+  width: 80%;
+  padding: 10px 0;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  color: var(--primary) !important;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background-color: var(--primary);
+    color: white !important;
+  }
+
+  &:active {
+    font-weight: var(--font-weight-bold);
+    color: var(--primary) !important;
+    background-color: white;
+    text-decoration: underline;
+  }
+}
+
+.problemButtonLink {
+  display: block;
+  padding: 10px 0;
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  color: white !important;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background-color: var(--tertiary);
+    color: white !important;
+  }
+
+  &:active {
+    background-color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+}
+
+.githubLinkWrapper {
+  margin-top: 10px;
+
+  .githubLink {
+    margin-top: 10px;
+    align-items: center;
+    img {
+      transform: translateY(8px);
+    }
+  }
+}
