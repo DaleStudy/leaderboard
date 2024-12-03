@@ -3,7 +3,7 @@ import { expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { render, screen } from "@testing-library/react";
 
-import type { Member } from "../../api/services/types";
+import { type Member, Grade } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Leaderboard from "./Leaderboard";
 
@@ -79,14 +79,7 @@ test("render the page title", () => {
 });
 
 test("render the member cards", () => {
-  const members = [
-    mock<Member>({ name: faker.person.fullName() }),
-    mock<Member>({ name: faker.person.fullName() }),
-    mock<Member>({ name: faker.person.fullName() }),
-    mock<Member>({ name: faker.person.fullName() }),
-    mock<Member>({ name: faker.person.fullName() }),
-    mock<Member>({ name: faker.person.fullName() }),
-  ];
+  const members = [mockMember(), mockMember(), mockMember()];
 
   vi.mocked(useMembers).mockReturnValue(
     mock({
@@ -111,7 +104,7 @@ test("render the site footer", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ name: faker.person.fullName() })],
+      members: [mockMember()],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -128,7 +121,7 @@ test("render the search bar", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ name: faker.person.fullName() })],
+      members: [mockMember()],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -139,3 +132,13 @@ test("render the search bar", () => {
 
   expect(screen.getByLabelText("Search Bar"));
 });
+
+function mockMember() {
+  const userName = faker.internet.userName();
+  return mock<Member>({
+    id: userName,
+    name: userName,
+    cohort: faker.number.int({ min: 1, max: 9 }),
+    grade: faker.helpers.arrayElement(Object.values(Grade)),
+  });
+}
