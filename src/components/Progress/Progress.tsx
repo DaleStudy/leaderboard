@@ -16,10 +16,14 @@ import styles from "./Progress.module.css";
 
 export default function Progress() {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const { members, isLoading, error } = useMembers({ getMembers });
 =======
   const { members, isLoading, error } = useMembers({ getMembers });  
 >>>>>>> da91128 (feat : complete progress component)
+=======
+  const { members, isLoading, error } = useMembers({ getMembers });
+>>>>>>> 2434ee4 (update : adjust stories and test with new props)
 
   const memberId = new URL(location.href).searchParams.get("member");
 
