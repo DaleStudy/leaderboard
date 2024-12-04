@@ -109,12 +109,16 @@ export default function Progress() {
 
         <section className={styles.problemList} aria-labelledby="problem-list">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Table problems={problems} solvedProblems={member.solvedProblems} />
 =======
           <Table problems={problems}
                  solvedProblems={member.solvedProblems}
           />
 >>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
+=======
+          <Table problems={problems} solvedProblems={member.solvedProblems} />
+>>>>>>> a89544a (fix : adjust the margin for design)
         </section>
       </div>
     </main>

@@ -140,6 +140,7 @@ test("render page when query parameter is passed", async () => {
   const userNameElement = await screen.findByText(mockedMember.name);
   expect(userNameElement).toBeInTheDocument();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -163,4 +164,10 @@ function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
 =======
 });
 >>>>>>> 18e4279 (feat : complete progress component)
+<<<<<<< HEAD
 >>>>>>> da91128 (feat : complete progress component)
+=======
+=======
+});
+>>>>>>> 8133827 (fix : adjust the margin for design)
+>>>>>>> a89544a (fix : adjust the margin for design)

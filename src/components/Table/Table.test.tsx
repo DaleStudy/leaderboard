@@ -14,8 +14,19 @@ const problems = [
   { id: 133, title: "Clone Graph", difficulty: "Med.", completed: true },
 ];
 
+const solvedProblems = [
+  {
+    id: 128,
+    title: "Longest Consecutive Sequence",
+    difficulty: "Med.",
+    completed: true,
+  },
+  { id: 257, title: "Binary Tree Paths", difficulty: "Easy", completed: false },
+  { id: 133, title: "Clone Graph", difficulty: "Med.", completed: true },
+];
+
 test("renders table headers", () => {
-  render(<Table problems={problems} />);
+  render(<Table problems={problems} solvedProblems={solvedProblems} />);
   expect(
     screen.getByRole("columnheader", { name: "Problem Title" }),
   ).toBeInTheDocument();
@@ -34,12 +45,21 @@ test("renders number of problem rows", () => {
 });
 
 test("renders icon for completed/incomplete problems", () => {
-  render(<Table problems={problems} />);
-  const rows = screen.getAllByRole("row").slice(1); // Exclude header row
+  render(
+    <Table
+      problems={problems}
+      solvedProblems={problems.filter((p) => p.completed)}
+    />,
+  );
+
+  const rows = screen.getAllByRole("row").slice(1); // Skip the header row
 
   rows.forEach((row, index) => {
     const { completed } = problems[index];
     const iconLabel = completed ? "Completed problem" : "Incomplete problem";
-    expect(within(row).getByLabelText(iconLabel)).toBeInTheDocument();
+
+    // This ensures that we check for the icon's aria-label inside the row
+    const icon = within(row).getByLabelText(iconLabel);
+    expect(icon).toBeInTheDocument();
   });
 });

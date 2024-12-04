@@ -1,19 +1,25 @@
 .progress {
   width: 80%;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 120px;
+  max-width: 1200px;
+}
+
+h1 {
+  font-size: 24px;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
 }
 
-.profile {
+.sideBar {
   width: 20%;
 }
 
 .problemList {
-  margin-top: 77px;
-  width: 80%;
+  width: 75%;
 }
