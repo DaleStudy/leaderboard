@@ -103,9 +103,15 @@ test("render page when query parameter is passed", async () => {
   mockedMember.id = mockedQueryParam;
   mockedMember.name = "soundmin";
   mockedMember.solvedProblems = [
+<<<<<<< HEAD
     { id: 31, title: "Problem 1", difficulty: "Easy" },
     { id: 52, title: "Problem 2", difficulty: "Med" },
     { id: 30, title: "Problem 3", difficulty: "Hard" },
+=======
+    { id: 31, title: "Problem 1", difficulty: "easy" },
+    { id: 52, title: "Problem 2", difficulty: "medium" },
+    { id: 30, title: "Problem 3", difficulty: "easy" },
+>>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
   ];
 
   vi.mocked(useMembers).mockReturnValue(

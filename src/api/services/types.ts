@@ -22,9 +22,10 @@ export type Submission = {
   language: string;
 };
 
-export type Difficulty = "easy" | "medium" | "hard";
+export type Difficulty = "Easy" | "Med" | "Hard";
 
 export type Problem = {
+  id: string;
   title: string;
   difficulty: Difficulty;
 };

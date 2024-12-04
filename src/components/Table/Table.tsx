@@ -1,15 +1,14 @@
 import styles from "./Table.module.css";
 
-// temporary interface for now until we have data fetching hook
 interface Problem {
   id: number;
   title: string;
   difficulty: string;
-  completed: boolean;
 }
 
 interface TableProps {
   problems: Problem[];
+  solvedProblems: Problem[];
 }
 
 function getTaskIcon(completed: boolean) {
@@ -54,14 +53,14 @@ function getTaskIcon(completed: boolean) {
 function getDifficultyClass(difficulty: string) {
   if (difficulty === "Easy") {
     return styles.easy;
-  } else if (difficulty === "Med.") {
+  } else if (difficulty === "Med") {
     return styles.medium;
   } else {
     return styles.hard;
   }
 }
 
-function Table({ problems }: TableProps) {
+function Table({ problems, solvedProblems }: TableProps) {
   return (
     <table className={styles.table}>
       <thead>
@@ -91,20 +90,30 @@ function Table({ problems }: TableProps) {
       </thead>
       <tbody>
         {problems.map((problem) => {
-          const problemIcon = getTaskIcon(problem.completed);
+          const isCompleted = (solvedProblems || []).some(
+            (solved) => solved.id === problem.id
+          );
+          const problemIcon = getTaskIcon(isCompleted);
           const difficultyClass = getDifficultyClass(problem.difficulty);
+
+          // Replace hyphens (-) with spaces in the title
+          const formattedTitle = problem.title.replace(/-/g, " ");
+
+          // Add a period to "Med" only
+          const difficultyLabel =
+            problem.difficulty === "Med" ? `${problem.difficulty}.` : problem.difficulty;
 
           return (
             <tr key={problem.id}>
               <td className={styles.problemData}>
-                {problem.id}. {problem.title}
+                {problem.id}. {formattedTitle}
               </td>
               <td className={`${styles.difficultyData} ${difficultyClass}`}>
-                {problem.difficulty}
+                {difficultyLabel}
               </td>
               <td
                 className={styles.statusData}
-                aria-label={problem.completed ? "Completed" : "Incomplete"}
+                aria-label={isCompleted ? "Completed" : "Incomplete"}
               >
                 {problemIcon}
               </td>
@@ -115,5 +124,6 @@ function Table({ problems }: TableProps) {
     </table>
   );
 }
+
 
 export default Table;

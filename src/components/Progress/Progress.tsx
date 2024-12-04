@@ -61,6 +61,7 @@ export default function Progress() {
   const profileUrl = member.profileUrl || "Logo.png";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   // To be updated, this will be replaced by the real data in a seperate pr.
   const mockedProblems = [
@@ -86,6 +87,8 @@ export default function Progress() {
   ];
 
 >>>>>>> da91128 (feat : complete progress component)
+=======
+>>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
   return (
     <main className={styles.progress}>
       <h1>풀이 현황</h1>
@@ -105,7 +108,13 @@ export default function Progress() {
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
+<<<<<<< HEAD
           <Table problems={problems} solvedProblems={member.solvedProblems} />
+=======
+          <Table problems={problems}
+                 solvedProblems={member.solvedProblems}
+          />
+>>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
         </section>
       </div>
     </main>
