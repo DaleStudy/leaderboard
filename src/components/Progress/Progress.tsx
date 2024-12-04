@@ -10,7 +10,6 @@ import styles from "./Progress.module.css";
 
 export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
-  console.log({ members, isLoading, error });
 
   const memberId = new URL(location.href).searchParams.get("member");
 

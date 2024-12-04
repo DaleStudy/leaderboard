@@ -1,5 +1,5 @@
-import { getMembers } from "../../api/getMembers";
-import useMembers from "../../hooks/useMembers";
+// import { getMembers } from "../../api/getMembers";
+// import useMembers from "../../hooks/useMembers";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -7,8 +7,8 @@ import Header from "../Header/Header";
 import styles from "./Certificate.module.css";
 
 export default function Certificate() {
-  const { members, isLoading, error } = useMembers({ getMembers });
-  console.log({ members, isLoading, error });
+  // const { members, isLoading, error } = useMembers({ getMembers });
+  // console.log({ members, isLoading, error });
 
   const member = new URL(location.href).searchParams.get("member");
 
