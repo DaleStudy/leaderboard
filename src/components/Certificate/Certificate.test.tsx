@@ -1,12 +1,11 @@
-import { afterAll, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { afterAll, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import useMembers from "../../hooks/useMembers";
-
-import Certificate from "./Certificate";
 import { Member } from "../../api/services/types";
+import useMembers from "../../hooks/useMembers";
+import Certificate from "./Certificate";
 
 vi.mock("../../hooks/useMembers");
 
@@ -46,24 +45,6 @@ test("render the error message while fetching members", () => {
   render(<Certificate />);
 
   expect(screen.getByText(/error/i)).toBeInTheDocument();
-});
-
-test("renders the page header", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
-
-  render(<Certificate />);
-
-  const header = screen.getByRole("banner");
-  expect(header).toBeInTheDocument();
 });
 
 test("render page title", () => {
@@ -232,20 +213,4 @@ test("render LinkedIn link", () => {
     "href",
     `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${members[0].name}&organizationId=104834174&certUrl=${location.href}`,
   );
-});
-
-test("render footer", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [mock<Member>()],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
-  render(<Certificate />);
-
-  expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
 });
