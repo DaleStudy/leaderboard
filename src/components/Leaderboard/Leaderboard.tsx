@@ -1,5 +1,3 @@
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { getMembers } from "../../api/getMembers";
@@ -24,8 +22,6 @@ export default function Leaderboard() {
 
   return (
     <main className={styles.leaderboard}>
-      <Header />
-
       <div className={styles.contentWrapper}>
         <section className={styles.toolbar}>
           <h1>리더보드</h1>
@@ -49,8 +45,6 @@ export default function Leaderboard() {
           ))}
         </ul>
       </div>
-
-      <Footer />
     </main>
   );
 }

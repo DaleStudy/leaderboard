@@ -2,8 +2,6 @@ import { getMembers } from "../../api/getMembers";
 import useMembers from "../../hooks/useMembers";
 import Signature from "../../assets/signature.png";
 
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import Link from "../Link/Link";
 import Button from "../Button/Button";
 
@@ -25,7 +23,6 @@ export default function Certificate() {
 
   return (
     <main className={styles.certificate}>
-      <Header />
       <section>
         <div>
           <h1>수료증</h1>
@@ -350,7 +347,6 @@ export default function Certificate() {
           </section>
         </div>
       </section>
-      <Footer />
     </main>
   );
 }

@@ -1,9 +1,7 @@
-import Sidebar from "../Sidebar/Sidebar";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
-import Table from "../Table/Table";
 import { getMembers } from "../../api/getMembers";
-import { problemMap, problemCounts } from "../../constants/problems";
+import { problemCounts, problemMap } from "../../constants/problems";
+import Sidebar from "../Sidebar/Sidebar";
+import Table from "../Table/Table";
 
 import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
@@ -74,7 +72,6 @@ export default function Progress() {
 
   return (
     <main className={styles.progress}>
-      <Header />
       <h1>풀이 현황</h1>
       <div className={styles.container}>
         <section aria-labelledby="profile">
@@ -95,8 +92,6 @@ export default function Progress() {
           <Table problems={mockedProblems} />
         </section>
       </div>
-
-      <Footer />
     </main>
   );
 }

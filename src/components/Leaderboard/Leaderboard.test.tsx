@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
+import { render, screen } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
-import { render, screen } from "@testing-library/react";
 
 import { type Member, Grade } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
@@ -43,24 +43,6 @@ test("render the error message while fetching members", () => {
   expect(screen.getByText(/error/i)).toBeInTheDocument();
 });
 
-test("render the site header", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
-
-  render(<Leaderboard />);
-
-  const header = screen.getByRole("banner");
-  expect(header).toBeInTheDocument();
-});
-
 test("render the page title", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
@@ -97,23 +79,6 @@ test("render the member cards", () => {
   const memberCards = screen.getAllByRole("article");
 
   expect(memberCards).toHaveLength(members.length);
-});
-
-test("render the site footer", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [mockMember()],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
-
-  render(<Leaderboard />);
-
-  expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
 });
 
 test("render the search bar", () => {
