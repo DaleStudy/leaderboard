@@ -113,6 +113,7 @@ test("render page when query parameter is passed", async () => {
   mockedMember.solvedProblems = [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     { id: 31, title: "Problem 1", difficulty: "Easy" },
     { id: 52, title: "Problem 2", difficulty: "Med" },
     { id: 30, title: "Problem 3", difficulty: "Hard" },
@@ -126,6 +127,11 @@ test("render page when query parameter is passed", async () => {
     { id: "52", title: "Problem 2", difficulty: "Med" },
     { id: "30", title: "Problem 3", difficulty: "Hard" },
 >>>>>>> 2434ee4 (update : adjust stories and test with new props)
+=======
+    { id: 31, title: "Problem 1", difficulty: "Easy" },
+    { id: 52, title: "Problem 2", difficulty: "Med" },
+    { id: 30, title: "Problem 3", difficulty: "Hard" },
+>>>>>>> b7f50c1 (feat : apply feedback)
   ];
 
   vi.mocked(useMembers).mockReturnValue(

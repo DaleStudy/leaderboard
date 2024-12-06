@@ -6,34 +6,34 @@ const meta: Meta<typeof Table> = {
   args: {
     problems: [
       {
-        id: "1",
+        id: 1,
         title: "Two Sum",
         difficulty: "Easy",
       },
       {
-        id: "128",
+        id: 128,
         title: "Longest Consecutive Sequence",
         difficulty: "Med",
       },
       {
-        id: "133",
+        id: 133,
         title: "Clone Graph",
         difficulty: "Med",
       },
       {
-        id: "295",
+        id: 295,
         title: "Find Median From Data Stream",
         difficulty: "Hard",
       },
     ],
     solvedProblems: [
       {
-        id: "1",
+        id: 1,
         title: "Two Sum",
         difficulty: "Easy",
       },
       {
-        id: "133",
+        id: 133,
         title: "Clone Graph",
         difficulty: "Med",
       },
@@ -49,44 +49,44 @@ export const AllCompleted: StoryObj<typeof Table> = {
   args: {
     problems: [
       {
-        id: "1",
+        id: 1,
         title: "Two Sum",
         difficulty: "Easy",
       },
       {
-        id: "128",
+        id: 128,
         title: "Longest Consecutive Sequence",
         difficulty: "Med",
       },
       {
-        id: "133",
+        id: 133,
         title: "Clone Graph",
         difficulty: "Med",
       },
       {
-        id: "295",
+        id: 295,
         title: "Find Median From Data Stream",
         difficulty: "Hard",
       },
     ],
     solvedProblems: [
       {
-        id: "1",
+        id: 1,
         title: "Two Sum",
         difficulty: "Easy",
       },
       {
-        id: "128",
+        id: 128,
         title: "Longest Consecutive Sequence",
         difficulty: "Med",
       },
       {
-        id: "133",
+        id: 133,
         title: "Clone Graph",
         difficulty: "Med",
       },
       {
-        id: "295",
+        id: 295,
         title: "Find Median From Data Stream",
         difficulty: "Hard",
       },
@@ -94,26 +94,26 @@ export const AllCompleted: StoryObj<typeof Table> = {
   },
 };
 
-export const NoCompletedProblems: StoryObj<typeof Table> = {
+export const NoCompleted: StoryObj<typeof Table> = {
   args: {
     problems: [
       {
-        id: "1",
+        id: 1,
         title: "Two Sum",
         difficulty: "Easy",
       },
       {
-        id: "128",
+        id: 128,
         title: "Longest Consecutive Sequence",
         difficulty: "Med",
       },
       {
-        id: "133",
+        id: 133,
         title: "Clone Graph",
         difficulty: "Med",
       },
       {
-        id: "295",
+        id: 295,
         title: "Find Median From Data Stream",
         difficulty: "Hard",
       },

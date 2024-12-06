@@ -4,10 +4,14 @@ import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Table } from "../Table/Table";
 =======
 import Table from "../Table/Table";
 >>>>>>> da91128 (feat : complete progress component)
+=======
+import { Table } from "../Table/Table";
+>>>>>>> b7f50c1 (feat : apply feedback)
 import { getMembers } from "../../api/getMembers";
 import { problems, problemMap, problemCounts } from "../../constants/problems";
 

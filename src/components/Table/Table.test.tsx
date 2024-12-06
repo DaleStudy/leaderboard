@@ -1,26 +1,26 @@
 import { render, screen, within } from "@testing-library/react";
 import { test, expect } from "vitest";
-import Table from "./Table";
+import { Table } from "./Table";
 
 const problems = [
   {
-    id: "128",
+    id: 128,
     title: "Longest Consecutive Sequence",
     difficulty: "Med.",
   },
-  { id: "1", title: "Two Sum", difficulty: "Easy" },
-  { id: "257", title: "Binary Tree Paths", difficulty: "Easy" },
-  { id: "133", title: "Clone Graph", difficulty: "Med." },
+  { id: 1, title: "Two Sum", difficulty: "Easy" },
+  { id: 257, title: "Binary Tree Paths", difficulty: "Easy" },
+  { id: 133, title: "Clone Graph", difficulty: "Med." },
 ];
 
 const solvedProblems = [
   {
-    id: "128",
+    id: 128,
     title: "Longest Consecutive Sequence",
     difficulty: "Med.",
   },
-  { id: "257", title: "Binary Tree Paths", difficulty: "Easy" },
-  { id: "133", title: "Clone Graph", difficulty: "Med." },
+  { id: 257, title: "Binary Tree Paths", difficulty: "Easy" },
+  { id: 133, title: "Clone Graph", difficulty: "Med." },
 ];
 
 test("renders table headers", () => {

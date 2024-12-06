@@ -25,7 +25,7 @@ export type Submission = {
 export type Difficulty = "Easy" | "Med" | "Hard";
 
 export type Problem = {
-  id: string;
+  id: number;
   title: string;
   difficulty: Difficulty;
 };

@@ -1,7 +1,7 @@
 import styles from "./Table.module.css";
 
 interface Problem {
-  id: string;
+  id: number;
   title: string;
   difficulty: string;
 }
@@ -9,6 +9,72 @@ interface Problem {
 interface TableProps {
   problems: Problem[];
   solvedProblems: Problem[];
+}
+
+export function Table({ problems, solvedProblems }: TableProps) {
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th
+            className={styles.problemHeading}
+            scope="col"
+            aria-label="Problem Title"
+          >
+            Problem
+          </th>
+          <th
+            className={styles.difficultyHeading}
+            scope="col"
+            aria-label="Problem Difficulty"
+          >
+            Difficulty
+          </th>
+          <th
+            className={styles.statusHeading}
+            scope="col"
+            aria-label="Problem Completion Status"
+          >
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {problems.map((problem) => {
+          const isCompleted = solvedProblems.some(
+            (solved) => solved.id === problem.id,
+          );
+          const problemIcon = getTaskIcon(isCompleted);
+          const difficultyClass = getDifficultyClass(problem.difficulty);
+
+          const formattedTitle = problem.title.replace(/-/g, " ");
+
+          // Add a period to "Med" only
+          const difficultyLabel =
+            problem.difficulty === "Med"
+              ? `${problem.difficulty}.`
+              : problem.difficulty;
+
+          return (
+            <tr key={problem.id}>
+              <td className={styles.problemData}>
+                {problem.id}. {formattedTitle}
+              </td>
+              <td className={`${styles.difficultyData} ${difficultyClass}`}>
+                {difficultyLabel}
+              </td>
+              <td
+                className={styles.statusData}
+                aria-label={isCompleted ? "Completed" : "Incomplete"}
+              >
+                {problemIcon}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 }
 
 function getTaskIcon(completed: boolean) {
@@ -59,71 +125,3 @@ function getDifficultyClass(difficulty: string) {
     return styles.hard;
   }
 }
-
-function Table({ problems, solvedProblems }: TableProps) {
-  return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th
-            className={styles.problemHeading}
-            scope="col"
-            aria-label="Problem Title"
-          >
-            Problem
-          </th>
-          <th
-            className={styles.difficultyHeading}
-            scope="col"
-            aria-label="Problem Difficulty"
-          >
-            Difficulty
-          </th>
-          <th
-            className={styles.statusHeading}
-            scope="col"
-            aria-label="Problem Completion Status"
-          >
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {problems.map((problem) => {
-          const isCompleted = (solvedProblems || []).some(
-            (solved) => solved.id === problem.id,
-          );
-          const problemIcon = getTaskIcon(isCompleted);
-          const difficultyClass = getDifficultyClass(problem.difficulty);
-
-          const formattedTitle = problem.title.replace(/-/g, " ");
-
-          // Add a period to "Med" only
-          const difficultyLabel =
-            problem.difficulty === "Med"
-              ? `${problem.difficulty}.`
-              : problem.difficulty;
-
-          return (
-            <tr key={problem.id}>
-              <td className={styles.problemData}>
-                {problem.id}. {formattedTitle}
-              </td>
-              <td className={`${styles.difficultyData} ${difficultyClass}`}>
-                {difficultyLabel}
-              </td>
-              <td
-                className={styles.statusData}
-                aria-label={isCompleted ? "Completed" : "Incomplete"}
-              >
-                {problemIcon}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-}
-
-export default Table;
