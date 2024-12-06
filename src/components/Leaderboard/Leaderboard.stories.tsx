@@ -1,14 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { http, HttpResponse } from "msw";
+import { delay, http, HttpResponse } from "msw";
 import Leaderboard from "./Leaderboard";
 
 const meta = {
   component: Leaderboard,
-} satisfies Meta<typeof Leaderboard>;
-
-export default meta;
-
-export const Default: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [
@@ -52,6 +47,22 @@ export const Default: StoryObj<typeof meta> = {
               },
             ]),
         ),
+      ],
+    },
+  },
+} satisfies Meta<typeof Leaderboard>;
+
+export default meta;
+
+export const Default: StoryObj<typeof meta> = {};
+
+export const Loading: StoryObj<typeof meta> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", async () => {
+          await delay("infinite");
+        }),
       ],
     },
   },
