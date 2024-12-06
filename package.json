@@ -28,6 +28,7 @@
     "@storybook/addon-interactions": "^8.4.5",
     "@storybook/addon-links": "^8.4.5",
     "@storybook/addon-onboarding": "^8.4.5",
+    "@storybook/addon-queryparams": "^7.0.1",
     "@storybook/blocks": "^8.4.5",
     "@storybook/eslint-config-storybook": "^4.0.0",
     "@storybook/react": "^8.4.5",

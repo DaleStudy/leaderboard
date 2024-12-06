@@ -1,9 +1,118 @@
 .certificate {
   /* 컴포넌트가 헤더에 가려져서 임의로 지정했으니 컴포넌트 개발자가 설계에 맞게 수정해주시면 됩니다  */
   margin-top: 100px;
-  footer {
+
+  & > section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > div {
+      padding: 16px 0 70px 0;
+      width: 822px;
+      min-width: 822px;
+    }
+  }
+
+  & > div,
+  h1,
+  footer,
+  .buttons {
     @media print {
       display: none;
     }
+  }
+
+  @media print {
+    margin-top: 200px;
+  }
+}
+
+.content {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  height: 575px;
+  min-height: 575px;
+  border: 16px solid var(--bg-400);
+  padding: 15px;
+}
+
+.contentSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reverse {
+  transform: rotate(180deg);
+}
+
+.description {
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  & > h2 {
+    font-size: 20px;
+    line-height: 15px;
+    color: var(--bg-400);
+    font-weight: 700;
+    margin-top: 30px;
+  }
+
+  & > h3 {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 400;
+    margin-top: 10px;
+  }
+
+  & > h4 {
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: 700;
+    color: var(--bg-400);
+    margin-top: 35px;
+  }
+
+  & > p {
+    margin: 30px 0 0;
+    font-size: 18px;
+    text-align: center;
+    white-space: pre;
+  }
+
+  & > img {
+    margin-top: 45px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--bg-400);
+  }
+
+  & > h5 {
+    font-size: 18px;
+    color: var(--bg-400);
+    line-height: 26px;
+  }
+
+  & > span {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 15px;
+  color: var(--bg-100);
+
+  & > a {
+    max-height: 60px;
+    height: 60px;
+    font-size: 20px;
   }
 }
