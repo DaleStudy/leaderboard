@@ -1,5 +1,3 @@
-export type Cohort = number;
-
 export enum Grade {
   SEED = "SEED",
   SPROUT = "SPROUT",
@@ -12,7 +10,7 @@ export enum Grade {
 export type MemberIdentity = {
   id: string; // lowercase
   name: string;
-  cohort: Cohort;
+  cohort: number;
   profileUrl?: string;
 };
 

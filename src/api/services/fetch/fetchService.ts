@@ -1,7 +1,7 @@
 import type { Config } from "../../config/types";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
-import type { Cohort, MemberIdentity, Submission } from "../types";
+import type { MemberIdentity, Submission } from "../types";
 
 export function createFetchService(config: Config) {
   const gitHubClient = createGitHubClient(config.gitHubToken);
@@ -50,7 +50,7 @@ export function createFetchService(config: Config) {
   };
 }
 
-const parseCohort = (teamName: string, prefix: string): Cohort => {
+const parseCohort = (teamName: string, prefix: string): number => {
   // 기수(코호트)는 명확하게 숫자로 구성되어 있다고 가정한다.
   return parseInt(teamName.replace(prefix, ""), 10);
 };
