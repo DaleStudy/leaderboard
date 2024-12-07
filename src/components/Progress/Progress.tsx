@@ -1,3 +1,4 @@
+import Layout from "../Layout/Layout";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -55,30 +56,35 @@ export default function Progress() {
   const profileUrl = member.profileUrl || "Logo.png";
 
   return (
-    <main className={styles.progress}>
-      <Header />
-      <h1>풀이 현황</h1>
-      <div className={styles.container}>
-        <section className={styles.sideBar} aria-labelledby="profile">
-          <Sidebar
-            githubUsername={member.name}
-            easyProgress={easyProgress}
-            mediumProgress={mediumProgress}
-            hardProgress={hardProgress}
-            solvedProblems={totalSolved}
-            totalProblems={totalProblems}
-            profileUrl={profileUrl}
-            cohort={cohort}
-            grade={grade}
-          />
-        </section>
+    <Layout>
+      <main className={styles.progress}>
+        <Header />
+        <h1>풀이 현황</h1>
+        <div className={styles.container}>
+          <section className={styles.sideBar} aria-labelledby="profile">
+            <Sidebar
+              githubUsername={member.name}
+              easyProgress={easyProgress}
+              mediumProgress={mediumProgress}
+              hardProgress={hardProgress}
+              solvedProblems={totalSolved}
+              totalProblems={totalProblems}
+              profileUrl={profileUrl}
+              cohort={cohort}
+              grade={grade}
+            />
+          </section>
 
-        <section className={styles.problemList} aria-labelledby="problem-list">
-          <Table problems={problems} solvedProblems={member.solvedProblems} />
-        </section>
-      </div>
+          <section
+            className={styles.problemList}
+            aria-labelledby="problem-list"
+          >
+            <Table problems={problems} solvedProblems={member.solvedProblems} />
+          </section>
+        </div>
 
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </Layout>
   );
 }
