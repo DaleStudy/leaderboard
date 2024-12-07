@@ -46,8 +46,8 @@ test("display error message if member is not found", () => {
 
   render(<Progress />);
 
-  const errorMessage = screen.getByText("Member not found!");
-  expect(errorMessage).toBeInTheDocument();
+  const header = screen.getByRole("heading", { level: 1 });
+  expect(header).toHaveTextContent("Page Not Found");
 });
 
 test("display member is not found when query parameter is not passed", () => {
@@ -66,8 +66,8 @@ test("display member is not found when query parameter is not passed", () => {
   });
   render(<Progress />);
 
-  const errorMessage = screen.getByText("Member not found!");
-  expect(errorMessage).toBeInTheDocument();
+  const header = screen.getByRole("heading", { level: 1 });
+  expect(header).toHaveTextContent("Page Not Found");
 });
 
 test("render page when query parameter is passed", async () => {
