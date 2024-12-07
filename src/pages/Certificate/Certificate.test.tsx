@@ -47,7 +47,7 @@ test("render the error message while fetching members", () => {
   expect(screen.getByText(/error/i)).toBeInTheDocument();
 });
 
-test("render page title", () => {
+test("display error message if member is not found", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
       isLoading: false,
@@ -60,6 +60,26 @@ test("render page title", () => {
   );
 
   render(<Certificate />);
+
+  const header = screen.getByRole("heading", { level: 1 });
+  expect(header).toHaveTextContent("Page Not Found");
+});
+
+test("render page title", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  location.href = new URL(`?member=test1`, location.href).toString();
+  render(<Certificate />);
+
   const heading = screen.getByRole("heading", { level: 1 });
   expect(heading).toHaveTextContent("수료증");
 });
@@ -90,6 +110,7 @@ test("render content id", () => {
   members.forEach(({ id, name }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
     render(<Certificate />);
+
     expect(screen.getByRole("heading", { level: 4, name }));
   });
 });
@@ -135,7 +156,6 @@ test("render content solved problems, cohort", () => {
   const cohortSuffix = ["th", "st", "nd", "rd"];
   members.forEach(({ id, solvedProblems, currentCohort }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
-
     render(<Certificate />);
 
     screen.getByText(
@@ -158,13 +178,14 @@ test("render print button", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>()],
+      members: [mock<Member>({ id: "test1", name: "테스트1" })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
     }),
   );
 
+  location.href = new URL(`?member=test1`, location.href).toString();
   render(<Certificate />);
 
   const printButton = screen.getByRole("button", { name: "출력" });
@@ -176,14 +197,15 @@ test("calls window.print when the print button is clicked", async () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>()],
+      members: [mock<Member>({ id: "test1", name: "테스트1" })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
     }),
   );
-  vi.spyOn(window, "print").mockImplementation(() => {});
 
+  vi.spyOn(window, "print").mockImplementation(() => {});
+  location.href = new URL(`?member=test1`, location.href).toString();
   render(<Certificate />);
 
   const printButton = screen.getByRole("button", { name: "출력" });
@@ -193,27 +215,25 @@ test("calls window.print when the print button is clicked", async () => {
 });
 
 test("render LinkedIn link", () => {
-  const members = [mock<Member>({ id: "test1", name: "테스트1" })];
   vi.mocked(useMembers).mockReturnValue(
     mock({
       isLoading: false,
       error: null,
-      members,
+      members: [mock<Member>({ id: "test1", name: "테스트1" })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
     }),
   );
-  location.href = new URL(`?member=${members[0].id}`, location.href).toString();
 
+  location.href = new URL(`?member=test1`, location.href).toString();
   render(<Certificate />);
 
   const linkedInLink = screen.getByRole("link", {
     name: "링크드인 공유",
   });
-
   expect(linkedInLink).toHaveAttribute(
     "href",
-    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${members[0].name}&organizationId=104834174&certUrl=${location.href}`,
+    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=테스트1&organizationId=104834174&certUrl=${location.href}`,
   );
 });
