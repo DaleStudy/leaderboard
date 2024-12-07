@@ -5,6 +5,7 @@ import Table from "../Table/Table";
 
 import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
+import Error404 from "../Error404/Error404";
 
 export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
@@ -15,7 +16,7 @@ export default function Progress() {
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
-  if (!member) return <p>Member not found!</p>;
+  if (!member) return <Error404 />;
 
   const totalProblems = Object.values(problemMap).length;
   const {

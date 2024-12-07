@@ -8,3 +8,11 @@ const meta = {
 export default meta;
 
 export const Default: StoryObj<typeof meta> = {};
+
+export const Error404: StoryObj<typeof meta> = {
+  parameters: {
+    query: {
+      member: "sunjae9",
+    },
+  },
+};
