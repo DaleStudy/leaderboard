@@ -27,6 +27,7 @@ export function createFetchService(config: Config) {
                 name: member.login,
                 profileUrl: member.avatar_url,
                 cohort,
+                cohorts: new Set([cohort]),
               }),
             );
           }),
@@ -58,7 +59,10 @@ const parseCohort = (teamName: string, prefix: string): number => {
 const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
-    if (!existingMember || member.cohort > existingMember.cohort) {
+    if (existingMember) {
+      existingMember.cohort = Math.max(existingMember.cohort, member.cohort);
+      existingMember.cohorts.add(member.cohort);
+    } else {
       acc.set(member.id, member);
     }
     return acc;
