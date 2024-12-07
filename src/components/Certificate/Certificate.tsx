@@ -6,6 +6,7 @@ import Link from "../Link/Link";
 import Button from "../Button/Button";
 
 import styles from "./Certificate.module.css";
+import Error404 from "../Error404/Error404";
 
 const cohortSuffix = ["th", "st", "nd", "rd"];
 
@@ -16,10 +17,12 @@ export default function Certificate() {
     ({ id }) =>
       id === new URLSearchParams(document.location.search).get("member"),
   );
-  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${location.href}`;
 
   if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
+  if (!member) return <Error404 />;
+
+  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member.name}&organizationId=104834174&certUrl=${location.href}`;
 
   return (
     <main className={styles.certificate}>
@@ -190,9 +193,9 @@ export default function Certificate() {
 
               <h2>CERTIFICATE OF ACHIEVEMENT</h2>
               <h3>DaleStudy</h3>
-              <h4>{member?.name}</h4>
+              <h4>{member.name}</h4>
 
-              <p>{`For successfully completing ${member?.solvedProblems.length === 75 ? "all" : member?.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member?.cohort}${cohortSuffix?.[member?.cohort ?? 0] ?? "th"} DaleStudy.`}</p>
+              <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.cohort}${cohortSuffix?.[member.cohort ?? 0] ?? "th"} DaleStudy.`}</p>
 
               <img src={Signature} alt="signature" />
               <h5>Dale Seo</h5>
