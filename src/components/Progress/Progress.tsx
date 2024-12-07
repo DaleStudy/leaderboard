@@ -1,14 +1,16 @@
-import Layout from "../Layout/Layout";
-import Sidebar from "../Sidebar/Sidebar";
-import { Table } from "../Table/Table";
 import { getMembers } from "../../api/getMembers";
 import {
   problems,
   problemMap,
   problemCounts,
 } from "../../api/constants/problems";
-
 import useMembers from "../../hooks/useMembers";
+
+import Layout from "../Layout/Layout";
+import Sidebar from "../Sidebar/Sidebar";
+import { Table } from "../Table/Table";
+import Error404 from "../Error404/Error404";
+
 import styles from "./Progress.module.css";
 
 export default function Progress() {
@@ -20,7 +22,7 @@ export default function Progress() {
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
-  if (!member) return <p>Member not found!</p>;
+  if (!member) return <Error404 />;
 
   const totalProblems = Object.values(problemMap).length;
   const {
