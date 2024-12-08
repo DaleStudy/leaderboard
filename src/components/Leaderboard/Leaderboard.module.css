@@ -20,7 +20,7 @@
     margin-bottom: 60px;
 
     li {
-      flex: 1;
+      flex-basis: calc(calc(100% - 25px) / 2);
     }
   }
 }
