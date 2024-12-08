@@ -6,25 +6,23 @@ const meta: Meta<typeof Progress> = {
   component: Progress,
   parameters: {
     query: {
-      member: "evan",
+      member: "sunjae95",
     },
     msw: {
       handlers: [
-        http.get("https://api.example.com/members", () =>
-          HttpResponse.json([
-            {
-              id: "evan",
-              name: "soundmin",
-              cohort: 3,
-              grade: "A",
-              profileUrl: "https://example.com/avatar.png",
-              solvedProblems: [
-                { id: 31, title: "Problem 1", difficulty: "Easy" },
-                { id: 52, title: "Problem 2", difficulty: "Medium" },
-                { id: 30, title: "Problem 3", difficulty: "Hard" },
-              ],
-            },
-          ]),
+        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
+          HttpResponse.json([{ name: "leetcode02" }]),
+        ),
+        http.get(
+          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
+          () =>
+            HttpResponse.json([
+              {
+                login: "Sunjae95",
+                avatar_url:
+                  "https://avatars.githubusercontent.com/u/63578094?v=4",
+              },
+            ]),
         ),
       ],
     },

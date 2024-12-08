@@ -1,4 +1,4 @@
-import { problemMap } from "../../../constants/problems";
+import { problemMap } from "../../constants/problems";
 import type { Config } from "../../config/types";
 import {
   Grade,

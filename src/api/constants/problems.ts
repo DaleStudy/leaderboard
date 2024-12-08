@@ -1,4 +1,4 @@
-import type { Problem } from "../api/services/types";
+import type { Problem } from "../services/types";
 
 export const problems: Problem[] = [
   { id: 128, title: "longest-consecutive-sequence", difficulty: "Med" },

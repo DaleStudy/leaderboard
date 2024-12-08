@@ -1,33 +1,19 @@
-import { getMembers } from "../../api/getMembers";
-import { problemCounts, problemMap } from "../../constants/problems";
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { Table } from "../Table/Table";
-=======
-import Table from "../Table/Table";
->>>>>>> da91128 (feat : complete progress component)
-=======
-import { Table } from "../Table/Table";
->>>>>>> b7f50c1 (feat : apply feedback)
 import { getMembers } from "../../api/getMembers";
-import { problems, problemMap, problemCounts } from "../../constants/problems";
+import {
+  problems,
+  problemMap,
+  problemCounts,
+} from "../../api/constants/problems";
 
 import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
 
 export default function Progress() {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const { members, isLoading, error } = useMembers({ getMembers });
-=======
-  const { members, isLoading, error } = useMembers({ getMembers });  
->>>>>>> da91128 (feat : complete progress component)
-=======
-  const { members, isLoading, error } = useMembers({ getMembers });
->>>>>>> 2434ee4 (update : adjust stories and test with new props)
 
   const memberId = new URL(location.href).searchParams.get("member");
 
@@ -68,37 +54,9 @@ export default function Progress() {
 
   const profileUrl = member.profileUrl || "Logo.png";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  // To be updated, this will be replaced by the real data in a seperate pr.
-  const mockedProblems = [
-  // Calculate total tasks dynamically
-    {
-      id: 1,
-      title: "Problem 1",
-      difficulty: "easy",
-      completed: true,
-    },
-    {
-      id: 2,
-      title: "Problem 2",
-      difficulty: "medium",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Problem 3",
-      difficulty: "hard",
-      completed: true,
-    },
-  ];
-
->>>>>>> da91128 (feat : complete progress component)
-=======
->>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
   return (
     <main className={styles.progress}>
+      <Header />
       <h1>풀이 현황</h1>
       <div className={styles.container}>
         <section className={styles.sideBar} aria-labelledby="profile">
@@ -116,19 +74,11 @@ export default function Progress() {
         </section>
 
         <section className={styles.problemList} aria-labelledby="problem-list">
-<<<<<<< HEAD
-<<<<<<< HEAD
           <Table problems={problems} solvedProblems={member.solvedProblems} />
-=======
-          <Table problems={problems}
-                 solvedProblems={member.solvedProblems}
-          />
->>>>>>> de28551 (update : change the difficulty to adjust to design and related codes to match it)
-=======
-          <Table problems={problems} solvedProblems={member.solvedProblems} />
->>>>>>> a89544a (fix : adjust the margin for design)
         </section>
       </div>
+
+      <Footer />
     </main>
   );
 }

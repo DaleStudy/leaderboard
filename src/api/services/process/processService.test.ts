@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import { problems } from "../../../constants/problems";
+import { problems } from "../../constants/problems";
 import type { Config } from "../../config/types";
 import { Grade, MemberIdentity, Submission } from "../types";
 import { createProcessService } from "./processService";
