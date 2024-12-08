@@ -2,6 +2,7 @@ import { getMembers } from "../../api/getMembers";
 import useMembers, { type Filter } from "../../hooks/useMembers";
 
 import Card from "../Card/Card";
+import Error500 from "../Error500/Error500";
 import Layout from "../Layout/Layout";
 import SearchBar from "../SearchBar/SearchBar";
 import Spinner from "../Spinner/Spinner";
@@ -16,9 +17,6 @@ export default function Leaderboard() {
     setFilter({ name, cohort });
 
   if (isLoading) return <Spinner />; // TODO replace with a proper loading component
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
-
-  const sortedMembers = members.sort((a, b) => b.progress - a.progress);
 
   return (
     <Layout>
@@ -34,16 +32,22 @@ export default function Leaderboard() {
           </section>
 
           <ul>
-            {sortedMembers.map((member) => (
-              <li key={member.id}>
-                <Card
-                  id={member.id}
-                  name={member.name}
-                  cohort={member.cohort}
-                  grade={member.grade}
-                />
-              </li>
-            ))}
+            {error ? (
+              <Error500 />
+            ) : (
+              members
+                .sort((a, b) => b.progress - a.progress)
+                .map((member) => (
+                  <li key={member.id}>
+                    <Card
+                      id={member.id}
+                      name={member.name}
+                      cohort={member.cohort}
+                      grade={member.grade}
+                    />
+                  </li>
+                ))
+            )}
           </ul>
         </div>
       </main>
