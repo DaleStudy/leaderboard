@@ -1,7 +1,5 @@
 import Layout from "../Layout/Layout";
 import Sidebar from "../Sidebar/Sidebar";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import { Table } from "../Table/Table";
 import { getMembers } from "../../api/getMembers";
 import {
@@ -58,7 +56,6 @@ export default function Progress() {
   return (
     <Layout>
       <main className={styles.progress}>
-        <Header />
         <h1>풀이 현황</h1>
         <div className={styles.container}>
           <section className={styles.sideBar} aria-labelledby="profile">
@@ -82,8 +79,6 @@ export default function Progress() {
             <Table problems={problems} solvedProblems={member.solvedProblems} />
           </section>
         </div>
-
-        <Footer />
       </main>
     </Layout>
   );
