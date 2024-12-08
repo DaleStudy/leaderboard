@@ -1,15 +1,80 @@
 import styles from "./Table.module.css";
 
-// temporary interface for now until we have data fetching hook
 interface Problem {
   id: number;
   title: string;
   difficulty: string;
-  completed: boolean;
 }
 
 interface TableProps {
   problems: Problem[];
+  solvedProblems: Problem[];
+}
+
+export function Table({ problems, solvedProblems }: TableProps) {
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th
+            className={styles.problemHeading}
+            scope="col"
+            aria-label="Problem Title"
+          >
+            Problem
+          </th>
+          <th
+            className={styles.difficultyHeading}
+            scope="col"
+            aria-label="Problem Difficulty"
+          >
+            Difficulty
+          </th>
+          <th
+            className={styles.statusHeading}
+            scope="col"
+            aria-label="Problem Completion Status"
+          >
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {problems.map((problem) => {
+          const isCompleted = solvedProblems.some(
+            (solved) => solved.id === problem.id,
+          );
+          const problemIcon = getTaskIcon(isCompleted);
+          const difficultyClass = getDifficultyClass(problem.difficulty);
+
+          const formattedTitle = problem.title.replace(/-/g, " ");
+
+          // Add a period to "Med" only
+          const difficultyLabel =
+            problem.difficulty === "Med"
+              ? `${problem.difficulty}.`
+              : problem.difficulty;
+
+          return (
+            <tr key={problem.id}>
+              <td className={styles.problemData}>
+                {problem.id}. {formattedTitle}
+              </td>
+              <td className={`${styles.difficultyData} ${difficultyClass}`}>
+                {difficultyLabel}
+              </td>
+              <td
+                className={styles.statusData}
+                aria-label={isCompleted ? "Completed" : "Incomplete"}
+              >
+                {problemIcon}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 }
 
 function getTaskIcon(completed: boolean) {
@@ -54,66 +119,9 @@ function getTaskIcon(completed: boolean) {
 function getDifficultyClass(difficulty: string) {
   if (difficulty === "Easy") {
     return styles.easy;
-  } else if (difficulty === "Med.") {
+  } else if (difficulty === "Med") {
     return styles.medium;
   } else {
     return styles.hard;
   }
 }
-
-function Table({ problems }: TableProps) {
-  return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th
-            className={styles.problemHeading}
-            scope="col"
-            aria-label="Problem Title"
-          >
-            Problem
-          </th>
-          <th
-            className={styles.difficultyHeading}
-            scope="col"
-            aria-label="Problem Difficulty"
-          >
-            Difficulty
-          </th>
-          <th
-            className={styles.statusHeading}
-            scope="col"
-            aria-label="Problem Completion Status"
-          >
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {problems.map((problem) => {
-          const problemIcon = getTaskIcon(problem.completed);
-          const difficultyClass = getDifficultyClass(problem.difficulty);
-
-          return (
-            <tr key={problem.id}>
-              <td className={styles.problemData}>
-                {problem.id}. {problem.title}
-              </td>
-              <td className={`${styles.difficultyData} ${difficultyClass}`}>
-                {problem.difficulty}
-              </td>
-              <td
-                className={styles.statusData}
-                aria-label={problem.completed ? "Completed" : "Incomplete"}
-              >
-                {problemIcon}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-}
-
-export default Table;

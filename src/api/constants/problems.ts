@@ -1,0 +1,127 @@
+import type { Problem } from "../services/types";
+
+export const problems: Problem[] = [
+  { id: 128, title: "longest-consecutive-sequence", difficulty: "Med" },
+  { id: 1, title: "two-sum", difficulty: "Easy" },
+  {
+    id: 3,
+    title: "longest-substring-without-repeating-characters",
+    difficulty: "Med",
+  },
+  { id: 5, title: "longest-palindromic-substring", difficulty: "Med" },
+  { id: 133, title: "clone-graph", difficulty: "Med" },
+  { id: 261, title: "graph-valid-tree", difficulty: "Med" },
+  { id: 647, title: "palindromic-substrings", difficulty: "Med" },
+  { id: 11, title: "container-with-most-water", difficulty: "Med" },
+  { id: 139, title: "word-break", difficulty: "Med" },
+  { id: 141, title: "linked-list-cycle", difficulty: "Easy" },
+  { id: 268, title: "missing-number", difficulty: "Easy" },
+  { id: 15, title: "3sum", difficulty: "Med" },
+  { id: 143, title: "reorder-list", difficulty: "Med" },
+  { id: 269, title: "alien-dictionary", difficulty: "Hard" },
+  { id: 271, title: "encode-and-decode-strings", difficulty: "Med" },
+  { id: 19, title: "remove-nth-node-from-end-of-list", difficulty: "Med" },
+  { id: 20, title: "valid-parentheses", difficulty: "Easy" },
+  { id: 21, title: "merge-two-sorted-lists", difficulty: "Easy" },
+  { id: 23, title: "merge-k-sorted-lists", difficulty: "Hard" },
+  { id: 152, title: "maximum-product-subarray", difficulty: "Med" },
+  {
+    id: 153,
+    title: "find-minimum-in-rotated-sorted-array",
+    difficulty: "Med",
+  },
+  { id: 33, title: "search-in-rotated-sorted-array", difficulty: "Med" },
+  { id: 417, title: "pacific-atlantic-water-flow", difficulty: "Med" },
+  { id: 39, title: "combination-sum", difficulty: "Med" },
+  { id: 295, title: "find-median-from-data-stream", difficulty: "Hard" },
+  {
+    id: 297,
+    title: "serialize-and-deserialize-binary-tree",
+    difficulty: "Hard",
+  },
+  {
+    id: 424,
+    title: "longest-repeating-character-replacement",
+    difficulty: "Med",
+  },
+  { id: 300, title: "longest-increasing-subsequence", difficulty: "Med" },
+  { id: 48, title: "rotate-image", difficulty: "Med" },
+  { id: 49, title: "group-anagrams", difficulty: "Med" },
+  { id: 435, title: "non-overlapping-intervals", difficulty: "Med" },
+  { id: 53, title: "maximum-subarray", difficulty: "Easy" },
+  { id: 54, title: "spiral-matrix", difficulty: "Med" },
+  { id: 55, title: "jump-game", difficulty: "Med" },
+  { id: 56, title: "merge-intervals", difficulty: "Med" },
+  { id: 57, title: "insert-interval", difficulty: "Hard" },
+  { id: 572, title: "subtree-of-another-tree", difficulty: "Easy" },
+  { id: 62, title: "unique-paths", difficulty: "Med" },
+  { id: 190, title: "reverse-bits", difficulty: "Easy" },
+  { id: 191, title: "number-of-1-bits", difficulty: "Easy" },
+  { id: 322, title: "coin-change", difficulty: "Med" },
+  {
+    id: 323,
+    title: "number-of-connected-components-in-an-undirected-graph",
+    difficulty: "Med",
+  },
+  { id: 70, title: "climbing-stairs", difficulty: "Easy" },
+  { id: 198, title: "house-robber", difficulty: "Med" },
+  { id: 200, title: "number-of-islands", difficulty: "Med" },
+  { id: 73, title: "set-matrix-zeroes", difficulty: "Med" },
+  { id: 76, title: "minimum-window-substring", difficulty: "Hard" },
+  { id: 206, title: "reverse-linked-list", difficulty: "Easy" },
+  { id: 79, title: "word-search", difficulty: "Med" },
+  { id: 207, title: "course-schedule", difficulty: "Med" },
+  { id: 208, title: "implement-trie-prefix-tree", difficulty: "Med" },
+  { id: 338, title: "counting-bits", difficulty: "Easy" },
+  {
+    id: 211,
+    title: "design-add-and-search-words-data-structure",
+    difficulty: "Med",
+  },
+  { id: 212, title: "word-search-ii", difficulty: "Hard" },
+  { id: 213, title: "house-robber-ii", difficulty: "Med" },
+  { id: 217, title: "contains-duplicate", difficulty: "Easy" },
+  { id: 91, title: "decode-ways", difficulty: "Med" },
+  { id: 347, title: "top-k-frequent-elements", difficulty: "Med" },
+  { id: 253, title: "meeting-rooms-ii", difficulty: "Med" },
+  { id: 98, title: "validate-binary-search-tree", difficulty: "Med" },
+  { id: 226, title: "invert-binary-tree", difficulty: "Easy" },
+  { id: 100, title: "same-tree", difficulty: "Easy" },
+  { id: 1143, title: "longest-common-subsequence", difficulty: "Med" },
+  { id: 102, title: "binary-tree-level-order-traversal", difficulty: "Med" },
+  { id: 230, title: "kth-smallest-element-in-a-bst", difficulty: "Med" },
+  { id: 104, title: "maximum-depth-of-binary-tree", difficulty: "Easy" },
+  {
+    id: 105,
+    title: "construct-binary-tree-from-preorder-and-inorder-traversal",
+    difficulty: "Med",
+  },
+  {
+    id: 235,
+    title: "lowest-common-ancestor-of-a-binary-search-tree",
+    difficulty: "Easy",
+  },
+  { id: 238, title: "product-of-array-except-self", difficulty: "Med" },
+  { id: 242, title: "valid-anagram", difficulty: "Easy" },
+  { id: 371, title: "sum-of-two-integers", difficulty: "Med" },
+  { id: 252, title: "meeting-rooms", difficulty: "Easy" },
+  { id: 121, title: "best-time-to-buy-and-sell-stock", difficulty: "Easy" },
+  { id: 124, title: "binary-tree-maximum-path-sum", difficulty: "Hard" },
+  { id: 125, title: "valid-palindrome", difficulty: "Easy" },
+];
+
+export const problemMap: Record<Problem["title"], Problem> = problems.reduce(
+  (map, problem) => {
+    map[problem.title] = problem;
+    return map;
+  },
+  {} as Record<Problem["title"], Problem>,
+);
+
+export const problemCounts = problems.reduce(
+  (acc, problem) => {
+    acc[problem.difficulty] += 1;
+    return acc;
+  },
+  { Easy: 0, Med: 0, Hard: 0 },
+);

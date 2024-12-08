@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker";
 
 import { Grade, type Member } from "../api/services/types";
 import useMembers from "./useMembers";
-import { problems } from "../constants/problems";
+import { problems } from "../api/constants/problems";
 
 function createMockMember(custom: Partial<Member> = {}): Member {
   return {
