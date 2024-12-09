@@ -1,7 +1,7 @@
 import type { Config } from "../../config/types";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
-import type { Cohort, MemberIdentity, Submission } from "../types";
+import type { MemberIdentity, Submission } from "../types";
 
 export function createFetchService(config: Config) {
   const gitHubClient = createGitHubClient(config.gitHubToken);
@@ -27,6 +27,7 @@ export function createFetchService(config: Config) {
                 name: member.login,
                 profileUrl: member.avatar_url,
                 cohort,
+                cohorts: new Set([cohort]),
               }),
             );
           }),
@@ -50,7 +51,7 @@ export function createFetchService(config: Config) {
   };
 }
 
-const parseCohort = (teamName: string, prefix: string): Cohort => {
+const parseCohort = (teamName: string, prefix: string): number => {
   // 기수(코호트)는 명확하게 숫자로 구성되어 있다고 가정한다.
   return parseInt(teamName.replace(prefix, ""), 10);
 };
@@ -58,7 +59,10 @@ const parseCohort = (teamName: string, prefix: string): Cohort => {
 const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
-    if (!existingMember || member.cohort > existingMember.cohort) {
+    if (existingMember) {
+      existingMember.cohort = Math.max(existingMember.cohort, member.cohort);
+      existingMember.cohorts.add(member.cohort);
+    } else {
       acc.set(member.id, member);
     }
     return acc;
