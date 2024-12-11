@@ -12,7 +12,7 @@ function createMockMember(custom: Partial<Member> = {}): Member {
     id: faker.string.uuid(),
     name: faker.person.fullName(),
     cohort,
-    cohorts: new Set([cohort]),
+    cohorts: [cohort],
     profileUrl: faker.internet.url(),
     progress: faker.number.int({ min: 0, max: 100 }),
     grade: faker.helpers.arrayElement(Object.values(Grade)),
