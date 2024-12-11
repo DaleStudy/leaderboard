@@ -1,6 +1,6 @@
-import Layout from "../Layout/Layout";
-import Sidebar from "../Sidebar/Sidebar";
-import { Table } from "../Table/Table";
+import Layout from "../../components/Layout/Layout";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { Table } from "../../components/Table/Table";
 import { getMembers } from "../../api/getMembers";
 import {
   problems,

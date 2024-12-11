@@ -1,10 +1,10 @@
 import { getMembers } from "../../api/getMembers";
 import useMembers, { type Filter } from "../../hooks/useMembers";
 
-import Card from "../Card/Card";
-import Layout from "../Layout/Layout";
-import SearchBar from "../SearchBar/SearchBar";
-import Spinner from "../Spinner/Spinner";
+import Card from "../../components/Card/Card";
+import Layout from "../../components/Layout/Layout";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Spinner from "../../components/Spinner/Spinner";
 
 import styles from "./Leaderboard.module.css";
 
