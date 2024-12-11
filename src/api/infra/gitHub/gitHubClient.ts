@@ -37,7 +37,7 @@ export function createGitHubClient(token: string) {
       teamName: string,
     ): Promise<GitHubMember[]> =>
       request(
-        `https://api.github.com/orgs/${organization}/teams/${teamName}/members`,
+        `https://api.github.com/orgs/${organization}/teams/${teamName}/members?per_page=100`,
       ).then((response) => response as GitHubMember[]),
 
     getDirectoryTree: async (

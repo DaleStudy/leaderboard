@@ -60,7 +60,7 @@ test("getTeamMembers should fetch and return team members", async () => {
     json: () => Promise.resolve(mockGitHubMembers),
   });
   const client = createGitHubClient("test-token");
-  const expectedUrl = `https://api.github.com/orgs/test-org/teams/test-team/members`;
+  const expectedUrl = `https://api.github.com/orgs/test-org/teams/test-team/members?per_page=100`;
   const expectedHeaders = {
     Accept: "application/vnd.github+json",
     Authorization: "token test-token",
