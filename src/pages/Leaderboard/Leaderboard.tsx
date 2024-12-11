@@ -40,6 +40,7 @@ export default function Leaderboard() {
                   id={member.id}
                   name={member.name}
                   cohort={member.cohort}
+                  cohorts={member.cohorts}
                   grade={member.grade}
                 />
               </li>

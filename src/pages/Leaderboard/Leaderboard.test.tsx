@@ -100,10 +100,12 @@ test("render the search bar", () => {
 
 function mockMember() {
   const userName = faker.internet.userName();
+  const cohort = faker.number.int({ min: 1, max: 9 });
   return mock<Member>({
     id: userName,
     name: userName,
-    cohort: faker.number.int({ min: 1, max: 9 }),
+    cohort,
+    cohorts: [cohort],
     grade: faker.helpers.arrayElement(Object.values(Grade)),
   });
 }

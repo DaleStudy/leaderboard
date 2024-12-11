@@ -9,5 +9,11 @@ const meta: Meta<typeof Card> = {
 export default meta;
 
 export const Default: StoryObj<typeof Card> = {
-  args: { id: "test", name: "test", cohort: 1, grade: Grade.SEED },
+  args: {
+    id: "test",
+    name: "test",
+    cohort: 1,
+    cohorts: [1],
+    grade: Grade.SEED,
+  },
 };

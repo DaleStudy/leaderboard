@@ -11,6 +11,7 @@ interface CardProps {
   id: string;
   name: string;
   cohort: number;
+  cohorts: number[];
   grade: Grade;
 }
 
@@ -23,7 +24,9 @@ const imageTable = {
   TREE: LargeTree,
 };
 
-export default function Card({ id, name, cohort, grade }: CardProps) {
+export default function Card({ id, name, cohort, cohorts, grade }: CardProps) {
+  const cohortString =
+    cohorts && cohorts.length > 0 ? cohorts.join(", ") : cohort;
   return (
     <article className={styles.item}>
       <img src={imageTable[grade]} alt={`${grade} image`} />
@@ -45,7 +48,7 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
           </div>
           <span>{name}</span>
         </section>
-        <section aria-label={`${cohort}기`}>
+        <section aria-label={`${cohortString}기`}>
           <div>
             <svg
               width="10"
@@ -60,7 +63,7 @@ export default function Card({ id, name, cohort, grade }: CardProps) {
               />
             </svg>
           </div>
-          <span>{cohort}기</span>
+          <span>{cohortString}기</span>
         </section>
         <section className={styles.link} aria-label={`card-navigation-${id}`}>
           <Link href={`/progress?member=${id}`} variant="primaryButton">
