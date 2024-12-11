@@ -7,10 +7,12 @@ import useMembers from "./useMembers";
 import { problems } from "../api/constants/problems";
 
 function createMockMember(custom: Partial<Member> = {}): Member {
+  const cohort = faker.number.int({ min: 1, max: 10 });
   return {
     id: faker.string.uuid(),
     name: faker.person.fullName(),
-    cohort: faker.number.int({ min: 1, max: 10 }),
+    cohort,
+    cohorts: new Set([cohort]),
     profileUrl: faker.internet.url(),
     progress: faker.number.int({ min: 0, max: 100 }),
     grade: faker.helpers.arrayElement(Object.values(Grade)),
