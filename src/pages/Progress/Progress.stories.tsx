@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { delay, http, HttpResponse } from "msw";
+
 import Progress from "./Progress";
-import { http, HttpResponse } from "msw";
 
 const meta: Meta<typeof Progress> = {
   component: Progress,
@@ -32,6 +33,18 @@ const meta: Meta<typeof Progress> = {
 export default meta;
 
 export const Default: StoryObj<typeof meta> = {};
+
+export const Loading: StoryObj<typeof meta> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", async () => {
+          await delay("infinite");
+        }),
+      ],
+    },
+  },
+};
 
 export const NotFound: StoryObj<typeof meta> = {
   parameters: {

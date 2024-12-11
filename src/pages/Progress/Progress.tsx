@@ -2,6 +2,7 @@ import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Table } from "../../components/Table/Table";
 import NotFound from "../../components/NotFound/NotFound";
+import Spinner from "../../components/Spinner/Spinner";
 import { getMembers } from "../../api/getMembers";
 import {
   problems,
@@ -17,7 +18,14 @@ export default function Progress() {
 
   const memberId = new URL(location.href).searchParams.get("member");
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Layout>
+        <main className={styles.loading}>
+          <Spinner />
+        </main>
+      </Layout>
+    );
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
