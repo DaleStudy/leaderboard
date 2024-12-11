@@ -16,7 +16,15 @@ export default function Leaderboard() {
   const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
 
-  if (isLoading) return <Spinner />; // TODO replace with a proper loading component
+  if (isLoading) {
+    return (
+      <Layout>
+        <main className={styles.loading}>
+          <Spinner />
+        </main>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
