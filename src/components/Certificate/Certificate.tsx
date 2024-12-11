@@ -5,6 +5,7 @@ import Signature from "../../assets/signature.png";
 import Layout from "../Layout/Layout";
 import Link from "../Link/Link";
 import Button from "../Button/Button";
+import Spinner from "../Spinner/Spinner";
 
 import styles from "./Certificate.module.css";
 
@@ -19,7 +20,15 @@ export default function Certificate() {
   );
   const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${location.href}`;
 
-  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (isLoading)
+    return (
+      <Layout>
+        <main className={styles.loading}>
+          <Spinner />
+        </main>
+      </Layout>
+    );
+
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   return (
