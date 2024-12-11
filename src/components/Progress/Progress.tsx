@@ -1,14 +1,15 @@
-import Layout from "../Layout/Layout";
-import Sidebar from "../Sidebar/Sidebar";
-import { Table } from "../Table/Table";
 import { getMembers } from "../../api/getMembers";
 import {
   problems,
   problemMap,
   problemCounts,
 } from "../../api/constants/problems";
-
 import useMembers from "../../hooks/useMembers";
+import Layout from "../Layout/Layout";
+import Sidebar from "../Sidebar/Sidebar";
+import { Table } from "../Table/Table";
+import Spinner from "../Spinner/Spinner";
+
 import styles from "./Progress.module.css";
 
 export default function Progress() {
@@ -16,7 +17,14 @@ export default function Progress() {
 
   const memberId = new URL(location.href).searchParams.get("member");
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Layout>
+        <main className={styles.loading}>
+          <Spinner />
+        </main>
+      </Layout>
+    );
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
