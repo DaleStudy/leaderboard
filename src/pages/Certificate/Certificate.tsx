@@ -2,9 +2,9 @@ import { getMembers } from "../../api/getMembers";
 import useMembers from "../../hooks/useMembers";
 import Signature from "../../assets/signature.png";
 
-import Layout from "../Layout/Layout";
-import Link from "../Link/Link";
-import Button from "../Button/Button";
+import Layout from "../../components/Layout/Layout";
+import Link from "../../components/Link/Link";
+import Button from "../../components/Button/Button";
 
 import styles from "./Certificate.module.css";
 
