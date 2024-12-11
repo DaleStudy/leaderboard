@@ -28,8 +28,11 @@
   font-weight: var(--font-weight-medium);
 
   span {
-    display: inline;
-    font-size: 20px;
+    display: none;
+    @media only screen and (min-width: 768px) {
+      display: inline;
+      font-size: 20px;
+    }
   }
 
   svg {
@@ -37,7 +40,27 @@
   }
 
   &:hover {
-    font-weight: var(--font-weight-bold);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    @media only screen and (min-width: 768px) {
+      box-shadow: none;
+      font-weight: var(--font-weight-bold);
+    }
+  }
+
+  &:active {
+    svg path {
+      fill: var(--text-900);
+    }
+
+    @media only screen and (min-width: 768px) {
+      svg path {
+        fill: url(#paint0_linear_278_133); /* Reset to original colour */
+      }
+    }
+
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 10px;
   }
 
   &:focus-visible {
