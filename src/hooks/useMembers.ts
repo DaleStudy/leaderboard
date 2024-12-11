@@ -31,8 +31,9 @@ const useMembers: UseMembers = function ({ getMembers }) {
 
       try {
         const members = await getMembers();
-        const totalCohorts = new Set(members.map((member) => member.cohort))
-          .size;
+        const totalCohorts = Math.max(
+          ...members.map((member) => Math.max(...member.cohorts)),
+        );
 
         setTotalCohorts(totalCohorts);
         setMembers(members);
@@ -54,7 +55,8 @@ const useMembers: UseMembers = function ({ getMembers }) {
           member.name.toLowerCase().includes(filter.name.toLowerCase()),
         )
         .filter(
-          (member) => filter.cohort === null || member.cohort === filter.cohort,
+          (member) =>
+            filter.cohort === null || member.cohorts.includes(filter.cohort),
         ),
     [filter.cohort, filter.name, members],
   );

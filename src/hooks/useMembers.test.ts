@@ -26,8 +26,8 @@ function createMockMember(custom: Partial<Member> = {}): Member {
 
 test("fetch member info successfully and update state", async () => {
   const expectedMembers: Member[] = [
-    createMockMember({ cohort: 1 }),
-    createMockMember({ cohort: 2 }),
+    createMockMember({ cohort: 1, cohorts: [1] }),
+    createMockMember({ cohort: 2, cohorts: [2] }),
   ];
 
   const getMembers = vi.fn().mockResolvedValue(expectedMembers);
@@ -76,9 +76,9 @@ test("handle error when fetching member info fails", async () => {
 
 test("filter members by name and cohort", async () => {
   const expectedMembers: Member[] = [
-    createMockMember({ name: "John Doe", cohort: 1 }),
-    createMockMember({ name: "Jane Doe", cohort: 2 }),
-    createMockMember({ name: "Alice Cooper", cohort: 1 }),
+    createMockMember({ name: "John Doe", cohort: 1, cohorts: [1] }),
+    createMockMember({ name: "Jane Doe", cohort: 2, cohorts: [2] }),
+    createMockMember({ name: "Alice Cooper", cohort: 1, cohorts: [1] }),
   ];
   const [johnDoe1, janeDoe1, aliceCooper2] = expectedMembers;
 
@@ -119,11 +119,11 @@ test("filter members by name and cohort", async () => {
 
 test("total cohorts calculated correctly", async () => {
   const expectedMembers: Member[] = [
-    createMockMember({ cohort: 1 }),
-    createMockMember({ cohort: 2 }),
-    createMockMember({ cohort: 2 }),
-    createMockMember({ cohort: 3 }),
-    createMockMember({ cohort: 3 }),
+    createMockMember({ cohort: 1, cohorts: [1] }),
+    createMockMember({ cohort: 2, cohorts: [2] }),
+    createMockMember({ cohort: 2, cohorts: [2] }),
+    createMockMember({ cohort: 3, cohorts: [3] }),
+    createMockMember({ cohort: 3, cohorts: [3] }),
   ];
 
   const getMembers = vi.fn().mockResolvedValue(expectedMembers);
@@ -137,9 +137,9 @@ test("total cohorts calculated correctly", async () => {
 
 test("filter members by name case-insensitively", async () => {
   const expectedMembers: Member[] = [
-    createMockMember({ name: "John Doe", cohort: 1 }),
-    createMockMember({ name: "jane doe", cohort: 2 }),
-    createMockMember({ name: "ALICE Cooper", cohort: 3 }),
+    createMockMember({ name: "John Doe", cohort: 1, cohorts: [1] }),
+    createMockMember({ name: "jane doe", cohort: 2, cohorts: [2] }),
+    createMockMember({ name: "ALICE Cooper", cohort: 3, cohorts: [3] }),
   ];
   const [johnDoe, janeDoe, aliceCooper] = expectedMembers;
 
