@@ -12,7 +12,7 @@ const meta = {
     solvedProblems: 16,
     totalProblems: 25,
     profileUrl: "https://avatars.githubusercontent.com/u/104721736?v=4",
-    cohort: 3,
+    currentCohort: 3,
     cohorts: [1, 2, 3],
     grade: Grade.LEAF,
   },

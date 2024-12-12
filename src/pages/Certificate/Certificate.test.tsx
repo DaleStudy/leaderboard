@@ -98,25 +98,25 @@ test("render content solved problems, cohort", () => {
   const members = [
     mock<Member>({
       solvedProblems: Array(5).fill({}),
-      cohort: 1,
+      currentCohort: 1,
       id: "test1",
       name: "테스트1",
     }),
     mock<Member>({
       solvedProblems: Array(10).fill({}),
-      cohort: 2,
+      currentCohort: 2,
       id: "test2",
       name: "테스트2",
     }),
     mock<Member>({
       solvedProblems: Array(20).fill({}),
-      cohort: 3,
+      currentCohort: 3,
       id: "test3",
       name: "테스트3",
     }),
     mock<Member>({
       solvedProblems: Array(75).fill({}),
-      cohort: 4,
+      currentCohort: 4,
       id: "test4",
       name: "테스트4",
     }),
@@ -133,7 +133,7 @@ test("render content solved problems, cohort", () => {
     }),
   );
   const cohortSuffix = ["th", "st", "nd", "rd"];
-  members.forEach(({ id, solvedProblems, cohort }) => {
+  members.forEach(({ id, solvedProblems, currentCohort }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
 
     render(<Certificate />);
@@ -145,7 +145,10 @@ test("render content solved problems, cohort", () => {
       ),
     );
     screen.getByText(
-      new RegExp(`${cohort}${cohortSuffix?.[cohort ?? 0] ?? "th"}`, "i"),
+      new RegExp(
+        `${currentCohort}${cohortSuffix?.[currentCohort ?? 0] ?? "th"}`,
+        "i",
+      ),
     );
   });
 });

@@ -79,7 +79,7 @@ test("fetchMembers should fetch and transform members correctly", async () => {
       id: member.login.toLowerCase(),
       name: member.login,
       profileUrl: member.avatar_url,
-      cohort: 2,
+      currentCohort: 2,
       cohorts: [1, 2],
     })),
   );
@@ -103,7 +103,7 @@ test("fetchMembers should handle duplicate members preferring higher cohort", as
     id: duplicateMember.login.toLowerCase(),
     name: duplicateMember.login,
     profileUrl: duplicateMember.avatar_url,
-    cohort: 2,
+    currentCohort: 2,
     cohorts: [1, 2],
   });
 });
@@ -129,10 +129,10 @@ test("fetchMembers should handle duplicate members keeping the latest cohort", a
   // same member in two different cohorts
   mockGetTeamMembers
     .mockResolvedValueOnce([
-      { ...duplicateMember, cohort: 1, cohorts: new Set([1]) },
+      { ...duplicateMember, currentCohort: 1, cohorts: [1] },
     ]) // earlier cohort
     .mockResolvedValueOnce([
-      { ...duplicateMember, cohort: 2, cohorts: new Set([2]) },
+      { ...duplicateMember, currentCohort: 2, cohorts: [2] },
     ]); // later cohort
 
   // Act
@@ -144,7 +144,7 @@ test("fetchMembers should handle duplicate members keeping the latest cohort", a
     id: duplicateMember.login.toLowerCase(),
     name: duplicateMember.login,
     profileUrl: duplicateMember.avatar_url,
-    cohort: 2,
+    currentCohort: 2,
     cohorts: [1, 2],
   });
 });

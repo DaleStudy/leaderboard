@@ -110,12 +110,12 @@ test("render page when query parameter is passed", async () => {
 });
 
 function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
-  const cohort = faker.number.int({ min: 1, max: 9 });
+  const currentCohort = faker.number.int({ min: 1, max: 9 });
   return mock<Member>({
     id,
     name: id,
-    cohort,
-    cohorts: [cohort],
+    currentCohort,
+    cohorts: [currentCohort],
     grade: faker.helpers.arrayElement(Object.values(Grade)),
     profileUrl: faker.internet.url(),
     solvedProblems: [],

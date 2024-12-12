@@ -19,15 +19,15 @@ export function createFetchService(config: Config) {
               "DaleStudy",
               teamName,
             );
-            const cohort = parseCohort(teamName, teamPrefix);
+            const currentCohort = parseCohort(teamName, teamPrefix);
 
             return members.map(
               (member): MemberIdentity => ({
                 id: member.login.toLocaleLowerCase(),
                 name: member.login,
                 profileUrl: member.avatar_url,
-                cohort,
-                cohorts: [cohort],
+                currentCohort,
+                cohorts: [currentCohort],
               }),
             );
           }),
@@ -60,9 +60,12 @@ const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
     if (existingMember) {
-      existingMember.cohort = Math.max(existingMember.cohort, member.cohort);
-      if (!existingMember.cohorts.includes(member.cohort)) {
-        existingMember.cohorts.push(member.cohort);
+      existingMember.currentCohort = Math.max(
+        existingMember.currentCohort,
+        member.currentCohort,
+      );
+      if (!existingMember.cohorts.includes(member.currentCohort)) {
+        existingMember.cohorts.push(member.currentCohort);
       }
     } else {
       acc.set(member.id, member);

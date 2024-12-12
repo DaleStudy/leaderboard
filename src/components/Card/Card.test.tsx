@@ -7,7 +7,13 @@ import Card from "./Card";
 
 test("render grade image", () => {
   render(
-    <Card id="test" name="test" grade={Grade.TREE} cohort={1} cohorts={[1]} />,
+    <Card
+      id="test"
+      name="test"
+      grade={Grade.TREE}
+      currentCohort={1}
+      cohorts={[1]}
+    />,
   );
 
   expect(
@@ -18,33 +24,45 @@ test("render grade image", () => {
 test("render github name", () => {
   const name = "user123";
   render(
-    <Card id="test" name={name} grade={Grade.TREE} cohort={1} cohorts={[1]} />,
+    <Card
+      id="test"
+      name={name}
+      grade={Grade.TREE}
+      currentCohort={1}
+      cohorts={[1]}
+    />,
   );
 
   expect(screen.getByRole("region", { name })).toBeInTheDocument();
 });
 
 test("render cohort", () => {
-  const cohort = 2;
+  const currentCohort = 2;
   render(
     <Card
       id="test"
       name="user123"
       grade={Grade.TREE}
-      cohort={cohort}
-      cohorts={[cohort]}
+      currentCohort={currentCohort}
+      cohorts={[currentCohort]}
     />,
   );
 
   expect(
-    screen.getByRole("region", { name: `${cohort}기` }),
+    screen.getByRole("region", { name: `${currentCohort}기` }),
   ).toBeInTheDocument();
 });
 
 test("render progress link", () => {
   const id = "test";
   render(
-    <Card id={id} name="user123" grade={Grade.TREE} cohort={1} cohorts={[1]} />,
+    <Card
+      id={id}
+      name="user123"
+      grade={Grade.TREE}
+      currentCohort={1}
+      cohorts={[1]}
+    />,
   );
 
   const link = within(
@@ -58,7 +76,13 @@ test("render progress link", () => {
 test("render certificate link", () => {
   const id = "test";
   render(
-    <Card id={id} name="user123" grade={Grade.TREE} cohort={1} cohorts={[1]} />,
+    <Card
+      id={id}
+      name="user123"
+      grade={Grade.TREE}
+      currentCohort={1}
+      cohorts={[1]}
+    />,
   );
 
   const link = within(

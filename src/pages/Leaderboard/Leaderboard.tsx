@@ -39,7 +39,7 @@ export default function Leaderboard() {
                 <Card
                   id={member.id}
                   name={member.name}
-                  cohort={member.cohort}
+                  currentCohort={member.currentCohort}
                   cohorts={member.cohorts}
                   grade={member.grade}
                 />

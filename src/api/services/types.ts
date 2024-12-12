@@ -10,7 +10,7 @@ export enum Grade {
 export type MemberIdentity = {
   id: string; // lowercase
   name: string;
-  cohort: number;
+  currentCohort: number;
   cohorts: number[];
   profileUrl?: string;
 };
@@ -33,7 +33,7 @@ export interface Member {
   id: string;
   name: string;
   /** 현재 기수 (1기, 2기, 3기 ...) */
-  cohort: number;
+  currentCohort: number;
   /** 참여한 전체 기수 목록 */
   cohorts: number[];
   /** Profile Image URL */

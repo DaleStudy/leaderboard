@@ -10,7 +10,7 @@ import styles from "./Card.module.css";
 interface CardProps {
   id: string;
   name: string;
-  cohort: number;
+  currentCohort: number;
   cohorts: number[];
   grade: Grade;
 }
@@ -24,9 +24,15 @@ const imageTable = {
   TREE: LargeTree,
 };
 
-export default function Card({ id, name, cohort, cohorts, grade }: CardProps) {
+export default function Card({
+  id,
+  name,
+  currentCohort,
+  cohorts,
+  grade,
+}: CardProps) {
   const cohortString =
-    cohorts && cohorts.length > 0 ? cohorts.join(", ") : cohort;
+    cohorts && cohorts.length > 0 ? cohorts.join(", ") : currentCohort;
   return (
     <article className={styles.item}>
       <img src={imageTable[grade]} alt={`${grade} image`} />
