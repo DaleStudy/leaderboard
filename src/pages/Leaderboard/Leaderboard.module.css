@@ -4,6 +4,7 @@
   align-items: center;
 
   width: 100%;
+  padding: 0 28px;
 }
 
 .contentWrapper {
@@ -12,16 +13,17 @@
   margin-top: 100px;
 
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+
+    @media (min-width: 1080px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 25px;
+    }
 
     margin-top: 30px;
     margin-bottom: 60px;
-
-    li {
-      flex-basis: calc(calc(100% - 25px) / 2);
-    }
   }
 }
 
