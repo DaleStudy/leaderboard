@@ -44,3 +44,9 @@
     font-size: 24px;
   }
 }
+
+.serverErrorWrapper {
+  width: 100%;
+  padding-top: 240px;
+  padding-bottom: 340px;
+}

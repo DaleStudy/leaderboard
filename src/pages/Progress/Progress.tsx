@@ -1,14 +1,16 @@
+import {
+  problemCounts,
+  problemMap,
+  problems,
+} from "../../api/constants/problems";
+import { getMembers } from "../../api/getMembers";
+import useMembers from "../../hooks/useMembers";
+
+import EmptySidebar from "../../components/EmptySidebar/EmptySidebar";
 import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Table } from "../../components/Table/Table";
-import { getMembers } from "../../api/getMembers";
-import {
-  problems,
-  problemMap,
-  problemCounts,
-} from "../../api/constants/problems";
 
-import useMembers from "../../hooks/useMembers";
 import styles from "./Progress.module.css";
 
 export default function Progress() {
@@ -17,7 +19,28 @@ export default function Progress() {
   const memberId = new URL(location.href).searchParams.get("member");
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
+  if (error) {
+    return (
+      <Layout>
+        <main className={styles.progress}>
+          <h1>풀이 현황</h1>
+          <div className={styles.container}>
+            <section className={styles.sideBar} aria-labelledby="profile">
+              <EmptySidebar />
+            </section>
+
+            <section
+              className={styles.problemTableWrapper}
+              aria-labelledby="problem-list"
+            >
+              <Table isError problems={[]} solvedProblems={[]} />
+            </section>
+          </div>
+        </main>
+      </Layout>
+    );
+  }
 
   const member = members.find((m) => m.id === memberId);
   if (!member) return <p>Member not found!</p>;
@@ -73,7 +96,7 @@ export default function Progress() {
           </section>
 
           <section
-            className={styles.problemList}
+            className={styles.problemTableWrapper}
             aria-labelledby="problem-list"
           >
             <Table problems={problems} solvedProblems={member.solvedProblems} />
