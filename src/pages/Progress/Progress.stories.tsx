@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Progress from "./Progress";
 import { http, HttpResponse } from "msw";
+import Progress from "./Progress";
 
 const meta: Meta<typeof Progress> = {
   component: Progress,
@@ -32,3 +32,19 @@ const meta: Meta<typeof Progress> = {
 export default meta;
 
 export const Default: StoryObj<typeof Progress> = {};
+
+export const ServerError: StoryObj<typeof meta> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
+          HttpResponse.error(),
+        ),
+        http.get(
+          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
+          () => HttpResponse.error(),
+        ),
+      ],
+    },
+  },
+};

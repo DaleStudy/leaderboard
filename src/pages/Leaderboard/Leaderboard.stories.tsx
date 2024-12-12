@@ -67,3 +67,15 @@ export const Loading: StoryObj<typeof meta> = {
     },
   },
 };
+
+export const ServerError: StoryObj<typeof meta> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
+          HttpResponse.error(),
+        ),
+      ],
+    },
+  },
+};

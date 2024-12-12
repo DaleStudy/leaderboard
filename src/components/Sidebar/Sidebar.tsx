@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
-import styles from "./Sidebar.module.css";
+
+import { Grade } from "../../api/services/types";
+
+import Github from "../../assets/Github.png";
+import LargeTree from "../../assets/LargeTree.png";
 import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
-import LargeTree from "../../assets/LargeTree.png";
-import Github from "../../assets/Github.png";
-import { Grade } from "../../api/services/types";
+
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   githubUsername: string;
