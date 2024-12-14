@@ -19,9 +19,7 @@ export default function Certificate() {
   if (isLoading) {
     return (
       <Layout>
-        <main className={styles.loading}>
-          <Spinner />
-        </main>
+        <Spinner />
       </Layout>
     );
   }

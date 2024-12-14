@@ -45,23 +45,27 @@ export const Loading: StoryObj<typeof meta> = {
     },
   },
 };
-export const ServerError: StoryObj<typeof meta> = {
+
+export const NotFound: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [
         http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
-          HttpResponse.error(),
+          HttpResponse.json([{ name: "leetcode02" }]),
         ),
         http.get(
           "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
-          () => HttpResponse.error(),
+          () => HttpResponse.json([]),
         ),
       ],
+    },
+    query: {
+      member: "sunjae9",
     },
   },
 };
 
-export const NotFound: StoryObj<typeof meta> = {
+export const ServerError: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [

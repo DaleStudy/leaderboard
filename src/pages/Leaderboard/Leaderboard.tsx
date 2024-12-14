@@ -19,9 +19,7 @@ export default function Leaderboard() {
   if (isLoading) {
     return (
       <Layout>
-        <main className={styles.loading}>
-          <Spinner />
-        </main>
+        <Spinner />
       </Layout>
     );
   }

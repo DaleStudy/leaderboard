@@ -27,7 +27,7 @@ test("render the loading message while fetching members", () => {
 
   render(<Certificate />);
 
-  expect(screen.getByRole("status")).toHaveAccessibleName("spinner");
+  expect(screen.getByRole("status")).toHaveAccessibleName("스피너");
 });
 
 test("render the error message while fetching members", () => {

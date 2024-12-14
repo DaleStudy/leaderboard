@@ -22,9 +22,7 @@ export default function Progress() {
   if (isLoading) {
     return (
       <Layout>
-        <main className={styles.loading}>
-          <Spinner />
-        </main>
+        <Spinner />
       </Layout>
     );
   }
