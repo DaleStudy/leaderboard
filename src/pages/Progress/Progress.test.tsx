@@ -66,8 +66,8 @@ test("display member is not found when query parameter is not passed", () => {
   });
   render(<Progress />);
 
-  const header = screen.getByRole("heading", { level: 1 });
-  expect(header).toHaveTextContent("Page Not Found");
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toHaveTextContent("Page Not Found");
 });
 
 test("render page when query parameter is passed", async () => {

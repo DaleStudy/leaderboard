@@ -9,8 +9,8 @@
 
   & > h1 {
     font-weight: 500;
-    font-size: 80px;
-    line-height: 100px;
+    font-size: clamp(30px, 4vw, 80px);
+    line-height: clamp(50px, 4vw, 100px);
   }
 
   & > p {
@@ -18,8 +18,9 @@
     margin: 32px 0 0;
     white-space: pre-wrap;
     color: var(--text-900);
-    line-height: 28px;
     font-weight: 400;
+    font-size: clamp(12px, 4vw, 16px);
+    line-height: clamp(18px, 4vw, 28px);
   }
 
   & > a {

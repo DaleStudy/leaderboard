@@ -14,14 +14,20 @@ const cohortSuffix = ["th", "st", "nd", "rd"];
 export default function Certificate() {
   const { members, isLoading, error } = useMembers({ getMembers });
 
+  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
   const member = members.find(
     ({ id }) =>
       id === new URLSearchParams(document.location.search).get("member"),
   );
-
-  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
-  if (!member) return <NotFound />;
+  if (!member) {
+    return (
+      <Layout>
+        <NotFound />
+      </Layout>
+    );
+  }
 
   const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member.name}&organizationId=104834174&certUrl=${location.href}`;
 

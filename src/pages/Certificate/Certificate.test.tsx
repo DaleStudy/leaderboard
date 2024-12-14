@@ -61,8 +61,8 @@ test("display error message if member is not found", () => {
 
   render(<Certificate />);
 
-  const header = screen.getByRole("heading", { level: 1 });
-  expect(header).toHaveTextContent("Page Not Found");
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toHaveTextContent("Page Not Found");
 });
 
 test("render page title", () => {

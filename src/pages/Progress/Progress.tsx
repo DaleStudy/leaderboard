@@ -21,7 +21,13 @@ export default function Progress() {
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);
-  if (!member) return <NotFound />;
+  if (!member) {
+    return (
+      <Layout>
+        <NotFound />
+      </Layout>
+    );
+  }
 
   const totalProblems = Object.values(problemMap).length;
   const {
