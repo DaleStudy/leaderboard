@@ -64,7 +64,7 @@ export default function Sidebar({
   return (
     <aside>
       <div className={styles.container} ref={progressContainerRef}>
-        <span className={styles.currentCohort}>{cohortString}기</span>
+        <span className={styles.cohort}>{cohortString}기</span>
         <section className={styles.profile}>
           <div className={styles.avatar}>
             <div className={styles["progress-circle"]}></div>
