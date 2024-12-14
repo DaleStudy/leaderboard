@@ -18,14 +18,13 @@ export default function Progress() {
 
   const memberId = new URL(location.href).searchParams.get("member");
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <Layout>
-        <main className={styles.loading}>
-          <Spinner />
-        </main>
+        <Spinner />
       </Layout>
     );
+  }
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const member = members.find((m) => m.id === memberId);

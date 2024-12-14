@@ -15,14 +15,13 @@ export default function Leaderboard() {
   const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <Layout>
-        <main className={styles.loading}>
-          <Spinner />
-        </main>
+        <Spinner />
       </Layout>
     );
+  }
 
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
