@@ -234,6 +234,6 @@ test("render LinkedIn link", () => {
   });
   expect(linkedInLink).toHaveAttribute(
     "href",
-    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=테스트1&organizationId=104834174&certUrl=${location.href}`,
+    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=테스트1&organizationId=104834174&certUrl=${encodeURIComponent(location.href)}`,
   );
 });

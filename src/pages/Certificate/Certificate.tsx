@@ -1,10 +1,10 @@
 import { getMembers } from "../../api/getMembers";
-import useMembers from "../../hooks/useMembers";
 import Signature from "../../assets/signature.png";
+import useMembers from "../../hooks/useMembers";
 
+import Button from "../../components/Button/Button";
 import Layout from "../../components/Layout/Layout";
 import Link from "../../components/Link/Link";
-import Button from "../../components/Button/Button";
 import NotFound from "../../components/NotFound/NotFound";
 
 import styles from "./Certificate.module.css";
@@ -21,6 +21,7 @@ export default function Certificate() {
     ({ id }) =>
       id === new URLSearchParams(document.location.search).get("member"),
   );
+
   if (!member) {
     return (
       <Layout>
@@ -29,7 +30,7 @@ export default function Certificate() {
     );
   }
 
-  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member.name}&organizationId=104834174&certUrl=${location.href}`;
+  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${encodeURIComponent(location.href)}`;
 
   return (
     <Layout>
