@@ -1,7 +1,7 @@
 import type { Config } from "../../config/types";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import type { GitHubTree } from "../../infra/gitHub/types";
-import type { Cohort, MemberIdentity, Submission } from "../types";
+import type { MemberIdentity, Submission } from "../types";
 
 export function createFetchService(config: Config) {
   const gitHubClient = createGitHubClient(config.gitHubToken);
@@ -19,14 +19,15 @@ export function createFetchService(config: Config) {
               "DaleStudy",
               teamName,
             );
-            const cohort = parseCohort(teamName, teamPrefix);
+            const currentCohort = parseCohort(teamName, teamPrefix);
 
             return members.map(
               (member): MemberIdentity => ({
                 id: member.login.toLocaleLowerCase(),
                 name: member.login,
                 profileUrl: member.avatar_url,
-                cohort,
+                currentCohort,
+                cohorts: [currentCohort],
               }),
             );
           }),
@@ -50,7 +51,7 @@ export function createFetchService(config: Config) {
   };
 }
 
-const parseCohort = (teamName: string, prefix: string): Cohort => {
+const parseCohort = (teamName: string, prefix: string): number => {
   // 기수(코호트)는 명확하게 숫자로 구성되어 있다고 가정한다.
   return parseInt(teamName.replace(prefix, ""), 10);
 };
@@ -58,7 +59,15 @@ const parseCohort = (teamName: string, prefix: string): Cohort => {
 const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
-    if (!existingMember || member.cohort > existingMember.cohort) {
+    if (existingMember) {
+      existingMember.currentCohort = Math.max(
+        existingMember.currentCohort,
+        member.currentCohort,
+      );
+      if (!existingMember.cohorts.includes(member.currentCohort)) {
+        existingMember.cohorts.push(member.currentCohort);
+      }
+    } else {
       acc.set(member.id, member);
     }
     return acc;

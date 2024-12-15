@@ -15,7 +15,8 @@ interface SidebarProps {
   solvedProblems: number;
   totalProblems: number;
   profileUrl: string;
-  cohort: number;
+  currentCohort: number;
+  cohorts: number[];
   grade: Grade;
 }
 
@@ -36,7 +37,8 @@ export default function Sidebar({
   solvedProblems,
   totalProblems,
   profileUrl,
-  cohort,
+  currentCohort,
+  cohorts,
   grade,
 }: SidebarProps) {
   const progressContainerRef = useRef<HTMLDivElement>(null);
@@ -56,11 +58,13 @@ export default function Sidebar({
     { label: "MEDIUM", progress: mediumProgress, className: styles.medium },
     { label: "HARD", progress: hardProgress, className: styles.hard },
   ];
+  const cohortString =
+    cohorts && cohorts.length > 0 ? cohorts.join(", ") : currentCohort;
 
   return (
     <aside>
       <div className={styles.container} ref={progressContainerRef}>
-        <span className={styles.cohort}>{cohort}기</span>
+        <span className={styles.cohort}>{cohortString}기</span>
         <section className={styles.profile}>
           <div className={styles.avatar}>
             <div className={styles["progress-circle"]}></div>
