@@ -32,3 +32,11 @@ const meta: Meta<typeof Certificate> = {
 export default meta;
 
 export const Default: StoryObj<typeof Certificate> = {};
+
+export const NotFound: StoryObj<typeof meta> = {
+  parameters: {
+    query: {
+      member: "sunjae9",
+    },
+  },
+};

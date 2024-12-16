@@ -31,4 +31,12 @@ const meta: Meta<typeof Progress> = {
 
 export default meta;
 
-export const Default: StoryObj<typeof Progress> = {};
+export const Default: StoryObj<typeof meta> = {};
+
+export const NotFound: StoryObj<typeof meta> = {
+  parameters: {
+    query: {
+      member: "sunjae9",
+    },
+  },
+};

@@ -5,6 +5,7 @@ import Signature from "../../assets/signature.png";
 import Layout from "../../components/Layout/Layout";
 import Link from "../../components/Link/Link";
 import Button from "../../components/Button/Button";
+import NotFound from "../../components/NotFound/NotFound";
 
 import styles from "./Certificate.module.css";
 
@@ -13,14 +14,22 @@ const cohortSuffix = ["th", "st", "nd", "rd"];
 export default function Certificate() {
   const { members, isLoading, error } = useMembers({ getMembers });
 
+  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
   const member = members.find(
     ({ id }) =>
       id === new URLSearchParams(document.location.search).get("member"),
   );
-  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${location.href}`;
+  if (!member) {
+    return (
+      <Layout>
+        <NotFound />
+      </Layout>
+    );
+  }
 
-  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member.name}&organizationId=104834174&certUrl=${location.href}`;
 
   return (
     <Layout>
@@ -192,9 +201,9 @@ export default function Certificate() {
 
                 <h2>CERTIFICATE OF ACHIEVEMENT</h2>
                 <h3>DaleStudy</h3>
-                <h4>{member?.name}</h4>
+                <h4>{member.name}</h4>
 
-                <p>{`For successfully completing ${member?.solvedProblems.length === 75 ? "all" : member?.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member?.currentCohort}${cohortSuffix?.[member?.currentCohort ?? 0] ?? "th"} DaleStudy.`}</p>
+                <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.currentCohort}${cohortSuffix?.[member.currentCohort ?? 0] ?? "th"} DaleStudy.`}</p>
 
                 <img src={Signature} alt="signature" />
                 <h5>Dale Seo</h5>
