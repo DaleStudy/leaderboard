@@ -3,16 +3,13 @@ import Spinner from "./Spinner";
 
 const meta: Meta<typeof Spinner> = {
   component: Spinner,
+  args: { variant: "full" },
   decorators: [
-    (Story) => {
+    (Story, context) => {
       return (
         <div
           style={{
-            display: "flex",
-            width: "100vw",
-            height: "100vh",
-            alignItems: "center",
-            justifyContent: "center",
+            height: context.args.variant === "full" ? "100%" : "400px",
           }}
         >
           <Story />
@@ -25,3 +22,7 @@ const meta: Meta<typeof Spinner> = {
 export default meta;
 
 export const Default: StoryObj<typeof Spinner> = {};
+
+export const Compact: StoryObj<typeof Spinner> = {
+  args: { variant: "compact" },
+};

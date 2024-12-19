@@ -15,7 +15,14 @@ export default function Leaderboard() {
   const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
 
-  if (isLoading) return <Spinner />; // TODO replace with a proper loading component
+  if (isLoading) {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
+  }
+
   if (error) return <p>Error!</p>; // TODO replace with a proper error component
 
   const sortedMembers = members.sort((a, b) => b.progress - a.progress);
