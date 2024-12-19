@@ -84,7 +84,7 @@
     white-space: pre;
   }
 
-  & > img {
+  & > .signature {
     margin-top: 45px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--bg-400);
@@ -115,4 +115,9 @@
     height: 60px;
     font-size: 20px;
   }
+}
+
+.icon {
+  fill: url(#paint0_linear);
+  stroke: url(#paint0_linear);
 }
