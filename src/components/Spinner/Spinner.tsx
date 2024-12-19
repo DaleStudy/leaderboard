@@ -1,17 +1,18 @@
 import { HTMLAttributes } from "react";
 import styles from "./Spinner.module.css";
 
-export default function Spinner({
-  className,
-  ...props
-}: HTMLAttributes<SVGElement>) {
+interface SpinnerProps extends HTMLAttributes<SVGElement> {
+  variant?: "full" | "compact";
+}
+
+export default function Spinner({ variant = "full", ...props }: SpinnerProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${styles[variant]}`}>
       <svg
         {...props}
         role="status"
         aria-label="spinner"
-        className={`${styles.spinner} ${className}`}
+        className={styles.spinner}
         width="137"
         height="138"
         viewBox="0 0 137 138"

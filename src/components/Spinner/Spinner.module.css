@@ -2,7 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+}
+
+.full {
+  height: 100dvh;
+}
+
+.compact {
   height: 100%;
 }
 
