@@ -14,6 +14,7 @@ const preview: Preview = {
       },
     },
   },
+  tags: ["autodocs"],
   // Provide the MSW addon loader globally
   loaders: [mswLoader],
 };
