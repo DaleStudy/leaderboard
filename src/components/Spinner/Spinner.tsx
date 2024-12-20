@@ -9,7 +9,7 @@ export default function Spinner({
     <svg
       {...props}
       role="status"
-      aria-label="spinner"
+      aria-label="스피너"
       className={`${styles.spinner} ${className}`}
       width="137"
       height="138"

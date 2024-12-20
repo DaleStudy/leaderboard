@@ -42,7 +42,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className={styles.footer} aria-label="Site Footer">
+    <footer className={styles.footer} aria-label="사이트 푸터">
       <section>
         <ul className={styles.leftMenu}>
           {leftMenu.map(({ label, link }) => (

@@ -66,7 +66,7 @@ test("render progress link", () => {
   );
 
   const link = within(
-    screen.getByRole("region", { name: `card-navigation-${id}` }),
+    screen.getByRole("region", { name: `카드-네비게이션-${id}` }),
   ).getByRole("link", { name: "풀이 현황" });
 
   expect(link).toBeInTheDocument();
@@ -86,7 +86,7 @@ test("render certificate link", () => {
   );
 
   const link = within(
-    screen.getByRole("region", { name: `card-navigation-${id}` }),
+    screen.getByRole("region", { name: `카드-네비게이션-${id}` }),
   ).getByRole("link", { name: "수료증" });
   expect(link).toBeInTheDocument();
   expect(link).toHaveAttribute("href", `/certificate?member=${id}`);

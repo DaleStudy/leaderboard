@@ -23,7 +23,7 @@ test("render the loading while fetching members", () => {
 
   render(<Leaderboard />);
 
-  expect(screen.getByRole("status")).toHaveAccessibleName(/spinner/i);
+  expect(screen.getByRole("status")).toHaveAccessibleName(/스피너/i);
 });
 
 test("render the error message while fetching members", () => {
@@ -95,7 +95,7 @@ test("render the search bar", () => {
 
   render(<Leaderboard />);
 
-  expect(screen.getByLabelText("Search Bar"));
+  expect(screen.getByLabelText("검색 창"));
 });
 
 function mockMember() {

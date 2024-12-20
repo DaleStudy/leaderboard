@@ -20,7 +20,7 @@ test("renders the Footer component", () => {
     </Layout>,
   );
 
-  expect(screen.getByRole("contentinfo", { name: "Site Footer" }));
+  expect(screen.getByRole("contentinfo", { name: "사이트 푸터" }));
 });
 
 test("renders children passed to the Layout component", () => {
