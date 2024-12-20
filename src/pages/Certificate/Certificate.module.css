@@ -84,7 +84,7 @@
     white-space: pre;
   }
 
-  & > img {
+  & > .signature {
     margin-top: 45px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--bg-400);
