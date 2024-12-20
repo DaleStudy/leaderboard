@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
-
 import { Grade } from "../../api/services/types";
-
 import Github from "../../assets/Github.png";
-import LargeTree from "../../assets/LargeTree.png";
-import Seed from "../../assets/Seed.png";
-import Sprout from "../../assets/Sprout.png";
-import YoungTree from "../../assets/YoungTree.png";
-
+import SeedImage from "../../assets/GradeSeed.png";
+import SproutImage from "../../assets/GradeSprout.png";
+import LeafImage from "../../assets/GradeLeaf.png";
+import BranchImage from "../../assets/GradeBranch.png";
+import FruitImage from "../../assets/GradeFruit.png";
+import TreeImage from "../../assets/GradeTree.png";
 import styles from "./Sidebar.module.css";
 
 interface SidebarErrorProps {
@@ -31,12 +30,12 @@ interface SidebarNormalProps {
 type SidebarProps = SidebarErrorProps | SidebarNormalProps;
 
 const imageTable = {
-  SEED: Seed,
-  SPROUT: Sprout,
-  LEAF: Sprout,
-  BRANCH: Sprout,
-  FRUIT: YoungTree,
-  TREE: LargeTree,
+  SEED: SeedImage,
+  SPROUT: SproutImage,
+  LEAF: LeafImage,
+  BRANCH: BranchImage,
+  FRUIT: FruitImage,
+  TREE: TreeImage,
 };
 
 export default function Sidebar(props: SidebarProps) {

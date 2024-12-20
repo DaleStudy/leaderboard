@@ -159,7 +159,7 @@ describe("Server Error", () => {
   });
 });
 
-function mockMember({ id = faker.internet.userName() }: { id?: string } = {}) {
+function mockMember({ id = faker.internet.username() }: { id?: string } = {}) {
   const currentCohort = faker.number.int({ min: 1, max: 9 });
   return mock<Member>({
     id,
