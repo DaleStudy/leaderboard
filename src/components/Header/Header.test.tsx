@@ -10,6 +10,6 @@ test("renders the page header", () => {
 
 test("renders the link with correct href and accessible label", () => {
   render(<Header />);
-  const linkElement = screen.getByRole("link", { name: /go to the homepage/i });
+  const linkElement = screen.getByRole("link", { name: /홈페이지로 이동/i });
   expect(linkElement).toHaveAttribute("href", "http://www.dalestudy.com");
 });

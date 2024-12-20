@@ -49,7 +49,7 @@ export default function Card({
           </div>
           <span>{cohortString}기</span>
         </section>
-        <section className={styles.link} aria-label={`card-navigation-${id}`}>
+        <section className={styles.link} aria-label={`카드-네비게이션-${id}`}>
           <Link href={`/progress?member=${id}`} variant="primaryButton">
             풀이 현황
           </Link>

@@ -26,13 +26,13 @@ const solvedProblems = [
 test("renders table headers", () => {
   render(<Table problems={problems} solvedProblems={solvedProblems} />);
   expect(
-    screen.getByRole("columnheader", { name: "Problem Title" }),
+    screen.getByRole("columnheader", { name: "문제명" }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("columnheader", { name: "Problem Difficulty" }),
+    screen.getByRole("columnheader", { name: "난이도" }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("columnheader", { name: "Problem Completion Status" }),
+    screen.getByRole("columnheader", { name: "문제 완료 상태" }),
   ).toBeInTheDocument();
 });
 
@@ -50,7 +50,7 @@ test("renders icon for completed/incomplete problems", () => {
   rows.forEach((row, index) => {
     const problem = problems[index];
     const isCompleted = solvedProblems.some((p) => p.id === problem.id);
-    const iconLabel = isCompleted ? "Completed problem" : "Incomplete problem";
+    const iconLabel = isCompleted ? "완료 문제" : "미완료 문제";
 
     const icon = within(row).getByLabelText(iconLabel);
     expect(icon).toBeInTheDocument();

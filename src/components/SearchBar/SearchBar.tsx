@@ -50,7 +50,7 @@ export default function SearchBar({
   };
 
   return (
-    <section aria-label="Search Bar" className={style.searchBar}>
+    <section aria-label="검색 창" className={style.searchBar}>
       <img src="/search-icon.svg" alt="검색 아이콘" />
 
       <input

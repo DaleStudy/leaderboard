@@ -6,7 +6,7 @@ export default function Header() {
       <header>
         <a
           href="http://www.dalestudy.com"
-          aria-label="Go to the homepage"
+          aria-label="홈페이지로 이동"
           className={styles.logoLink}
         >
           <img src="/logo-icon.svg" alt="로고 아이콘"></img>

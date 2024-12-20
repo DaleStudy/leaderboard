@@ -65,7 +65,7 @@ export default function Progress() {
       <main className={styles.progress}>
         <h1>풀이 현황</h1>
         <div className={styles.container}>
-          <section className={styles.sideBar} aria-labelledby="profile">
+          <section className={styles.sideBar} aria-labelledby="프로필">
             <Sidebar
               githubUsername={member.name}
               easyProgress={easyProgress}
@@ -80,10 +80,7 @@ export default function Progress() {
             />
           </section>
 
-          <section
-            className={styles.problemList}
-            aria-labelledby="problem-list"
-          >
+          <section className={styles.problemList} aria-labelledby="문제 리스트">
             <Table problems={problems} solvedProblems={member.solvedProblems} />
           </section>
         </div>

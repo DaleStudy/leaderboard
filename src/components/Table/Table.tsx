@@ -16,24 +16,20 @@ export function Table({ problems, solvedProblems }: TableProps) {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th
-            className={styles.problemHeading}
-            scope="col"
-            aria-label="Problem Title"
-          >
+          <th className={styles.problemHeading} scope="col" aria-label="문제명">
             Problem
           </th>
           <th
             className={styles.difficultyHeading}
             scope="col"
-            aria-label="Problem Difficulty"
+            aria-label="난이도"
           >
             Difficulty
           </th>
           <th
             className={styles.statusHeading}
             scope="col"
-            aria-label="Problem Completion Status"
+            aria-label="문제 완료 상태"
           >
             Status
           </th>
@@ -65,7 +61,7 @@ export function Table({ problems, solvedProblems }: TableProps) {
               </td>
               <td
                 className={styles.statusData}
-                aria-label={isCompleted ? "Completed" : "Incomplete"}
+                aria-label={isCompleted ? "완료" : "미완료"}
               >
                 {problemIcon}
               </td>
@@ -83,7 +79,7 @@ function getTaskIcon(completed: boolean) {
       <img
         src="/completed-status-icon.svg"
         alt="완료 문제 상태 아이콘"
-        aria-label="Completed problem"
+        aria-label="완료 문제"
       ></img>
     );
   } else {
@@ -91,7 +87,7 @@ function getTaskIcon(completed: boolean) {
       <img
         src="/incomplete-status-icon.svg"
         alt="미완료 문제 상태 아이콘"
-        aria-label="Incomplete problem"
+        aria-label="미완료 문제"
         style={{ opacity: 0.4 }}
       />
     );

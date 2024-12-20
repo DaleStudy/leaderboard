@@ -6,5 +6,5 @@ import Spinner from "./Spinner";
 test("renders the loading", () => {
   render(<Spinner />);
   const loading = screen.getByRole("status");
-  expect(loading).toHaveAccessibleName(/spinner/i);
+  expect(loading).toHaveAccessibleName(/스피너/i);
 });
