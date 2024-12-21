@@ -1,14 +1,15 @@
+import {
+  problemCounts,
+  problemMap,
+  problems,
+} from "../../api/constants/problems";
+import { getMembers } from "../../api/getMembers";
+import useMembers from "../../hooks/useMembers";
+
 import Layout from "../../components/Layout/Layout";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Table } from "../../components/Table/Table";
 import NotFound from "../../components/NotFound/NotFound";
-import { getMembers } from "../../api/getMembers";
-import {
-  problems,
-  problemMap,
-  problemCounts,
-} from "../../api/constants/problems";
-import useMembers from "../../hooks/useMembers";
 
 import styles from "./Progress.module.css";
 
@@ -18,7 +19,28 @@ export default function Progress() {
   const memberId = new URL(location.href).searchParams.get("member");
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
+  if (error) {
+    return (
+      <Layout>
+        <main className={styles.progress}>
+          <h1>풀이 현황</h1>
+          <div className={styles.container}>
+            <section className={styles.sideBar} aria-labelledby="프로필">
+              <Sidebar isError />
+            </section>
+
+            <section
+              className={styles.problemTableWrapper}
+              aria-labelledby="문제 리스트"
+            >
+              <Table problems={[]} solvedProblems={[]} isError={!!error} />
+            </section>
+          </div>
+        </main>
+      </Layout>
+    );
+  }
 
   const member = members.find((m) => m.id === memberId);
   if (!member) {
@@ -66,22 +88,33 @@ export default function Progress() {
         <h1>풀이 현황</h1>
         <div className={styles.container}>
           <section className={styles.sideBar} aria-labelledby="프로필">
-            <Sidebar
-              githubUsername={member.name}
-              easyProgress={easyProgress}
-              mediumProgress={mediumProgress}
-              hardProgress={hardProgress}
-              solvedProblems={totalSolved}
-              totalProblems={totalProblems}
-              profileUrl={profileUrl}
-              currentCohort={currentCohort}
-              cohorts={cohorts}
-              grade={grade}
-            />
+            {error ? (
+              <Sidebar isError />
+            ) : (
+              <Sidebar
+                githubUsername={member.name}
+                easyProgress={easyProgress}
+                mediumProgress={mediumProgress}
+                hardProgress={hardProgress}
+                solvedProblems={totalSolved}
+                totalProblems={totalProblems}
+                profileUrl={profileUrl}
+                currentCohort={currentCohort}
+                cohorts={cohorts}
+                grade={grade}
+              />
+            )}
           </section>
 
-          <section className={styles.problemList} aria-labelledby="문제 리스트">
-            <Table problems={problems} solvedProblems={member.solvedProblems} />
+          <section
+            className={styles.problemTableWrapper}
+            aria-labelledby="문제 리스트"
+          >
+            <Table
+              problems={problems}
+              solvedProblems={member.solvedProblems}
+              isError={!!error}
+            />
           </section>
         </div>
       </main>
