@@ -237,3 +237,30 @@ test("render LinkedIn link", () => {
     `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=테스트1&organizationId=104834174&certUrl=${encodeURIComponent(location.href)}`,
   );
 });
+
+test("render the error message while fetching members", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: new Error(),
+      members: [],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  render(<Certificate />);
+
+  expect(screen.getByText(/error/i)).toBeInTheDocument();
+  expect(screen.getByText(/오류가 발생했습니다/i)).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      /문제가 지속된다면 아래 Github Issue를 방문하여 문제를 보고하거나 진행 상황을 확인해 주시면 감사하겠습니다./i,
+    ),
+  ).toBeInTheDocument();
+  expect(screen.getByRole("link", { name: /문제 보고하기/i })).toHaveAttribute(
+    "href",
+    "https://github.com/DaleStudy/leaderboard/issues",
+  );
+});

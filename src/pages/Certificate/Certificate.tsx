@@ -8,6 +8,7 @@ import Link from "../../components/Link/Link";
 import NotFound from "../../components/NotFound/NotFound";
 
 import styles from "./Certificate.module.css";
+import ServerError from "../../components/ServerError/ServerError";
 
 const cohortSuffix = ["th", "st", "nd", "rd"];
 
@@ -15,7 +16,23 @@ export default function Certificate() {
   const { members, isLoading, error } = useMembers({ getMembers });
 
   if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
-  if (error) return <p>Error!</p>; // TODO replace with a proper error component
+
+  if (error) {
+    return (
+      <Layout>
+        <main className={styles.certificate}>
+          <section>
+            <div>
+              <h1>수료증</h1>
+              <section className={styles.serverErrorWrapper}>
+                <ServerError />;
+              </section>
+            </div>
+          </section>
+        </main>
+      </Layout>
+    );
+  }
 
   const member = members.find(
     ({ id }) =>

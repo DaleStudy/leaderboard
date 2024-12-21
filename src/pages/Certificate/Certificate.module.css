@@ -116,3 +116,8 @@
     font-size: 20px;
   }
 }
+
+.serverErrorWrapper {
+  margin-top: 160px;
+  margin-bottom: 300px;
+}

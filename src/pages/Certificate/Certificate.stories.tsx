@@ -35,8 +35,35 @@ export const Default: StoryObj<typeof Certificate> = {};
 
 export const NotFound: StoryObj<typeof meta> = {
   parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
+          HttpResponse.json([{ name: "leetcode02" }]),
+        ),
+        http.get(
+          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
+          () => HttpResponse.json([]),
+        ),
+      ],
+    },
     query: {
       member: "sunjae9",
+    },
+  },
+};
+
+export const ServerError: StoryObj<typeof meta> = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
+          HttpResponse.error(),
+        ),
+        http.get(
+          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
+          () => HttpResponse.error(),
+        ),
+      ],
     },
   },
 };
