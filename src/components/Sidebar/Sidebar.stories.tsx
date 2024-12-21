@@ -20,7 +20,20 @@ const meta = {
 
 export default meta;
 
-export const Default: StoryObj<typeof meta> = {};
+export const Default: StoryObj<typeof meta> = {
+  args: {
+    easyProgress: "5/10",
+    mediumProgress: "8/10",
+    hardProgress: "3/5",
+    solvedProblems: 16,
+    totalProblems: 25,
+    grade: Grade.LEAF,
+    cohorts: [1, 2, 3],
+    currentCohort: 3,
+    githubUsername: "testuser",
+    profileUrl: "https://avatars.githubusercontent.com/u/104721736?v=4",
+  },
+};
 
 export const HighProgress: StoryObj<typeof meta> = {
   args: {
@@ -30,6 +43,10 @@ export const HighProgress: StoryObj<typeof meta> = {
     mediumProgress: "10/10",
     hardProgress: "8/10",
     grade: Grade.FRUIT,
+    currentCohort: 3,
+    cohorts: [1, 2, 3],
+    githubUsername: "testuser",
+    profileUrl: "https://avatars.githubusercontent.com/u/104721736?v=4",
   },
 };
 
@@ -41,5 +58,15 @@ export const NoProblems: StoryObj<typeof meta> = {
     solvedProblems: 0,
     totalProblems: 0,
     grade: Grade.SEED,
+    currentCohort: 3,
+    cohorts: [1, 2, 3],
+    githubUsername: "testuser",
+    profileUrl: "https://avatars.githubusercontent.com/u/104721736?v=4",
+  },
+};
+
+export const Error: StoryObj<typeof meta> = {
+  args: {
+    isError: true,
   },
 };

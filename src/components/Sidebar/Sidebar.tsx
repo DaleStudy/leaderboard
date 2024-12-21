@@ -1,13 +1,21 @@
 import { useEffect, useRef } from "react";
-import styles from "./Sidebar.module.css";
+
+import { Grade } from "../../api/services/types";
+
+import Github from "../../assets/Github.png";
+import LargeTree from "../../assets/LargeTree.png";
 import Seed from "../../assets/Seed.png";
 import Sprout from "../../assets/Sprout.png";
 import YoungTree from "../../assets/YoungTree.png";
-import LargeTree from "../../assets/LargeTree.png";
-import Github from "../../assets/Github.png";
-import { Grade } from "../../api/services/types";
 
-interface SidebarProps {
+import styles from "./Sidebar.module.css";
+
+interface SidebarErrorProps {
+  isError: true;
+}
+
+interface SidebarNormalProps {
+  isError?: false; // optional or explicitly false
   githubUsername: string;
   easyProgress: string;
   mediumProgress: string;
@@ -20,6 +28,8 @@ interface SidebarProps {
   grade: Grade;
 }
 
+type SidebarProps = SidebarErrorProps | SidebarNormalProps;
+
 const imageTable = {
   SEED: Seed,
   SPROUT: Sprout,
@@ -29,20 +39,11 @@ const imageTable = {
   TREE: LargeTree,
 };
 
-export default function Sidebar({
-  githubUsername,
-  easyProgress,
-  mediumProgress,
-  hardProgress,
-  solvedProblems,
-  totalProblems,
-  profileUrl,
-  currentCohort,
-  cohorts,
-  grade,
-}: SidebarProps) {
+export default function Sidebar(props: SidebarProps) {
   const progressContainerRef = useRef<HTMLDivElement>(null);
-  const progressPercent = Math.min((solvedProblems / totalProblems) * 100, 100);
+  const progressPercent = props.isError
+    ? 0
+    : Math.min((props.solvedProblems / props.totalProblems) * 100, 100);
 
   useEffect(() => {
     if (progressContainerRef.current) {
@@ -52,6 +53,26 @@ export default function Sidebar({
       );
     }
   }, [progressPercent]);
+
+  if (props.isError) {
+    return (
+      <aside>
+        <div className={`${styles.container} ${styles.error}`}></div>
+      </aside>
+    );
+  }
+
+  const {
+    githubUsername,
+    easyProgress,
+    mediumProgress,
+    hardProgress,
+    solvedProblems,
+    profileUrl,
+    currentCohort,
+    cohorts,
+    grade,
+  } = props;
 
   const taskProgress = [
     { label: "EASY", progress: easyProgress, className: styles.easy },
