@@ -6,10 +6,6 @@ const meta: Meta<typeof Card> = {
   component: Card,
   args: {
     id: "test",
-    name: "test",
-    currentCohort: 1,
-    cohorts: [1],
-    grade: Grade.SEED,
   },
 };
 
