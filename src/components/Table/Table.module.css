@@ -66,3 +66,11 @@ tr:nth-child(even) {
   text-align: center;
   width: 23%;
 }
+
+.serverErrorWrapper {
+  td {
+    padding-top: 170px;
+    padding-bottom: 400px;
+    background-color: var(--bg-100);
+  }
+}

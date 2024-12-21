@@ -121,3 +121,11 @@ export const NoCompleted: StoryObj<typeof Table> = {
     solvedProblems: [],
   },
 };
+
+export const Error: StoryObj<typeof Table> = {
+  args: {
+    problems: [],
+    solvedProblems: [],
+    isError: true,
+  },
+};
