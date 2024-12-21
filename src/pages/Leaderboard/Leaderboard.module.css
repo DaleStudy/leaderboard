@@ -46,3 +46,9 @@
     font-size: 24px;
   }
 }
+
+.serverErrorWrapper {
+  width: 100%;
+  margin-top: 240px;
+  margin-bottom: 340px;
+}
