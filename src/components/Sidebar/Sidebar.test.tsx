@@ -33,3 +33,22 @@ test("renders Sidebar with all elements", () => {
   });
   expect(buttonLink).toBeInTheDocument();
 });
+
+test("renders empty Sidebar when error", () => {
+  render(<Sidebar isError />);
+
+  const sidebar = screen.getByRole("complementary");
+  expect(sidebar).toBeInTheDocument();
+
+  expect(
+    screen.queryByRole("link", {
+      name: /풀이 보기/i,
+    }),
+  ).not.toBeInTheDocument();
+
+  expect(
+    screen.queryByRole("link", {
+      name: /리더보드로 돌아가기/i,
+    }),
+  ).not.toBeInTheDocument();
+});
