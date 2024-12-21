@@ -1,3 +1,4 @@
+import ServerError from "../ServerError/ServerError";
 import styles from "./Table.module.css";
 
 interface Problem {
@@ -9,9 +10,14 @@ interface Problem {
 interface TableProps {
   problems: Problem[];
   solvedProblems: Problem[];
+  isError?: boolean;
 }
 
-export function Table({ problems, solvedProblems }: TableProps) {
+export function Table({
+  problems,
+  solvedProblems,
+  isError = false,
+}: TableProps) {
   return (
     <table className={styles.table}>
       <thead>
@@ -35,40 +41,50 @@ export function Table({ problems, solvedProblems }: TableProps) {
           </th>
         </tr>
       </thead>
-      <tbody>
-        {problems.map((problem) => {
-          const isCompleted = solvedProblems.some(
-            (solved) => solved.id === problem.id,
-          );
-          const problemIcon = getTaskIcon(isCompleted);
-          const difficultyClass = getDifficultyClass(problem.difficulty);
+      {isError ? (
+        <tbody className={styles.serverErrorWrapper}>
+          <tr>
+            <td colSpan={3}>
+              <ServerError />
+            </td>
+          </tr>
+        </tbody>
+      ) : (
+        <tbody>
+          {problems.map((problem) => {
+            const isCompleted = solvedProblems.some(
+              (solved) => solved.id === problem.id,
+            );
+            const problemIcon = getTaskIcon(isCompleted);
+            const difficultyClass = getDifficultyClass(problem.difficulty);
 
-          const formattedTitle = problem.title.replace(/-/g, " ");
+            const formattedTitle = problem.title.replace(/-/g, " ");
 
-          // Add a period to "Med" only
-          const difficultyLabel =
-            problem.difficulty === "Med"
-              ? `${problem.difficulty}.`
-              : problem.difficulty;
+            // Add a period to "Med" only
+            const difficultyLabel =
+              problem.difficulty === "Med"
+                ? `${problem.difficulty}.`
+                : problem.difficulty;
 
-          return (
-            <tr key={problem.id}>
-              <td className={styles.problemData}>
-                {problem.id}. {formattedTitle}
-              </td>
-              <td className={`${styles.difficultyData} ${difficultyClass}`}>
-                {difficultyLabel}
-              </td>
-              <td
-                className={styles.statusData}
-                aria-label={isCompleted ? "완료" : "미완료"}
-              >
-                {problemIcon}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
+            return (
+              <tr key={problem.id}>
+                <td className={styles.problemData}>
+                  {problem.id}. {formattedTitle}
+                </td>
+                <td className={`${styles.difficultyData} ${difficultyClass}`}>
+                  {difficultyLabel}
+                </td>
+                <td
+                  className={styles.statusData}
+                  aria-label={isCompleted ? "완료" : "미완료"}
+                >
+                  {problemIcon}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      )}
     </table>
   );
 }
