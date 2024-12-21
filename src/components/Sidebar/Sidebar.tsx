@@ -1,13 +1,8 @@
 import { useEffect, useRef } from "react";
-import styles from "./Sidebar.module.css";
-import SeedImage from "../../assets/GradeSeed.png";
-import SproutImage from "../../assets/GradeSprout.png";
-import LeafImage from "../../assets/GradeLeaf.png";
-import BranchImage from "../../assets/GradeBranch.png";
-import FruitImage from "../../assets/GradeFruit.png";
-import TreeImage from "../../assets/GradeTree.png";
 import Github from "../../assets/Github.png";
 import { Grade } from "../../api/services/types";
+import GradeImage from "../GradeImage/GradeImage";
+import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
   githubUsername: string;
@@ -21,15 +16,6 @@ interface SidebarProps {
   cohorts: number[];
   grade: Grade;
 }
-
-const imageTable = {
-  SEED: SeedImage,
-  SPROUT: SproutImage,
-  LEAF: LeafImage,
-  BRANCH: BranchImage,
-  FRUIT: FruitImage,
-  TREE: TreeImage,
-};
 
 export default function Sidebar({
   githubUsername,
@@ -95,9 +81,7 @@ export default function Sidebar({
         </section>
 
         <section className={styles.currentStatus}>
-          <figure>
-            <img src={imageTable[grade]} alt={`${grade} 등급`} />
-          </figure>
+          <GradeImage grade={grade} width={80} height={103} />
         </section>
         <section className={styles.taskCounts}>
           {taskProgress.map(({ label, progress, className }) => (

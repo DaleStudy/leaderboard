@@ -1,12 +1,6 @@
-import SeedImage from "../../assets/GradeSeed.png";
-import SproutImage from "../../assets/GradeSprout.png";
-import LeafImage from "../../assets/GradeLeaf.png";
-import BranchImage from "../../assets/GradeBranch.png";
-import FruitImage from "../../assets/GradeFruit.png";
-import TreeImage from "../../assets/GradeTree.png";
 import { Grade } from "../../api/services/types";
+import GradeImage from "../GradeImage/GradeImage";
 import Link from "../Link/Link";
-
 import styles from "./Card.module.css";
 
 interface CardProps {
@@ -14,17 +8,8 @@ interface CardProps {
   name: string;
   currentCohort: number;
   cohorts: number[];
-  grade: keyof typeof Grade;
+  grade: Grade;
 }
-
-const imageTable = {
-  SEED: SeedImage,
-  SPROUT: SproutImage,
-  LEAF: LeafImage,
-  BRANCH: BranchImage,
-  FRUIT: FruitImage,
-  TREE: TreeImage,
-};
 
 export default function Card({
   id,
@@ -37,7 +22,7 @@ export default function Card({
     cohorts && cohorts.length > 0 ? cohorts.join(", ") : currentCohort;
   return (
     <article className={styles.item}>
-      <img src={imageTable[grade]} alt={`${grade} image`} />
+      <GradeImage grade={grade} width={105} height={128} />
       <section>
         <section aria-label={name}>
           <div>
