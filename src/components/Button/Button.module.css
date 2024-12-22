@@ -6,7 +6,7 @@
   border-radius: 10px;
 
   &:focus-visible {
-    outline: 3px solid var(--primary);
+    outline: 3px solid var(--bg-400);
     outline-offset: 2px;
     border-radius: 10px;
   }
@@ -19,7 +19,7 @@
 
 .primary {
   border: none;
-  background-color: var(--primary);
+  background-color: var(--bg-400);
   color: var(--bg-100);
 
   &:hover {
@@ -27,22 +27,22 @@
   }
 
   &:active {
-    background-color: var(--primary);
+    background-color: var(--bg-400);
   }
 }
 
 .secondary {
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  border: 1px solid var(--bg-400);
+  color: var(--bg-400);
   background-color: #fff;
 
   &:hover {
-    background-color: var(--primary);
+    background-color: var(--bg-400);
     color: #fff;
   }
 
   &:active {
-    color: var(--primary);
+    color: var(--bg-400);
     background-color: #fff;
   }
 }
