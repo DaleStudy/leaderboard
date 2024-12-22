@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import Layout from "../../components/Layout/Layout";
 import Link from "../../components/Link/Link";
 import NotFound from "../../components/NotFound/NotFound";
+import Spinner from "../../components/Spinner/Spinner";
 
 import styles from "./Certificate.module.css";
 import ServerError from "../../components/ServerError/ServerError";
@@ -15,7 +16,13 @@ const cohortSuffix = ["th", "st", "nd", "rd"];
 export default function Certificate() {
   const { members, isLoading, error } = useMembers({ getMembers });
 
-  if (isLoading) return <p>Loading...</p>; // TODO replace with a proper loading component
+  if (isLoading) {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
+  }
 
   if (error) {
     return (
