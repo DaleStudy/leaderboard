@@ -1,5 +1,5 @@
 .default:focus-visible {
-  outline: 3px solid var(--primary);
+  outline: 3px solid var(--bg-400);
   outline-offset: 2px;
   border-radius: 10px;
 }
@@ -12,7 +12,7 @@
   }
 
   &:active {
-    color: var(--primary);
+    color: var(--bg-400);
   }
 }
 
@@ -26,7 +26,7 @@
   border-radius: 10px;
 
   color: var(--bg-100);
-  background-color: var(--primary);
+  background-color: var(--bg-400);
 
   &:hover {
     color: var(--bg-100);
@@ -34,7 +34,7 @@
   }
 
   &:active {
-    background-color: var(--primary);
+    background-color: var(--bg-400);
     text-decoration: underline;
     font-weight: var(--font-weight-bold);
   }
@@ -49,17 +49,17 @@
   max-height: 30px;
   border-radius: 10px;
 
-  color: var(--primary);
+  color: var(--bg-400);
   background-color: #fff;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--bg-400);
 
   &:hover {
     color: var(--bg-100);
-    background-color: var(--primary);
+    background-color: var(--bg-400);
   }
 
   &:active {
-    color: var(--primary);
+    color: var(--bg-400);
     background-color: #fff;
     text-decoration: underline;
     font-weight: var(--font-weight-bold);
