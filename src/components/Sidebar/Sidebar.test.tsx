@@ -1,7 +1,6 @@
 import { test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Sidebar from "./Sidebar.tsx";
-import { Grade } from "../../api/services/types";
 
 test("renders Sidebar with all elements", () => {
   render(
@@ -15,7 +14,7 @@ test("renders Sidebar with all elements", () => {
       profileUrl="example.png"
       currentCohort={3}
       cohorts={[1, 2, 3]}
-      grade={Grade.TREE}
+      grade={"TREE"}
     />,
   );
 

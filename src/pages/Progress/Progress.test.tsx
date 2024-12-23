@@ -3,7 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import { type Member, Grade } from "../../api/services/types";
+import { type Member } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Progress from "./Progress";
 
@@ -166,7 +166,14 @@ function mockMember({ id = faker.internet.username() }: { id?: string } = {}) {
     name: id,
     currentCohort,
     cohorts: [currentCohort],
-    grade: faker.helpers.arrayElement(Object.values(Grade)),
+    grade: faker.helpers.arrayElement([
+      "SEED",
+      "SPROUT",
+      "LEAF",
+      "BRANCH",
+      "FRUIT",
+      "TREE",
+    ]),
     profileUrl: faker.internet.url(),
     solvedProblems: [],
   });

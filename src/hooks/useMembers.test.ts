@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 import { faker } from "@faker-js/faker";
 
-import { Grade, type Member } from "../api/services/types";
+import { type Member } from "../api/services/types";
 import useMembers from "./useMembers";
 import { problems } from "../api/constants/problems";
 
@@ -15,7 +15,14 @@ function createMockMember(custom: Partial<Member> = {}): Member {
     cohorts: [currentCohort],
     profileUrl: faker.internet.url(),
     progress: faker.number.int({ min: 0, max: 100 }),
-    grade: faker.helpers.arrayElement(Object.values(Grade)),
+    grade: faker.helpers.arrayElement([
+      "SEED",
+      "SPROUT",
+      "LEAF",
+      "BRANCH",
+      "FRUIT",
+      "TREE",
+    ]),
     solvedProblems: faker.helpers.arrayElements(
       problems,
       faker.number.int({ min: 0, max: 5 }),

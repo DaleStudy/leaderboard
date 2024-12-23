@@ -35,7 +35,7 @@ const initializeMemberMap = (
       ...member,
       solvedProblems: [],
       progress: 0,
-      grade: Grade.SEED,
+      grade: "SEED",
     };
   });
 
@@ -104,5 +104,5 @@ const determineGrade = (
     ([, threshold]) => totalSubmissions >= threshold,
   );
 
-  return grade ? grade[0] : Grade.SEED;
+  return grade ? grade[0] : "SEED";
 };

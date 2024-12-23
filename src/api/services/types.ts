@@ -1,11 +1,4 @@
-export enum Grade {
-  SEED = "SEED",
-  SPROUT = "SPROUT",
-  LEAF = "LEAF",
-  BRANCH = "BRANCH",
-  FRUIT = "FRUIT",
-  TREE = "TREE",
-}
+export type Grade = "SEED" | "SPROUT" | "LEAF" | "BRANCH" | "FRUIT" | "TREE";
 
 export type MemberIdentity = {
   id: string; // lowercase

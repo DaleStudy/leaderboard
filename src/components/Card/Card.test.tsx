@@ -1,8 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
 import { expect, test } from "vitest";
-
-import { Grade } from "../../api/services/types";
-
 import Card from "./Card";
 
 test("render grade image", () => {
@@ -10,14 +7,14 @@ test("render grade image", () => {
     <Card
       id="test"
       name="test"
-      grade={Grade.TREE}
+      grade={"TREE"}
       currentCohort={1}
       cohorts={[1]}
     />,
   );
 
   expect(
-    screen.getByRole("img", { name: `${Grade.TREE} image` }),
+    screen.getByRole("img", { name: `${"TREE"} image` }),
   ).toBeInTheDocument();
 });
 
@@ -27,7 +24,7 @@ test("render github name", () => {
     <Card
       id="test"
       name={name}
-      grade={Grade.TREE}
+      grade={"TREE"}
       currentCohort={1}
       cohorts={[1]}
     />,
@@ -42,7 +39,7 @@ test("render cohort", () => {
     <Card
       id="test"
       name="user123"
-      grade={Grade.TREE}
+      grade={"TREE"}
       currentCohort={currentCohort}
       cohorts={[currentCohort]}
     />,
@@ -59,7 +56,7 @@ test("render progress link", () => {
     <Card
       id={id}
       name="user123"
-      grade={Grade.TREE}
+      grade={"TREE"}
       currentCohort={1}
       cohorts={[1]}
     />,
@@ -79,7 +76,7 @@ test("render certificate link", () => {
     <Card
       id={id}
       name="user123"
-      grade={Grade.TREE}
+      grade={"TREE"}
       currentCohort={1}
       cohorts={[1]}
     />,

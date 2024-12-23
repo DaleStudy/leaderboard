@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Sidebar from "./Sidebar.tsx";
-import { Grade } from "../../api/services/types";
 
 const meta = {
   component: Sidebar,
@@ -14,7 +13,7 @@ const meta = {
     profileUrl: "https://avatars.githubusercontent.com/u/104721736?v=4",
     currentCohort: 3,
     cohorts: [1, 2, 3],
-    grade: Grade.LEAF,
+    grade: "LEAF",
   },
 } satisfies Meta<typeof Sidebar>;
 
@@ -27,7 +26,7 @@ export const Default: StoryObj<typeof meta> = {
     hardProgress: "3/5",
     solvedProblems: 16,
     totalProblems: 25,
-    grade: Grade.LEAF,
+    grade: "LEAF",
     cohorts: [1, 2, 3],
     currentCohort: 3,
     githubUsername: "testuser",
@@ -42,7 +41,7 @@ export const HighProgress: StoryObj<typeof meta> = {
     easyProgress: "10/10",
     mediumProgress: "10/10",
     hardProgress: "8/10",
-    grade: Grade.FRUIT,
+    grade: "FRUIT",
     currentCohort: 3,
     cohorts: [1, 2, 3],
     githubUsername: "testuser",
@@ -57,7 +56,7 @@ export const NoProblems: StoryObj<typeof meta> = {
     hardProgress: "0/0",
     solvedProblems: 0,
     totalProblems: 0,
-    grade: Grade.SEED,
+    grade: "SEED",
     currentCohort: 3,
     cohorts: [1, 2, 3],
     githubUsername: "testuser",
