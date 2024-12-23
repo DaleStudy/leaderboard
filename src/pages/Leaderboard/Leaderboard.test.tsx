@@ -132,7 +132,7 @@ test("render the search bar", () => {
 });
 
 function mockMember() {
-  const userName = faker.internet.userName();
+  const userName = faker.internet.username();
   const currentCohort = faker.number.int({ min: 1, max: 9 });
   return mock<Member>({
     id: userName,

@@ -6,12 +6,6 @@
   column-gap: 35px;
   align-items: flex-end;
 
-  > img {
-    width: 105px;
-    height: 128px;
-    object-fit: fill;
-  }
-
   > section {
     > section {
       display: flex;
