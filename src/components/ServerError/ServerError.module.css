@@ -10,13 +10,13 @@
 
   h2 {
     font-size: 80px;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: var(--primary);
   }
 
   p {
     font-size: 21px;
-    font-weight: normal;
+    font-weight: var(--font-weight-regular);
     color: var(--text-900);
   }
 }

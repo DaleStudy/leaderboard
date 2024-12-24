@@ -65,7 +65,7 @@ aside {
   left: 50%;
   transform: translateX(-50%);
   font-size: 14px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--text-secondary);
 }
 
@@ -79,7 +79,7 @@ aside {
   justify-content: center;
   margin-bottom: 35px;
   padding-bottom: 31px;
-  border-bottom: 2px solid #846de9;
+  border-bottom: 2px solid var(--primary);
 }
 
 .currentStatus img {
@@ -103,7 +103,7 @@ aside {
   flex-direction: column;
   align-items: center;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   gap: 5px;
 }
 
@@ -120,7 +120,7 @@ aside {
 }
 
 .gradientText {
-  background: linear-gradient(to right, #24faca, #846de9);
+  background: linear-gradient(to right, #24faca, var(--primary));
   color: transparent;
   background-clip: text;
   font-size: 17px;
@@ -164,7 +164,7 @@ aside {
   border-radius: 10px;
   color: white !important;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   text-align: center;
   margin-top: 20px;
   margin-left: auto;

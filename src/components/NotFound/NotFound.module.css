@@ -8,7 +8,7 @@
   color: var(--primary);
 
   & > h1 {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-size: clamp(30px, 4vw, 80px);
     line-height: clamp(50px, 4vw, 100px);
   }
@@ -18,7 +18,7 @@
     margin: 32px 0 0;
     white-space: pre-wrap;
     color: var(--text-900);
-    font-weight: 400;
+    font-weight: var(--font-weight-regular);
     font-size: clamp(12px, 4vw, 16px);
     line-height: clamp(18px, 4vw, 28px);
   }
