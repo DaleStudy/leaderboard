@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Card from "./Card";
-import { Grade } from "../../api/services/types";
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -14,7 +13,7 @@ export default meta;
 export const Seed: StoryObj<typeof Card> = {
   args: {
     name: "seed",
-    grade: Grade.SEED,
+    grade: "SEED",
     cohorts: [1],
   },
 };
@@ -22,7 +21,7 @@ export const Seed: StoryObj<typeof Card> = {
 export const Sprout: StoryObj<typeof Card> = {
   args: {
     name: "sprout",
-    grade: Grade.SPROUT,
+    grade: "SPROUT",
     cohorts: [2],
   },
 };
@@ -30,7 +29,7 @@ export const Sprout: StoryObj<typeof Card> = {
 export const Leaf: StoryObj<typeof Card> = {
   args: {
     name: "leaf",
-    grade: Grade.LEAF,
+    grade: "LEAF",
     cohorts: [3],
   },
 };
@@ -38,7 +37,7 @@ export const Leaf: StoryObj<typeof Card> = {
 export const Branch: StoryObj<typeof Card> = {
   args: {
     name: "branch",
-    grade: Grade.BRANCH,
+    grade: "BRANCH",
     cohorts: [4],
   },
 };
@@ -46,7 +45,7 @@ export const Branch: StoryObj<typeof Card> = {
 export const Fruit: StoryObj<typeof Card> = {
   args: {
     name: "fruit",
-    grade: Grade.FRUIT,
+    grade: "FRUIT",
     cohorts: [5],
   },
 };
@@ -54,7 +53,7 @@ export const Fruit: StoryObj<typeof Card> = {
 export const Tree: StoryObj<typeof Card> = {
   args: {
     name: "tree",
-    grade: Grade.TREE,
+    grade: "TREE",
     cohorts: [6],
   },
 };

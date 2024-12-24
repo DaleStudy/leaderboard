@@ -111,29 +111,29 @@ test("remove member with no submissions", () => {
 });
 
 test.each([
-  [1, Grade.SEED],
-  [2, Grade.SPROUT],
-  [3, Grade.SPROUT],
-  [4, Grade.LEAF],
-  [5, Grade.LEAF],
-  [6, Grade.BRANCH],
-  [7, Grade.BRANCH],
-  [8, Grade.FRUIT],
-  [9, Grade.FRUIT],
-  [10, Grade.TREE],
-  [11, Grade.TREE],
+  [1, "SEED"],
+  [2, "SPROUT"],
+  [3, "SPROUT"],
+  [4, "LEAF"],
+  [5, "LEAF"],
+  [6, "BRANCH"],
+  [7, "BRANCH"],
+  [8, "FRUIT"],
+  [9, "FRUIT"],
+  [10, "TREE"],
+  [11, "TREE"],
 ])(
   "assign grades based on submissions: totalSubmissions: %i, expectedGrade: %s",
   (totalSubmissions, expectedGrade) => {
     // Arrange
     const config: Partial<Config> = {
       gradeThresholds: [
-        [Grade.SEED, 0],
-        [Grade.SPROUT, 2],
-        [Grade.LEAF, 4],
-        [Grade.BRANCH, 6],
-        [Grade.FRUIT, 8],
-        [Grade.TREE, 10],
+        ["SEED", 0],
+        ["SPROUT", 2],
+        ["LEAF", 4],
+        ["BRANCH", 6],
+        ["FRUIT", 8],
+        ["TREE", 10],
       ],
     };
     const processService = createMockProcessService(config);

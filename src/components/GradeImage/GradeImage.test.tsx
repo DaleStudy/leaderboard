@@ -2,11 +2,9 @@ import { faker } from "@faker-js/faker";
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 
-import { Grade } from "../../api/services/types";
-
 import GradeImage from "./GradeImage";
 
-test.each(Object.values(Grade))(
+test.each(["SEED", "SPROUT", "LEAF", "BRANCH", "FRUIT", "TREE"] as const)(
   "attach alternative text for %s image",
   (grade) => {
     render(
@@ -24,7 +22,14 @@ test.each(Object.values(Grade))(
 test("set width and height", () => {
   render(
     <GradeImage
-      grade={faker.helpers.arrayElement(Object.values(Grade))}
+      grade={faker.helpers.arrayElement([
+        "SEED",
+        "SPROUT",
+        "LEAF",
+        "BRANCH",
+        "FRUIT",
+        "TREE",
+      ])}
       width={105}
       height={128}
     />,
