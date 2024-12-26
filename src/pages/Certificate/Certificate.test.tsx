@@ -173,6 +173,27 @@ test("render content solved problems, cohort", () => {
   });
 });
 
+test("render learderboard link", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  location.href = new URL(`?member=test1`, location.href).toString();
+  render(<Certificate />);
+
+  const leaderboardLink = screen.getByRole("link", {
+    name: "리더보드로 돌아가기",
+  });
+  expect(leaderboardLink).toHaveAttribute("href", `/`);
+});
+
 test("render print button", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
