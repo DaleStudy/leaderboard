@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+storybook-static
 *storybook.log
 
 styled-system

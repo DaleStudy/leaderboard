@@ -9,10 +9,8 @@ const meta: Meta<typeof Progress> = {
     query: {
       member: "sunjae95",
     },
-    parameters: {
-      a11y: {
-        disable: true,
-      },
+    a11y: {
+      disable: true,
     },
     msw: {
       handlers: [

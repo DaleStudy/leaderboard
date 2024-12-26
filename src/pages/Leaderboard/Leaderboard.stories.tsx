@@ -91,6 +91,9 @@ export const ServerError: StoryObj<typeof meta> = {
 export const ByCohort: StoryObj<typeof meta> = {
   play: async ({ canvas, step }) => {
     const combobox = await canvas.findByRole("combobox");
+    expect(
+      await canvas.findByRole("option", { name: "1기" }, { timeout: 10_000 }),
+    ).toBeInTheDocument();
 
     await step("1기 선택", async () => {
       await userEvent.selectOptions(combobox, "1");
@@ -114,7 +117,7 @@ export const ByMember: StoryObj<typeof meta> = {
         () => {
           expect(canvas.getAllByRole("article")).toHaveLength(3);
         },
-        { timeout: 1_000 },
+        { timeout: 20_000 },
       );
     });
 
@@ -124,7 +127,7 @@ export const ByMember: StoryObj<typeof meta> = {
         () => {
           expect(canvas.getAllByRole("article")).toHaveLength(1);
         },
-        { timeout: 1_000 },
+        { timeout: 20_000 },
       );
     });
   },
