@@ -7,9 +7,10 @@ import Layout from "../../components/Layout/Layout";
 import Link from "../../components/Link/Link";
 import NotFound from "../../components/NotFound/NotFound";
 import Spinner from "../../components/Spinner/Spinner";
+import ServerError from "../../components/ServerError/ServerError";
 
 import styles from "./Certificate.module.css";
-import ServerError from "../../components/ServerError/ServerError";
+import { gradeEmojiMap } from "./constants";
 
 const cohortSuffix = ["th", "st", "nd", "rd"];
 
@@ -54,7 +55,16 @@ export default function Certificate() {
     );
   }
 
-  const linkedInURL = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${member?.name}&organizationId=104834174&certUrl=${encodeURIComponent(location.href)}`;
+  const certificateName = `Leetcode 75 ${gradeEmojiMap[member.grade]}`;
+
+  const params = new URLSearchParams({
+    startTask: "CERTIFICATION_NAME",
+    name: certificateName,
+    organizationId: "104834174",
+    certUrl: location.href,
+  });
+
+  const linkedInURL = `https://www.linkedin.com/profile/add?${params.toString()}`;
 
   return (
     <Layout>
