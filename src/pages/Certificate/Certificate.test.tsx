@@ -266,6 +266,7 @@ test("render LinkedIn link", () => {
   const expectedLinkedInURL = `https://www.linkedin.com/profile/add?${params.toString()}`;
 
   expect(linkedInLink).toHaveAttribute("href", expectedLinkedInURL);
+  expect(linkedInLink).toHaveAttribute("target", "_blank");
 });
 
 test("render the error message while fetching members", () => {
