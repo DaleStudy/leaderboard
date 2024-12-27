@@ -124,7 +124,11 @@ export default function Certificate() {
                   출력
                 </Button>
 
-                <Link variant="primaryButton" href={linkedInURL}>
+                <Link
+                  variant="primaryButton"
+                  href={linkedInURL}
+                  target="_blank"
+                >
                   링크드인 공유
                 </Link>
               </div>
