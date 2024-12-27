@@ -6,6 +6,7 @@ import { mock } from "vitest-mock-extended";
 import { Member } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Certificate from "./Certificate";
+import { gradeEmojiMap } from "./constants";
 
 vi.mock("../../hooks/useMembers");
 
@@ -240,7 +241,7 @@ test("render LinkedIn link", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      members: [mock<Member>({ id: "test1", name: "테스트1", grade: "SEED" })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -253,10 +254,18 @@ test("render LinkedIn link", () => {
   const linkedInLink = screen.getByRole("link", {
     name: "링크드인 공유",
   });
-  expect(linkedInLink).toHaveAttribute(
-    "href",
-    `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=테스트1&organizationId=104834174&certUrl=${encodeURIComponent(location.href)}`,
-  );
+
+  const certificateName = `Leetcode 75 ${gradeEmojiMap["SEED"]}`;
+  const params = new URLSearchParams({
+    startTask: "CERTIFICATION_NAME",
+    name: certificateName,
+    organizationId: "104834174",
+    certUrl: location.href,
+  });
+
+  const expectedLinkedInURL = `https://www.linkedin.com/profile/add?${params.toString()}`;
+
+  expect(linkedInLink).toHaveAttribute("href", expectedLinkedInURL);
 });
 
 test("render the error message while fetching members", () => {
