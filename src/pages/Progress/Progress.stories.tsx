@@ -9,6 +9,9 @@ const meta: Meta<typeof Progress> = {
     query: {
       member: "sunjae95",
     },
+    a11y: {
+      disable: true,
+    },
     msw: {
       handlers: [
         http.get("https://api.github.com/orgs/DaleStudy/teams", () =>

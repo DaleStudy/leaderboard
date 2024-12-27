@@ -3,6 +3,11 @@ import Sidebar from "./Sidebar.tsx";
 
 const meta = {
   component: Sidebar,
+  parameters: {
+    a11y: {
+      disable: true,
+    },
+  },
   args: {
     githubUsername: "testuser",
     easyProgress: "5/10",

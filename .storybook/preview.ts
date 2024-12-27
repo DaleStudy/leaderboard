@@ -13,7 +13,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    docs: {
+      toc: true,
+    },
   },
+  tags: ["autodocs"],
   // Provide the MSW addon loader globally
   loaders: [mswLoader],
 };

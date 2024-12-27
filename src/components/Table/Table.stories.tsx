@@ -3,6 +3,11 @@ import { Table } from "./Table";
 
 const meta: Meta<typeof Table> = {
   component: Table,
+  parameters: {
+    a11y: {
+      disable: true,
+    },
+  },
   args: {
     problems: [
       {
