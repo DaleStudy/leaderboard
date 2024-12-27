@@ -1,6 +1,7 @@
 aside {
   position: sticky;
   top: 87px;
+  z-index: var(--z-index-aside);
 }
 
 .cohort {
