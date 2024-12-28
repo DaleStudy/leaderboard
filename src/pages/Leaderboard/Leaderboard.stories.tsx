@@ -117,7 +117,7 @@ export const ByMember: StoryObj<typeof meta> = {
         () => {
           expect(canvas.getAllByRole("article")).toHaveLength(3);
         },
-        { timeout: 15_000 },
+        { timeout: 12_000 },
       );
     });
 
@@ -127,7 +127,7 @@ export const ByMember: StoryObj<typeof meta> = {
         () => {
           expect(canvas.getAllByRole("article")).toHaveLength(1);
         },
-        { timeout: 15_000 },
+        { timeout: 12_000 },
       );
     });
   },
