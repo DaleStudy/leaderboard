@@ -101,17 +101,23 @@ export default function Certificate() {
             </section>
 
             <section className={styles.buttons}>
-              <Button
-                variant="primary"
-                size="large"
-                onClick={() => window.print()}
-              >
-                출력
-              </Button>
-
-              <Link variant="primaryButton" href={linkedInURL}>
-                링크드인 공유
+              <Link variant="secondaryButton" href="/">
+                리더보드로 돌아가기
               </Link>
+
+              <div>
+                <Button
+                  variant="primary"
+                  size="large"
+                  onClick={() => window.print()}
+                >
+                  출력
+                </Button>
+
+                <Link variant="primaryButton" href={linkedInURL}>
+                  링크드인 공유
+                </Link>
+              </div>
             </section>
           </div>
         </section>
