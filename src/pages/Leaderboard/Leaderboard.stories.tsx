@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent } from "@storybook/test";
+import { userEvent } from "@storybook/test";
 import { delay, http, HttpResponse } from "msw";
 import Leaderboard from "./Leaderboard";
 
