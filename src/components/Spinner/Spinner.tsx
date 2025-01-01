@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import styles from "./Spinner.module.css";
 
 export default function Spinner(props: HTMLAttributes<SVGElement>) {

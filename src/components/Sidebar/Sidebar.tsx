@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Grade } from "../../api/services/types";
+import type { Grade } from "../../api/services/types";
 import Github from "../../assets/Github.png";
 import GradeImage from "../GradeImage/GradeImage";
 import styles from "./Sidebar.module.css";

@@ -1,11 +1,6 @@
 import { problemMap } from "../../constants/problems";
 import type { Config } from "../../config/types";
-import {
-  Grade,
-  type Member,
-  type MemberIdentity,
-  type Submission,
-} from "../types";
+import type { Grade, Member, MemberIdentity, Submission } from "../types";
 
 export function createProcessService(config: Config) {
   return {

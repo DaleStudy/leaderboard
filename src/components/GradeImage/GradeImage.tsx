@@ -1,4 +1,4 @@
-import { Grade } from "../../api/services/types";
+import type { Grade } from "../../api/services/types";
 import SeedImage from "../../assets/GradeSeed.png";
 import SproutImage from "../../assets/GradeSprout.png";
 import LeafImage from "../../assets/GradeLeaf.png";
