@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterAll, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import { Member } from "../../api/services/types";
+import type { Member } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
 import Certificate from "./Certificate";
 import { gradeEmojiMap } from "./constants";

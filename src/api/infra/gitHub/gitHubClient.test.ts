@@ -1,7 +1,7 @@
 import { test, expect, beforeEach, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "./gitHubClient";
-import { GitHubMember, GitHubTeam, GitHubTree } from "./types";
+import type { GitHubMember, GitHubTeam, GitHubTree } from "./types";
 
 // Mock data
 const mockGitHubTeams = mock<GitHubTeam[]>();

@@ -1,4 +1,4 @@
-import { Grade } from "../../api/services/types";
+import type { Grade } from "../../api/services/types";
 import GradeImage from "../GradeImage/GradeImage";
 import Link from "../Link/Link";
 import styles from "./Card.module.css";

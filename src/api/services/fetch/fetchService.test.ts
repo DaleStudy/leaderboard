@@ -2,8 +2,12 @@ import { beforeEach, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import { createFetchService } from "./fetchService";
-import { Grade } from "../types";
-import { GitHubMember, GitHubTeam, GitHubTree } from "../../infra/gitHub/types";
+import type { Grade } from "../types";
+import type {
+  GitHubMember,
+  GitHubTeam,
+  GitHubTree,
+} from "../../infra/gitHub/types";
 
 // Mock data
 const dummyConfig = {
