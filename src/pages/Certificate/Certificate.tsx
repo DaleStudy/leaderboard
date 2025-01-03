@@ -72,19 +72,13 @@ export default function Certificate() {
         <section>
           <h1>수료증</h1>
 
-          <section className={styles.content}>
-            {/* TODO Icon component 구현시 className에 style값만 추가할 것*/}
-            <div className={styles.contentSide}>
-              <img
-                src="/top-left-corner-accent.svg"
-                alt="좌상단 모서리 테두리"
-              />
-              <img
-                src="/bottom-left-corner-accent.svg"
-                alt="좌하단 모서리 테두리"
-              />
-            </div>
+          <div className={styles.mobileButtonWrapper}>
+            <Link variant="secondaryButton" href="/">
+              리더보드로 돌아가기
+            </Link>
+          </div>
 
+          <section className={styles.content}>
             <div className={styles.description}>
               <img src="/logo-in-certificate.svg" alt="수료증 로고"></img>
               <h2>CERTIFICATE OF ACHIEVEMENT</h2>
@@ -98,16 +92,26 @@ export default function Certificate() {
               <span>DaleStudy Organizer</span>
             </div>
 
-            <div className={styles.contentSide}>
-              <img
-                src="/top-right-corner-accent.svg"
-                alt="우상단 모서리 테두리"
-              />
-              <img
-                src="/bottom-right-corner-accent.svg"
-                alt="우하단 모서리 테두리"
-              />
-            </div>
+            <img
+              className={`${styles.cornerAccent} ${styles.top} ${styles.left}`}
+              src="/top-left-corner-accent.svg"
+              alt="좌상단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.bottom} ${styles.left}`}
+              src="/bottom-left-corner-accent.svg"
+              alt="좌하단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.top} ${styles.right}`}
+              src="/top-right-corner-accent.svg"
+              alt="우상단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.bottom} ${styles.right}`}
+              src="/bottom-right-corner-accent.svg"
+              alt="우하단 모서리 테두리"
+            />
           </section>
 
           <section className={styles.buttons}>
