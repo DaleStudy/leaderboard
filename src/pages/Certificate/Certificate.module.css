@@ -1,30 +1,37 @@
+/* NOTE print 기능은 certificate에서 사용하기에 현재 css파일에서 다룬다 */
+@media print {
+  @page {
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  main {
+    margin-top: 0px !important;
+    height: 100%;
+  }
+
+  section {
+    margin-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
+
 .certificate {
-  /* 컴포넌트가 헤더에 가려져서 임의로 지정했으니 컴포넌트 개발자가 설계에 맞게 수정해주시면 됩니다  */
   margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & > section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & > div {
-      padding: 16px 0 70px 0;
-      width: 822px;
-      min-width: 822px;
-    }
-  }
-
-  & > div,
-  h1,
-  footer,
-  .buttons {
-    @media print {
-      display: none;
-    }
-  }
-
-  @media print {
-    margin-top: 200px;
+    width: 100%;
+    max-width: 900px;
+    padding-bottom: 60px;
   }
 }
 
@@ -117,6 +124,10 @@
   & > div {
     display: flex;
     column-gap: 15px;
+  }
+
+  @media print {
+    display: none !important;
   }
 }
 
