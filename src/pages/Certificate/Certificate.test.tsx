@@ -189,10 +189,12 @@ test("render learderboard link", () => {
   location.href = new URL(`?member=test1`, location.href).toString();
   render(<Certificate />);
 
-  const leaderboardLink = screen.getByRole("link", {
+  const linkList = screen.getAllByRole("link", {
     name: "리더보드로 돌아가기",
   });
-  expect(leaderboardLink).toHaveAttribute("href", `/`);
+  expect(linkList).toHaveLength(2);
+  expect(linkList[0]).toHaveAttribute("href", `/`);
+  expect(linkList[1]).toHaveAttribute("href", `/`);
 });
 
 test("render print button", () => {
