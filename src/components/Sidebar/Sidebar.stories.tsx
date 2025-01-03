@@ -1,4 +1,4 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import Sidebar from "./Sidebar.tsx";
 
 const meta = {
@@ -8,11 +8,6 @@ const meta = {
       disable: true,
     },
   },
-  decorators: (Story: StoryFn) => (
-    <div style={{ width: "203px" }}>
-      <Story />
-    </div>
-  ),
   args: {
     githubUsername: "testuser",
     easyProgress: "5/10",
