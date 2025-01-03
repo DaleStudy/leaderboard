@@ -1,10 +1,8 @@
 aside {
   position: sticky;
   top: 87px;
-  width: 260px;
-  height: calc(100vh - 40px);
-  overflow-y: auto;
-  align-items: center;
+  z-index: var(--z-index-aside);
+  max-width: 203px;
 }
 
 .cohort {
@@ -13,9 +11,6 @@ aside {
 }
 
 .container {
-  top: 230px;
-  left: 20px;
-  width: 250px;
   padding: 20px 35px;
   background-color: var(--bg-200);
   border-radius: 10px;
