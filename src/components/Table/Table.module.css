@@ -21,7 +21,7 @@ tr:nth-child(odd) {
 }
 
 tr:nth-child(even) {
-  background-color: var(--bg-100);
+  background-color: #ffffff;
 }
 
 /* Problem column */
@@ -49,15 +49,15 @@ tr:nth-child(even) {
 }
 
 .easy {
-  color: #1cbaba;
+  color: #007f71;
 }
 
 .medium {
-  color: #ffb700;
+  color: #936a00;
 }
 
 .hard {
-  color: #f63737;
+  color: #e0284b;
 }
 
 /* Status column */
