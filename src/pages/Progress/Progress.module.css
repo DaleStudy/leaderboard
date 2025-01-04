@@ -6,20 +6,33 @@
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 20px;
+  margin-bottom: 15px;
+  @media (min-width: 1080px) {
+    font-size: 24px;
+  }
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  flex-direction: column;
   gap: 20px;
+  @media (min-width: 1080px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
 }
 
 .sideBar {
-  width: 30%;
+  @media (min-width: 1080px) {
+    width: 30%;
+  }
 }
 
 .problemTableWrapper {
-  width: 75%;
+  @media (min-width: 1080px) {
+    width: 75%;
+  }
 }

@@ -4,16 +4,25 @@ table {
 }
 
 th {
-  height: 48px;
   background-color: var(--bg-100);
-  font-size: 18px;
   font-weight: var(--font-weight-bold);
   text-align: center;
+  height: 35px;
+  font-size: 13px;
+  @media (min-width: 1080px) {
+    height: 48px;
+    font-size: 18px;
+  }
 }
 
 /* Row & Cell Styles */
 td {
-  height: 48px;
+  height: 35px;
+  font-size: 10px;
+  @media (min-width: 1080px) {
+    height: 48px;
+    font-size: 16px;
+  }
 }
 
 tr:nth-child(odd) {
@@ -58,6 +67,25 @@ tr:nth-child(even) {
 
 .hard {
   color: #e0284b;
+}
+
+.completedIcon {
+  width: 10px;
+  height: 7.5px;
+  @media (min-width: 1080px) {
+    width: 18px;
+    height: 13.5px;
+  }
+}
+
+.incompleteIcon {
+  width: 8px;
+  height: 8px;
+  opacity: 0.4;
+  @media (min-width: 1080px) {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 /* Status column */

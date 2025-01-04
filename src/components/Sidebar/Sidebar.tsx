@@ -80,7 +80,7 @@ export default function Sidebar(props: SidebarProps) {
             <span className={styles.gradientText}>{solvedProblems} </span>
             <span className={styles.solidText}> 문제</span>
           </div>
-          <div className={styles.progress}>
+          <div>
             <a
               className={styles.problemButtonLink}
               href={`https://github.com/DaleStudy/leetcode-study/pulls?q=is%3Apr+author%3A${githubUsername}`}
@@ -105,7 +105,7 @@ export default function Sidebar(props: SidebarProps) {
           {taskProgress.map(({ label, progress, className }) => (
             <div key={label} className={styles.task}>
               <span className={className}>{label}</span>
-              <span>{progress}</span>
+              <span className={styles.progress}>{progress}</span>
             </div>
           ))}
         </section>
