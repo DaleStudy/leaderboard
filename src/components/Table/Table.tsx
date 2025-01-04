@@ -90,24 +90,18 @@ export function Table({
 }
 
 function getTaskIcon(completed: boolean) {
-  if (completed) {
-    return (
-      <img
-        src="/completed-status-icon.svg"
-        alt="완료 문제 상태 아이콘"
-        aria-label="완료 문제"
-      ></img>
-    );
-  } else {
-    return (
-      <img
-        src="/incomplete-status-icon.svg"
-        alt="미완료 문제 상태 아이콘"
-        aria-label="미완료 문제"
-        style={{ opacity: 0.4 }}
-      />
-    );
-  }
+  const iconClass = completed ? styles.completedIcon : styles.incompleteIcon;
+
+  return (
+    <img
+      src={
+        completed ? "/completed-status-icon.svg" : "/incomplete-status-icon.svg"
+      }
+      alt={completed ? "완료 문제 상태 아이콘" : "미완료 문제 상태 아이콘"}
+      aria-label={completed ? "완료 문제" : "미완료 문제"}
+      className={iconClass}
+    />
+  );
 }
 
 function getDifficultyClass(difficulty: string) {

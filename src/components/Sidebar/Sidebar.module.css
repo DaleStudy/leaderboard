@@ -1,13 +1,21 @@
 aside {
-  position: sticky;
-  top: 87px;
+  display: flex;
   z-index: var(--z-index-aside);
-  max-width: 203px;
+  flex-direction: column-reverse;
+  @media (min-width: 1080px) {
+    position: sticky;
+    top: 87px;
+    flex-direction: column;
+    max-width: 203px;
+  }
 }
 
 .cohort {
-  display: flex;
-  justify-content: flex-end;
+  display: none;
+  @media (min-width: 1080px) {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .container {
@@ -24,7 +32,11 @@ aside {
 .profile {
   position: relative;
   text-align: center;
+  margin-top: 30px;
   margin-bottom: 25px;
+  @media (min-width: 1080px) {
+    margin-top: 22.5px;
+  }
 }
 
 .avatar {
@@ -67,39 +79,62 @@ aside {
 .username {
   font-size: 14px;
   color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-weight: var(var(--font-weight-regular));
+  @media (min-width: 1080px) {
+    margin-bottom: 25px;
+  }
 }
 
 .currentStatus {
   display: flex;
   justify-content: center;
   margin-bottom: 35px;
-  padding-bottom: 31px;
-  border-bottom: 2px solid var(--primary);
+  @media (min-width: 1080px) {
+    padding-bottom: 31px;
+    border-bottom: 2px solid var(--primary);
+  }
 }
 
 .currentStatus img {
-  width: 80px;
-  height: 103px;
+  width: 70px;
+  height: 85px;
+  @media (min-width: 1080px) {
+    width: 80px;
+    height: 103px;
+  }
 }
 
 .taskCounts {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 35px;
-  gap: 35px;
-  font-size: 20px;
-  font-weight: var(--font-weight-bold);
+  gap: 10px;
+  margin-bottom: 30px;
+  @media (min-width: 1080px) {
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 35px;
+    font-weight: var(--font-weight-bold);
+  }
 }
 
 .task {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: var(--font-weight-bold);
   gap: 5px;
+  @media (min-width: 1080px) {
+    font-size: 20px;
+  }
+}
+
+.progress {
+  font-size: 12px;
+  @media (min-width: 1080px) {
+    font-size: 14px;
+  }
 }
 
 .easy {
@@ -127,16 +162,23 @@ aside {
 
 .returnButtonLink {
   display: block;
-  width: 80%;
+  margin-bottom: 15px;
+  align-self: flex-end;
+  width: 47%;
   padding: 10px 0;
   border: 1px solid var(--bg-400);
   border-radius: 10px;
   color: var(--bg-400) !important;
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+
+  @media (min-width: 1080px) {
+    width: 80%;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   &:hover {
     background-color: var(--bg-400);
@@ -153,12 +195,13 @@ aside {
 
 .problemButtonLink {
   display: block;
+  width: 135px;
   padding: 10px 0;
   background-color: var(--bg-400);
   border: 1px solid var(--bg-400);
   border-radius: 10px;
   color: white !important;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: var(--font-weight-bold);
   text-align: center;
   margin-top: 20px;
