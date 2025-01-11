@@ -33,7 +33,7 @@ export default function Certificate() {
             <div>
               <h1>수료증</h1>
               <section className={styles.serverErrorWrapper}>
-                <ServerError />;
+                <ServerError />
               </section>
             </div>
           </section>
