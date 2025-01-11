@@ -71,7 +71,7 @@ test("render page title", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -90,10 +90,12 @@ test("render content id", () => {
     mock<Member>({
       id: "test1",
       name: "테스트1",
+      cohorts: [1],
     }),
     mock<Member>({
       id: "test2",
       name: "테스트2",
+      cohorts: [2],
     }),
   ];
 
@@ -120,25 +122,25 @@ test("render content solved problems, cohort", () => {
   const members = [
     mock<Member>({
       solvedProblems: Array(5).fill({}),
-      currentCohort: 1,
+      cohorts: [1],
       id: "test1",
       name: "테스트1",
     }),
     mock<Member>({
       solvedProblems: Array(10).fill({}),
-      currentCohort: 2,
+      cohorts: [2],
       id: "test2",
       name: "테스트2",
     }),
     mock<Member>({
       solvedProblems: Array(20).fill({}),
-      currentCohort: 3,
+      cohorts: [3],
       id: "test3",
       name: "테스트3",
     }),
     mock<Member>({
       solvedProblems: Array(75).fill({}),
-      currentCohort: 4,
+      cohorts: [4],
       id: "test4",
       name: "테스트4",
     }),
@@ -155,7 +157,7 @@ test("render content solved problems, cohort", () => {
     }),
   );
   const cohortSuffix = ["th", "st", "nd", "rd"];
-  members.forEach(({ id, solvedProblems, currentCohort }) => {
+  members.forEach(({ id, solvedProblems, cohorts }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
     render(<Certificate />);
 
@@ -167,7 +169,7 @@ test("render content solved problems, cohort", () => {
     );
     screen.getByText(
       new RegExp(
-        `${currentCohort}${cohortSuffix?.[currentCohort ?? 0] ?? "th"}`,
+        `${cohorts.at(-1)}${cohortSuffix?.[cohorts.at(-1) ?? 0] ?? "th"}`,
         "i",
       ),
     );
@@ -179,7 +181,7 @@ test("render learderboard link", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -202,7 +204,7 @@ test("render print button", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -221,7 +223,7 @@ test("calls window.print when the print button is clicked", async () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1" })],
+      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),
@@ -243,7 +245,14 @@ test("render LinkedIn link", () => {
     mock({
       isLoading: false,
       error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1", grade: "SEED" })],
+      members: [
+        mock<Member>({
+          id: "test1",
+          name: "테스트1",
+          grade: "SEED",
+          cohorts: [1],
+        }),
+      ],
       totalCohorts: 0,
       filter: { name: "", cohort: null },
       setFilter: vi.fn(),

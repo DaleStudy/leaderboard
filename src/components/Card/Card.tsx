@@ -6,20 +6,13 @@ import styles from "./Card.module.css";
 interface CardProps {
   id: string;
   name: string;
-  currentCohort: number;
   cohorts: number[];
   grade: Grade;
 }
 
-export default function Card({
-  id,
-  name,
-  currentCohort,
-  cohorts,
-  grade,
-}: CardProps) {
+export default function Card({ id, name, cohorts, grade }: CardProps) {
   const cohortString =
-    cohorts && cohorts.length > 0 ? cohorts.join(", ") : currentCohort;
+    cohorts && cohorts.length > 0 ? cohorts.join(", ") : cohorts.at(-1);
   return (
     <article className={styles.item}>
       <GradeImage grade={grade} width={105} height={128} />

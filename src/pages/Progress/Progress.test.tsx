@@ -160,12 +160,11 @@ describe("Server Error", () => {
 });
 
 function mockMember({ id = faker.internet.username() }: { id?: string } = {}) {
-  const currentCohort = faker.number.int({ min: 1, max: 9 });
+  const cohort = faker.number.int({ min: 1, max: 9 });
   return mock<Member>({
     id,
     name: id,
-    currentCohort,
-    cohorts: [currentCohort],
+    cohorts: [cohort],
     grade: faker.helpers.arrayElement([
       "SEED",
       "SPROUT",

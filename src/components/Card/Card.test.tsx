@@ -3,15 +3,7 @@ import { expect, test } from "vitest";
 import Card from "./Card";
 
 test("render grade image", () => {
-  render(
-    <Card
-      id="test"
-      name="test"
-      grade={"TREE"}
-      currentCohort={1}
-      cohorts={[1]}
-    />,
-  );
+  render(<Card id="test" name="test" grade={"TREE"} cohorts={[1]} />);
 
   expect(
     screen.getByRole("img", { name: `${"TREE"} image` }),
@@ -20,47 +12,23 @@ test("render grade image", () => {
 
 test("render github name", () => {
   const name = "user123";
-  render(
-    <Card
-      id="test"
-      name={name}
-      grade={"TREE"}
-      currentCohort={1}
-      cohorts={[1]}
-    />,
-  );
+  render(<Card id="test" name={name} grade={"TREE"} cohorts={[1]} />);
 
   expect(screen.getByRole("region", { name })).toBeInTheDocument();
 });
 
 test("render cohort", () => {
-  const currentCohort = 2;
-  render(
-    <Card
-      id="test"
-      name="user123"
-      grade={"TREE"}
-      currentCohort={currentCohort}
-      cohorts={[currentCohort]}
-    />,
-  );
+  const cohorts = [2];
+  render(<Card id="test" name="user123" grade={"TREE"} cohorts={cohorts} />);
 
   expect(
-    screen.getByRole("region", { name: `${currentCohort}기` }),
+    screen.getByRole("region", { name: `${cohorts.at(-1)}기` }),
   ).toBeInTheDocument();
 });
 
 test("render progress link", () => {
   const id = "test";
-  render(
-    <Card
-      id={id}
-      name="user123"
-      grade={"TREE"}
-      currentCohort={1}
-      cohorts={[1]}
-    />,
-  );
+  render(<Card id={id} name="user123" grade={"TREE"} cohorts={[1]} />);
 
   const link = within(
     screen.getByRole("region", { name: `카드-네비게이션-${id}` }),
@@ -72,15 +40,7 @@ test("render progress link", () => {
 
 test("render certificate link", () => {
   const id = "test";
-  render(
-    <Card
-      id={id}
-      name="user123"
-      grade={"TREE"}
-      currentCohort={1}
-      cohorts={[1]}
-    />,
-  );
+  render(<Card id={id} name="user123" grade={"TREE"} cohorts={[1]} />);
 
   const link = within(
     screen.getByRole("region", { name: `카드-네비게이션-${id}` }),
