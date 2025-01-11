@@ -33,7 +33,7 @@ export default function Certificate() {
             <div>
               <h1>수료증</h1>
               <section className={styles.serverErrorWrapper}>
-                <ServerError />;
+                <ServerError />
               </section>
             </div>
           </section>
@@ -70,70 +70,69 @@ export default function Certificate() {
     <Layout>
       <main className={styles.certificate}>
         <section>
-          <div>
-            <h1>수료증</h1>
-            <section className={styles.content}>
-              {/* TODO Icon component 구현시 className에 style값만 추가할 것*/}
-              <div className={styles.contentSide}>
-                <img
-                  src="/top-left-corner-accent.svg"
-                  alt="좌상단 모서리 테두리"
-                />
-                <img
-                  src="/bottom-left-corner-accent.svg"
-                  alt="좌하단 모서리 테두리"
-                />
-              </div>
+          <h1>수료증</h1>
 
-              <div className={styles.description}>
-                <img src="/logo-in-certificate.svg" alt="수료증 로고"></img>
-                <h2>CERTIFICATE OF ACHIEVEMENT</h2>
-                <h3>DaleStudy</h3>
-                <h4>{member.name}</h4>
-
-                <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.currentCohort}${cohortSuffix?.[member.currentCohort ?? 0] ?? "th"} DaleStudy.`}</p>
-
-                <img className={styles.signature} src={Signature} alt="서명" />
-                <h5>Dale Seo</h5>
-                <span>DaleStudy Organizer</span>
-              </div>
-
-              <div className={styles.contentSide}>
-                <img
-                  src="/top-right-corner-accent.svg"
-                  alt="우상단 모서리 테두리"
-                />
-                <img
-                  src="/bottom-right-corner-accent.svg"
-                  alt="우하단 모서리 테두리"
-                />
-              </div>
-            </section>
-
-            <section className={styles.buttons}>
-              <Link variant="secondaryButton" href="/">
-                리더보드로 돌아가기
-              </Link>
-
-              <div>
-                <Button
-                  variant="primary"
-                  size="large"
-                  onClick={() => window.print()}
-                >
-                  출력
-                </Button>
-
-                <Link
-                  variant="primaryButton"
-                  href={linkedInURL}
-                  target="_blank"
-                >
-                  링크드인 공유
-                </Link>
-              </div>
-            </section>
+          <div className={styles.mobileButtonWrapper}>
+            <Link variant="secondaryButton" href="/">
+              리더보드로 돌아가기
+            </Link>
           </div>
+
+          <section className={styles.content}>
+            <div className={styles.description}>
+              <img src="/logo-in-certificate.svg" alt="수료증 로고"></img>
+              <h2>CERTIFICATE OF ACHIEVEMENT</h2>
+              <h3>DaleStudy</h3>
+              <h4>{member.name}</h4>
+
+              <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.currentCohort}${cohortSuffix?.[member.currentCohort ?? 0] ?? "th"} DaleStudy.`}</p>
+
+              <img className={styles.signature} src={Signature} alt="서명" />
+              <h5>Dale Seo</h5>
+              <span>DaleStudy Organizer</span>
+            </div>
+
+            <img
+              className={`${styles.cornerAccent} ${styles.top} ${styles.left}`}
+              src="/top-left-corner-accent.svg"
+              alt="좌상단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.bottom} ${styles.left}`}
+              src="/bottom-left-corner-accent.svg"
+              alt="좌하단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.top} ${styles.right}`}
+              src="/top-right-corner-accent.svg"
+              alt="우상단 모서리 테두리"
+            />
+            <img
+              className={`${styles.cornerAccent} ${styles.bottom} ${styles.right}`}
+              src="/bottom-right-corner-accent.svg"
+              alt="우하단 모서리 테두리"
+            />
+          </section>
+
+          <section className={styles.buttons}>
+            <Link variant="secondaryButton" href="/">
+              리더보드로 돌아가기
+            </Link>
+
+            <div>
+              <Button
+                variant="primary"
+                size="large"
+                onClick={() => window.print()}
+              >
+                출력
+              </Button>
+
+              <Link variant="primaryButton" href={linkedInURL} target="_blank">
+                링크드인 공유
+              </Link>
+            </div>
+          </section>
         </section>
       </main>
     </Layout>
