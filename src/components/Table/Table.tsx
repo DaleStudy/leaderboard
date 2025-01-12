@@ -90,16 +90,12 @@ export function Table({
 }
 
 function getTaskIcon(completed: boolean) {
-  const iconClass = completed ? styles.completedIcon : styles.incompleteIcon;
-
   return (
     <img
-      src={
-        completed ? "/completed-status-icon.svg" : "/incomplete-status-icon.svg"
-      }
-      alt={completed ? "완료 문제 상태 아이콘" : "미완료 문제 상태 아이콘"}
-      aria-label={completed ? "완료 문제" : "미완료 문제"}
-      className={iconClass}
+      src={`/${completed ? "completed" : "incomplete"}-status-icon.svg`}
+      alt={`${completed ? "완료" : "미완료"} 문제 상태 아이콘`}
+      aria-label={`${completed ? "완료" : "미완료"} 문제`}
+      className={styles[completed ? "completedIcon" : "incompleteIcon"]}
     />
   );
 }

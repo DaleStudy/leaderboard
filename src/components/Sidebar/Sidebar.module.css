@@ -1,9 +1,9 @@
 aside {
   display: flex;
-  z-index: var(--z-index-aside);
   flex-direction: column-reverse;
   @media (min-width: 1080px) {
     position: sticky;
+    z-index: var(--z-index-aside);
     top: 87px;
     flex-direction: column;
     max-width: 203px;
