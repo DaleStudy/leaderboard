@@ -62,8 +62,7 @@ export default function Sidebar(props: SidebarProps) {
     { label: "MEDIUM", progress: mediumProgress, className: styles.medium },
     { label: "HARD", progress: hardProgress, className: styles.hard },
   ];
-  const cohortString =
-    cohorts && cohorts.length > 0 ? cohorts.join(", ") : cohorts.at(-1);
+  const cohortString = cohorts.join(", ");
 
   return (
     <aside>
