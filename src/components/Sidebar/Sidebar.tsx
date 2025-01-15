@@ -65,7 +65,7 @@ export default function Sidebar(props: SidebarProps) {
   const cohortString = cohorts.join(", ");
 
   return (
-    <aside>
+    <aside aria-label="Sidebar">
       <div className={styles.container} ref={progressContainerRef}>
         <span className={styles.cohort}>{cohortString}기</span>
         <section className={styles.profile}>
