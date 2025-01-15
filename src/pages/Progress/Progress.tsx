@@ -94,7 +94,7 @@ export default function Progress() {
       <main className={styles.progress}>
         <h1>풀이 현황</h1>
         <div className={styles.container}>
-          <section className={styles.sideBar} aria-labelledby="프로필">
+          <section className={styles.sideBar}>
             {error ? (
               <Sidebar isError />
             ) : (
