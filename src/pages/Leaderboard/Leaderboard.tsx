@@ -1,16 +1,15 @@
+import { useRef } from "react";
 import { getMembers } from "../../api/getMembers";
 import useMembers, { type Filter } from "../../hooks/useMembers";
-
+import usePagination from "../../hooks/usePagination";
 import Card from "../../components/Card/Card";
 import Layout from "../../components/Layout/Layout";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ServerError from "../../components/ServerError/ServerError";
 import Spinner from "../../components/Spinner/Spinner";
-
-import styles from "./Leaderboard.module.css";
 import Pagination from "../../components/Pagination/Pagination";
-import usePagination from "../../hooks/usePagination";
-import { useRef } from "react";
+import Meta from "../../components/Meta/Meta";
+import styles from "./Leaderboard.module.css";
 
 export default function Leaderboard() {
   const {
@@ -50,6 +49,12 @@ export default function Leaderboard() {
 
   return (
     <Layout>
+      <Meta
+        title="달레 스터디 리더보드"
+        description="달레 스터디 리더보드 페이지입니다."
+        url={window.location.href}
+      />
+
       <main className={styles.leaderboard}>
         <div className={styles.contentWrapper}>
           <section className={styles.toolbar}>

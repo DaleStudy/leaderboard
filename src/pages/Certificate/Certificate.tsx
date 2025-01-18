@@ -12,6 +12,7 @@ import ServerError from "../../components/ServerError/ServerError";
 
 import styles from "./Certificate.module.css";
 import { gradeEmojiMap } from "./constants";
+import Meta from "../../components/Meta/Meta";
 
 const cohortSuffix = ["th", "st", "nd", "rd"];
 
@@ -79,6 +80,12 @@ export default function Certificate() {
     <Layout>
       <main className={styles.certificate}>
         <section>
+          <Meta
+            title={`${member.name}의 수료증`}
+            description="수료증을 발급받아보세요!"
+            url={window.location.href}
+          />
+
           <h1>수료증</h1>
 
           <div className={styles.mobileButtonWrapper}>
