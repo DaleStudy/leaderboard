@@ -1,10 +1,13 @@
 import Button from "../Button/Button";
+import Seo from "../Seo/Seo";
 
 import styles from "./ServerError.module.css";
 
 export default function ServerError() {
   return (
     <section className={styles.serverError}>
+      <Seo title="서버 오류" />
+
       <h2>Error</h2>
       <p>
         오류가 발생했습니다. 문제가 지속된다면 아래 Github Issue를 방문하여{" "}

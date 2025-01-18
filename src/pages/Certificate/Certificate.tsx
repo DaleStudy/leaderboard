@@ -11,6 +11,7 @@ import ServerError from "../../components/ServerError/ServerError";
 
 import styles from "./Certificate.module.css";
 import { gradeEmojiMap } from "./constants";
+import Seo from "../../components/Seo/Seo";
 
 const cohortSuffix = ["th", "st", "nd", "rd"];
 
@@ -70,6 +71,8 @@ export default function Certificate() {
     <Layout>
       <main className={styles.certificate}>
         <section>
+          <Seo title={`${member.name}의 수료증`} />
+
           <h1>수료증</h1>
 
           <div className={styles.mobileButtonWrapper}>
