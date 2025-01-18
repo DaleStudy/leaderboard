@@ -1,10 +1,13 @@
 import Button from "../Button/Button";
+import Meta from "../Meta/Meta";
 
 import styles from "./ServerError.module.css";
 
 export default function ServerError() {
   return (
     <section className={styles.serverError}>
+      <Meta title="서버 오류" description="서버 오류가 발생했습니다." />
+
       <h2>Error</h2>
       <p>
         오류가 발생했습니다. 문제가 지속된다면 아래 Github Issue를 방문하여{" "}
