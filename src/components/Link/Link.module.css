@@ -8,16 +8,16 @@
   padding: 7px 5px;
   color: var(--text-900);
 
+  &:visited {
+    color: var(--text-900);
+  }
+
   &:hover {
     font-weight: var(--font-weight-bold);
   }
 
   &:active {
     color: var(--bg-400);
-  }
-
-  &:visited {
-    color: var(--text-900);
   }
 }
 
@@ -33,6 +33,10 @@
   color: var(--bg-100);
   background-color: var(--bg-400);
 
+  &:visited {
+    color: var(--bg-100);
+  }
+
   &:hover {
     color: var(--bg-100);
     background-color: var(--tertiary);
@@ -42,10 +46,6 @@
     background-color: var(--bg-400);
     text-decoration: underline;
     font-weight: var(--font-weight-bold);
-  }
-
-  &:visited {
-    color: var(--bg-100);
   }
 }
 
@@ -62,6 +62,10 @@
   background-color: #fff;
   border: 1px solid var(--bg-400);
 
+  &:visited {
+    color: var(--bg-400);
+  }
+
   &:hover {
     color: var(--bg-100);
     background-color: var(--bg-400);
@@ -72,9 +76,5 @@
     background-color: #fff;
     text-decoration: underline;
     font-weight: var(--font-weight-bold);
-  }
-
-  &:visited {
-    color: var(--bg-400);
   }
 }
