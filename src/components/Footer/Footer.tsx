@@ -1,3 +1,4 @@
+import Link from "../Link/Link";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -47,9 +48,14 @@ export default function Footer() {
         <ul className={styles.leftMenu}>
           {leftMenu.map(({ label, link }) => (
             <li key={link}>
-              <a href={link} target="_blank" aria-label={label}>
+              <Link
+                variant="text"
+                href={link}
+                target="_blank"
+                aria-label={label}
+              >
                 {label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -57,9 +63,9 @@ export default function Footer() {
         <ul className={styles.rightMenu}>
           {rightMenu.map(({ label, link, component }) => (
             <li key={link}>
-              <a href={link} target="_blank" aria-label={label}>
+              <Link href={link} target="_blank" aria-label={label}>
                 {component}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
