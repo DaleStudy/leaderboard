@@ -8,6 +8,7 @@ import ServerError from "../../components/ServerError/ServerError";
 import Spinner from "../../components/Spinner/Spinner";
 
 import styles from "./Leaderboard.module.css";
+import Seo from "../../components/Seo/Seo";
 
 export default function Leaderboard() {
   const { members, isLoading, error, totalCohorts, filter, setFilter } =
@@ -26,6 +27,8 @@ export default function Leaderboard() {
 
   return (
     <Layout>
+      <Seo title="달레스터디 리더보드" />
+
       <main className={styles.leaderboard}>
         <div className={styles.contentWrapper}>
           <section className={styles.toolbar}>

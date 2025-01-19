@@ -13,6 +13,7 @@ import NotFound from "../../components/NotFound/NotFound";
 import Spinner from "../../components/Spinner/Spinner";
 
 import styles from "./Progress.module.css";
+import Seo from "../../components/Seo/Seo";
 
 export default function Progress() {
   const { members, isLoading, error } = useMembers({ getMembers });
@@ -91,6 +92,8 @@ export default function Progress() {
 
   return (
     <Layout>
+      <Seo title={`${member.name}의 풀이 현황`} />
+
       <main className={styles.progress}>
         <h1>풀이 현황</h1>
         <div className={styles.container}>
