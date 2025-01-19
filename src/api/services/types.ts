@@ -3,7 +3,6 @@ export type Grade = "SEED" | "SPROUT" | "LEAF" | "BRANCH" | "FRUIT" | "TREE";
 export type MemberIdentity = {
   id: string; // lowercase
   name: string;
-  currentCohort: number;
   cohorts: number[];
   profileUrl?: string;
 };
@@ -25,8 +24,6 @@ export type Problem = {
 export interface Member {
   id: string;
   name: string;
-  /** 현재 기수 (1기, 2기, 3기 ...) */
-  currentCohort: number;
   /** 참여한 전체 기수 목록 */
   cohorts: number[];
   /** Profile Image URL */

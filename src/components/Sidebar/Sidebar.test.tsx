@@ -12,7 +12,6 @@ test("renders Sidebar with all elements", () => {
       solvedProblems={17}
       totalProblems={30}
       profileUrl="example.png"
-      currentCohort={3}
       cohorts={[1, 2, 3]}
       grade={"TREE"}
     />,

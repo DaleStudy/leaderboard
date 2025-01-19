@@ -85,7 +85,7 @@ export default function Progress() {
   const mediumProgress = `${mediumSolved}/${mediumProblemsCount}`;
   const hardProgress = `${hardSolved}/${hardProblemsCount}`;
 
-  const { grade, currentCohort, cohorts } = member;
+  const { grade, cohorts } = member;
 
   const profileUrl = member.profileUrl || "Logo.png";
 
@@ -106,7 +106,6 @@ export default function Progress() {
                 solvedProblems={totalSolved}
                 totalProblems={totalProblems}
                 profileUrl={profileUrl}
-                currentCohort={currentCohort}
                 cohorts={cohorts}
                 grade={grade}
               />

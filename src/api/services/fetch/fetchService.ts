@@ -26,7 +26,6 @@ export function createFetchService(config: Config) {
                 id: member.login.toLocaleLowerCase(),
                 name: member.login,
                 profileUrl: member.avatar_url,
-                currentCohort,
                 cohorts: [currentCohort],
               }),
             );
@@ -60,13 +59,9 @@ const dropDuplicateMembers = (members: MemberIdentity[]): MemberIdentity[] => {
   const memberMap = members.reduce((acc, member) => {
     const existingMember = acc.get(member.id);
     if (existingMember) {
-      existingMember.currentCohort = Math.max(
-        existingMember.currentCohort,
-        member.currentCohort,
-      );
-      if (!existingMember.cohorts.includes(member.currentCohort)) {
-        existingMember.cohorts.push(member.currentCohort);
-      }
+      existingMember.cohorts = [
+        ...new Set([...existingMember.cohorts, ...member.cohorts]),
+      ];
     } else {
       acc.set(member.id, member);
     }

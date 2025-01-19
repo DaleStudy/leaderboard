@@ -17,7 +17,6 @@ interface SidebarNormalProps {
   solvedProblems: number;
   totalProblems: number;
   profileUrl: string;
-  currentCohort: number;
   cohorts: number[];
   grade: Grade;
 }
@@ -54,7 +53,6 @@ export default function Sidebar(props: SidebarProps) {
     hardProgress,
     solvedProblems,
     profileUrl,
-    currentCohort,
     cohorts,
     grade,
   } = props;
@@ -64,8 +62,7 @@ export default function Sidebar(props: SidebarProps) {
     { label: "MEDIUM", progress: mediumProgress, className: styles.medium },
     { label: "HARD", progress: hardProgress, className: styles.hard },
   ];
-  const cohortString =
-    cohorts && cohorts.length > 0 ? cohorts.join(", ") : currentCohort;
+  const cohortString = cohorts.join(", ");
 
   return (
     <aside>

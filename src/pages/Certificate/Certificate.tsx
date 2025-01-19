@@ -85,7 +85,7 @@ export default function Certificate() {
               <h3>DaleStudy</h3>
               <h4>{member.name}</h4>
 
-              <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.currentCohort}${cohortSuffix?.[member.currentCohort ?? 0] ?? "th"} DaleStudy.`}</p>
+              <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.cohorts.at(-1)}${cohortSuffix?.[member.cohorts.at(-1) ?? 0] ?? "th"} DaleStudy.`}</p>
 
               <img className={styles.signature} src={Signature} alt="서명" />
               <h5>Dale Seo</h5>
