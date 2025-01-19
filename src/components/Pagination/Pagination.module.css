@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.button {
+  border: none;
+  background: transparent;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: #e0e0e0;
+}
+
+.button:focus {
+  outline: 2px solid #007acc;
+  outline-offset: 2px;
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.disabledButton {
+  cursor: not-allowed;
+  opacity: 0.5;
+  color: #aaa;
+  background: #f9f9f9;
+}
+
+.button:hover:not(.disabledButton) {
+  background: #e0e0e0;
+}
+
+.pageInfo {
+  font-size: 16px;
+}
