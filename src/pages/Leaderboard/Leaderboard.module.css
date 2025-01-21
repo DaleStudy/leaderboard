@@ -29,6 +29,26 @@
   }
 }
 
+.gradeCriteria {
+  display: flex;
+  margin-top: 10px;
+  font-size: 8px;
+  gap: 3px;
+  align-items: center;
+  img {
+    width: 10px;
+    height: 10px;
+    @media (min-width: 500px) {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  @media (min-width: 500px) {
+    margin-top: 3px;
+    font-size: 14px;
+  }
+}
+
 .toolbar {
   display: flex;
   flex-direction: column;
