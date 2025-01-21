@@ -20,10 +20,7 @@ test("render github name", () => {
 test("render cohort", () => {
   const cohorts = [2];
   render(<Card id="test" name="user123" grade={"TREE"} cohorts={cohorts} />);
-
-  expect(
-    screen.getByRole("region", { name: `${cohorts.at(-1)}기` }),
-  ).toBeInTheDocument();
+  expect(screen.getByText(`${cohorts.at(-1)}기`)).toBeInTheDocument();
 });
 
 test("render progress link", () => {

@@ -25,7 +25,7 @@ export default function Card({ id, name, cohorts, grade }: CardProps) {
             <span>{name}</span>
           </section>
 
-          <section aria-label={`${cohortString}기`}>
+          <section>
             <div className={styles.iconWrapper}>
               <img src="/flag-icon.svg" alt="깃발 아이콘" />
             </div>
