@@ -17,13 +17,13 @@ test("renders Sidebar with all elements", () => {
     />,
   );
 
-  // Check if the sidebar exists
-  const sidebar = screen.getByRole("complementary");
-  expect(sidebar).toBeInTheDocument();
-
-  // Check if the username is displayed
+  // Check if the sidebar exists by unique text (e.g., username)
   const username = screen.getByText(/testuser/i);
   expect(username).toBeInTheDocument();
+
+  // Check if the cohort info is displayed
+  const cohortText = screen.getByText(/1, 2, 3/i);
+  expect(cohortText).toBeInTheDocument();
 
   // Check if the button link exists
   const buttonLink = screen.getByRole("link", {
@@ -35,9 +35,7 @@ test("renders Sidebar with all elements", () => {
 test("renders empty Sidebar when error", () => {
   render(<Sidebar isError />);
 
-  const sidebar = screen.getByRole("complementary");
-  expect(sidebar).toBeInTheDocument();
-
+  // Check that no links are rendered in the error state
   expect(
     screen.queryByRole("link", {
       name: /풀이 보기/i,

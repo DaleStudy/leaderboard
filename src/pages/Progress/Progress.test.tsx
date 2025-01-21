@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
@@ -137,7 +137,7 @@ describe("Server Error", () => {
     );
   });
 
-  test("render empty UI in Sidebar when data fetching has error", () => {
+  test("renders empty UI in Sidebar when data fetching has error", () => {
     vi.mocked(useMembers).mockReturnValue(
       mock({
         isLoading: false,
@@ -151,8 +151,10 @@ describe("Server Error", () => {
 
     render(<Progress />);
 
-    const sidebar = within(screen.getByRole("complementary"));
-    expect(sidebar.queryByText("풀이 보기")).not.toBeInTheDocument();
+    // Check if the "풀이 보기" text is not present in the sidebar
+    expect(screen.queryByText("풀이 보기")).not.toBeInTheDocument();
+
+    // Check if the "리더보드로 돌아가기" link is not present in the sidebar
     expect(
       screen.queryByRole("link", { name: /리더보드로 돌아가기/i }),
     ).not.toBeInTheDocument();
