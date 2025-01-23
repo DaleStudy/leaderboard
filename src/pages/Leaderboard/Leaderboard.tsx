@@ -38,7 +38,7 @@ export default function Leaderboard() {
           </section>
 
           <section className={styles.gradeCriteria}>
-            <img src="/information-icon.svg"></img>
+            <img src="/information-icon.svg" alt="등급 안내 문구" />
             등급 기준(문제 수) : 나무(70+), 열매(60+), 가지(45+), 잎새(30+),
             새싹(15+), 씨앗(0+)
           </section>
