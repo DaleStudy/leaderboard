@@ -6,9 +6,6 @@ import Leaderboard from "./Leaderboard";
 const meta = {
   component: Leaderboard,
   parameters: {
-    a11y: {
-      disable: true,
-    },
     msw: {
       handlers: [
         http.get("https://api.github.com/orgs/DaleStudy/teams", () =>

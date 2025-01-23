@@ -40,9 +40,9 @@ export default function Sidebar(props: SidebarProps) {
 
   if (props.isError) {
     return (
-      <aside>
+      <div className={styles.sidebar}>
         <div className={`${styles.container} ${styles.error}`}></div>
-      </aside>
+      </div>
     );
   }
 
@@ -65,7 +65,7 @@ export default function Sidebar(props: SidebarProps) {
   const cohortString = cohorts.join(", ");
 
   return (
-    <aside>
+    <div className={styles.sidebar}>
       <div className={styles.container} ref={progressContainerRef}>
         <span className={styles.cohort}>{cohortString}기</span>
         <section className={styles.profile}>
@@ -110,6 +110,6 @@ export default function Sidebar(props: SidebarProps) {
       <a href="../" className={styles.returnButtonLink}>
         리더보드로 돌아가기
       </a>
-    </aside>
+    </div>
   );
 }

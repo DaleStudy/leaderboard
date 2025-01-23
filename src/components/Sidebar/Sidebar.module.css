@@ -1,6 +1,7 @@
-aside {
+.sidebar {
   display: flex;
   flex-direction: column-reverse;
+
   @media (min-width: 1080px) {
     position: sticky;
     z-index: var(--z-index-aside);
@@ -146,7 +147,7 @@ aside {
 }
 
 .hard {
-  color: #e0284b;
+  color: #db2749;
 }
 
 .gradientText {
