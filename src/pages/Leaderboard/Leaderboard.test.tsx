@@ -131,6 +131,23 @@ test("render the search bar", () => {
   expect(screen.getByLabelText("검색 창"));
 });
 
+test("render the grade creteria", () => {
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [mockMember()],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  render(<Leaderboard />);
+
+  expect(screen.getByText(/등급 기준/)).toBeInTheDocument();
+});
+
 function mockMember() {
   const userName = faker.internet.username();
   const cohort = faker.number.int({ min: 1, max: 9 });
