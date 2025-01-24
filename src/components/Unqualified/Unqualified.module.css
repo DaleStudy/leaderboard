@@ -1,0 +1,28 @@
+.unqualified {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100dvh;
+  color: var(--primary);
+
+  > h1 {
+    font-weight: var(--font-weight-medium);
+    font-size: clamp(30px, 4vw, 80px);
+    line-height: clamp(50px, 4vw, 100px);
+  }
+
+  > p {
+    text-align: center;
+    margin: 32px 0 0;
+    color: var(--text-900);
+    font-weight: var(--font-weight-regular);
+    font-size: clamp(12px, 4vw, 16px);
+    line-height: clamp(18px, 4vw, 28px);
+  }
+
+  > a {
+    margin-top: 38px;
+  }
+}

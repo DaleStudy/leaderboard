@@ -66,6 +66,32 @@ test("display error message if member is not found", () => {
   expect(heading).toHaveTextContent("Page Not Found");
 });
 
+test("display error message if member is unqualified", () => {
+  location.href = new URL(`?member=test1`, location.href).toString();
+  vi.mocked(useMembers).mockReturnValue(
+    mock({
+      isLoading: false,
+      error: null,
+      members: [
+        mock<Member>({
+          id: "test1",
+          name: "테스트1",
+          grade: "LEAF",
+          cohorts: [1],
+        }),
+      ],
+      totalCohorts: 0,
+      filter: { name: "", cohort: null },
+      setFilter: vi.fn(),
+    }),
+  );
+
+  render(<Certificate />);
+
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toHaveTextContent(/you can do it/i);
+});
+
 test("render page title", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
@@ -249,7 +275,7 @@ test("render LinkedIn link", () => {
         mock<Member>({
           id: "test1",
           name: "테스트1",
-          grade: "SEED",
+          grade: "FRUIT",
           cohorts: [1],
         }),
       ],
@@ -266,7 +292,7 @@ test("render LinkedIn link", () => {
     name: "링크드인 공유",
   });
 
-  const certificateName = `Leetcode 75 ${gradeEmojiMap["SEED"]}`;
+  const certificateName = `Leetcode 75 ${gradeEmojiMap["FRUIT"]}`;
   const params = new URLSearchParams({
     startTask: "CERTIFICATION_NAME",
     name: certificateName,
