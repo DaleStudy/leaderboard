@@ -3,6 +3,7 @@ import type { Grade } from "../../api/services/types";
 import Github from "../../assets/Github.png";
 import GradeImage from "../GradeImage/GradeImage";
 import styles from "./Sidebar.module.css";
+import Link from "../Link/Link";
 
 interface SidebarErrorProps {
   isError: true;
@@ -77,21 +78,18 @@ export default function Sidebar(props: SidebarProps) {
             <span className={styles.gradientText}>{solvedProblems} </span>
             <span className={styles.solidText}> 문제</span>
           </div>
-          <div>
-            <a
-              className={styles.problemButtonLink}
+          <div className={styles.problemLinkWrapper}>
+            <Link
+              variant="primaryButton"
               href={`https://github.com/DaleStudy/leetcode-study/pulls?q=is%3Apr+author%3A${githubUsername}`}
             >
               풀이 보기
-            </a>
+            </Link>
           </div>
           <div className={styles.githubLinkWrapper}>
-            <a
-              className={styles.githubLink}
-              href={`https://github.com/${githubUsername}`}
-            >
+            <Link href={`https://github.com/${githubUsername}`}>
               <img src={Github} alt="github"></img> {githubUsername}
-            </a>
+            </Link>
           </div>
         </section>
 
@@ -107,9 +105,11 @@ export default function Sidebar(props: SidebarProps) {
           ))}
         </section>
       </div>
-      <a href="../" className={styles.returnButtonLink}>
-        리더보드로 돌아가기
-      </a>
+      <div className={styles.returnLinkWrapper}>
+        <Link variant="secondaryButton" href="/">
+          리더보드로 돌아가기
+        </Link>
+      </div>
     </div>
   );
 }

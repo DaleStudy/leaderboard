@@ -161,74 +161,30 @@
   font-size: 13px;
 }
 
-.returnButtonLink {
-  display: block;
-  margin-bottom: 15px;
-  align-self: flex-end;
-  width: 47%;
-  padding: 10px 0;
-  border: 1px solid var(--bg-400);
-  border-radius: 10px;
-  color: var(--bg-400) !important;
+.returnLinkWrapper {
+  display: flex;
+  justify-content: flex-end;
+
   font-size: 12px;
-  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
 
   @media (min-width: 1080px) {
-    width: 80%;
+    justify-content: center;
     font-size: 14px;
     margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  &:hover {
-    background-color: var(--bg-400);
-    color: white !important;
-  }
-
-  &:active {
-    font-weight: var(--font-weight-bold);
-    color: var(--bg-400) !important;
-    background-color: white;
-    text-decoration: underline;
   }
 }
 
-.problemButtonLink {
-  display: block;
-  width: 135px;
-  padding: 10px 0;
-  background-color: var(--bg-400);
-  border: 1px solid var(--bg-400);
-  border-radius: 10px;
-  color: white !important;
+.problemLinkWrapper {
   font-size: 11px;
-  font-weight: var(--font-weight-bold);
-  text-align: center;
   margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-
-  &:hover {
-    background-color: var(--tertiary);
-    color: white !important;
-  }
-
-  &:active {
-    background-color: var(--bg-400);
-    font-weight: var(--font-weight-bold);
-    text-decoration: underline;
-  }
 }
 
 .githubLinkWrapper {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 5px;
+  font-size: 14px;
   margin-top: 10px;
-
-  .githubLink {
-    margin-top: 10px;
-    align-items: center;
-    img {
-      transform: translateY(8px);
-    }
-  }
 }
