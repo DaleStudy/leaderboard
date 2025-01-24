@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import Layout from "../../components/Layout/Layout";
 import Link from "../../components/Link/Link";
 import NotFound from "../../components/NotFound/NotFound";
+import Unqualified from "../../components/Unqualified/Unqualified";
 import Spinner from "../../components/Spinner/Spinner";
 import ServerError from "../../components/ServerError/ServerError";
 
@@ -51,6 +52,14 @@ export default function Certificate() {
     return (
       <Layout>
         <NotFound />
+      </Layout>
+    );
+  }
+
+  if (["SEED", "SPROUT", "LEAF"].includes(member.grade)) {
+    return (
+      <Layout>
+        <Unqualified />
       </Layout>
     );
   }

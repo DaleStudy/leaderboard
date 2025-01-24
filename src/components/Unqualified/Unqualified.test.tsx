@@ -22,7 +22,7 @@ test("renders the link to the leaderboard page with correct href", () => {
   render(<Unqualified />);
 
   const leaderboardLink = screen.getByRole("link", {
-    name: "리더보드로 돌아가기",
+    name: /리더보드로 돌아가기/,
   });
   expect(leaderboardLink).toHaveAttribute("href", "/");
 });

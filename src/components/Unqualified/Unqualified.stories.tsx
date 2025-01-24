@@ -5,6 +5,4 @@ export default {
   component: Unqualified,
 } satisfies Meta<typeof Unqualified>;
 
-export const Default: StoryObj<typeof Unqualified> = {
-  args: {},
-};
+export const Default: StoryObj<typeof Unqualified> = {};
