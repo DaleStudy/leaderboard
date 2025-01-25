@@ -25,7 +25,6 @@
     }
 
     margin-top: 20px;
-    margin-bottom: 40px;
   }
 }
 
@@ -74,4 +73,16 @@
   width: 100%;
   margin-top: 240px;
   margin-bottom: 340px;
+}
+
+.paginationWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+
+  @media (min-width: 500px) {
+    padding-top: 20px;
+  }
 }

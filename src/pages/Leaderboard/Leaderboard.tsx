@@ -8,13 +8,37 @@ import ServerError from "../../components/ServerError/ServerError";
 import Spinner from "../../components/Spinner/Spinner";
 
 import styles from "./Leaderboard.module.css";
+import Pagination from "../../components/Pagination/Pagination";
+import usePagination from "../../hooks/usePagination";
+import { useRef } from "react";
 
 export default function Leaderboard() {
-  const { members, isLoading, error, totalCohorts, filter, setFilter } =
-    useMembers({ getMembers });
+  const {
+    members: rawMembers,
+    isLoading,
+    error,
+    totalCohorts,
+    filter,
+    setFilter,
+  } = useMembers({ getMembers });
+  const {
+    current,
+    goPrevious,
+    goNext,
+    totalPages,
+    items: members,
+  } = usePagination({
+    totalItems: rawMembers,
+  });
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
+  const scrollToHeading = () => {
+    if (headingRef.current) {
+      headingRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -29,7 +53,7 @@ export default function Leaderboard() {
       <main className={styles.leaderboard}>
         <div className={styles.contentWrapper}>
           <section className={styles.toolbar}>
-            <h1>리더보드</h1>
+            <h1 ref={headingRef}>리더보드</h1>
             <SearchBar
               filter={filter}
               onSearch={handleSearch}
@@ -48,20 +72,37 @@ export default function Leaderboard() {
               <ServerError />
             </div>
           ) : (
-            <ul>
-              {members
-                .sort((a, b) => b.progress - a.progress)
-                .map((member) => (
-                  <li key={member.id}>
-                    <Card
-                      id={member.id}
-                      name={member.name}
-                      cohorts={member.cohorts}
-                      grade={member.grade}
-                    />
-                  </li>
-                ))}
-            </ul>
+            <>
+              <ul>
+                {members
+                  .sort((a, b) => b.progress - a.progress)
+                  .map((member) => (
+                    <li key={member.id}>
+                      <Card
+                        id={member.id}
+                        name={member.name}
+                        cohorts={member.cohorts}
+                        grade={member.grade}
+                      />
+                    </li>
+                  ))}
+              </ul>
+
+              <div className={styles.paginationWrapper}>
+                <Pagination
+                  currentPage={current}
+                  totalPages={totalPages}
+                  onClickPrevious={() => {
+                    scrollToHeading();
+                    goPrevious();
+                  }}
+                  onClickNext={() => {
+                    scrollToHeading();
+                    goNext();
+                  }}
+                />
+              </div>
+            </>
           )}
         </div>
       </main>
