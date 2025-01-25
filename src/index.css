@@ -43,6 +43,9 @@ a {
   font: inherit;
   margin: 0;
   padding: 0;
+}
+
+a:link {
   cursor: pointer;
 }
 
