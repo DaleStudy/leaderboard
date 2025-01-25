@@ -5,7 +5,7 @@
   @media (min-width: 1080px) {
     position: sticky;
     z-index: var(--z-index-aside);
-    top: 87px;
+    top: 117px;
     flex-direction: column;
     max-width: 203px;
   }
