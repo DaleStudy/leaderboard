@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterAll, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
@@ -73,7 +73,10 @@ test("display error message if member is unqualified", () => {
 
 test("render page title", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({ ...mockUseMembers, members: [createMockMember({ id: "test1" })] }),
+    mock({
+      ...mockUseMembers,
+      members: [createMockMember({ id: "test1", grade: "TREE" })],
+    }),
   );
 
   location.href = new URL(`?member=test1`, location.href).toString();
@@ -85,8 +88,8 @@ test("render page title", () => {
 
 test("render content id", () => {
   const members = [
-    createMockMember({ id: "test1" }),
-    createMockMember({ id: "test2" }),
+    createMockMember({ id: "test1", grade: "TREE" }),
+    createMockMember({ id: "test2", grade: "TREE" }),
   ];
 
   vi.mocked(useMembers).mockReturnValue(mock({ ...mockUseMembers, members }));
@@ -105,43 +108,54 @@ test("render content solved problems, cohort", () => {
       solvedProblems: Array(5).fill(mock<Problem>()),
       id: "test1",
       cohorts: [1],
+      grade: "TREE",
     }),
     createMockMember({
       solvedProblems: Array(10).fill(mock<Problem>()),
       id: "test2",
       cohorts: [2],
+      grade: "TREE",
     }),
     createMockMember({
       solvedProblems: Array(20).fill(mock<Problem>()),
       id: "test3",
       cohorts: [3],
+      grade: "TREE",
     }),
     createMockMember({
       solvedProblems: Array(75).fill(mock<Problem>()),
       id: "test4",
       cohorts: [4],
+      grade: "TREE",
     }),
   ];
 
   vi.mocked(useMembers).mockReturnValue(mock({ ...mockUseMembers, members }));
 
   const cohortSuffix = ["th", "st", "nd", "rd"];
-  members.forEach(({ id, solvedProblems, cohorts }) => {
+  members.forEach(async ({ id, solvedProblems, cohorts }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
     render(<Certificate />);
 
-    screen.getByText(
-      new RegExp(
-        `${solvedProblems.length === 75 ? "all" : solvedProblems.length} problems`,
-        "i",
-      ),
-    );
-    screen.getByText(
-      new RegExp(
-        `${cohorts.at(-1)}${cohortSuffix?.[cohorts.at(-1) ?? 0] ?? "th"}`,
-        "i",
-      ),
-    );
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          new RegExp(
+            `${solvedProblems.length === 75 ? "all" : solvedProblems.length} problems`,
+            "i",
+          ),
+        ),
+      ).toBeInTheDocument();
+
+      expect(
+        screen.getByText(
+          new RegExp(
+            `${cohorts.at(-1)}${cohortSuffix?.[cohorts.at(-1) ?? 0] ?? "th"}`,
+            "i",
+          ),
+        ),
+      ).toBeInTheDocument();
+    });
   });
 });
 
@@ -149,7 +163,9 @@ test("render learderboard link", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
       ...mockUseMembers,
-      members: [createMockMember({ solvedProblems: [], id: "test1" })],
+      members: [
+        createMockMember({ solvedProblems: [], id: "test1", grade: "TREE" }),
+      ],
     }),
   );
 
