@@ -37,7 +37,11 @@ export default function Card({ id, name, cohorts, grade }: CardProps) {
           <Link href={`/progress?member=${id}`} variant="primaryButton">
             풀이 현황
           </Link>
-          <Link href={`/certificate?member=${id}`} variant="primaryButton">
+          <Link
+            href={`/certificate?member=${id}`}
+            variant="primaryButton"
+            disabled={["SEED", "SPROUT", "LEAF"].includes(grade)}
+          >
             수료증
           </Link>
         </section>
