@@ -1,24 +1,17 @@
-import { faker } from "@faker-js/faker";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import { type Member } from "../../api/services/types";
+import { createMockMember, mockUseMembers } from "../../test-utils/useMembers";
 import useMembers from "../../hooks/useMembers";
+
 import Leaderboard from "./Leaderboard";
 
 vi.mock("../../hooks/useMembers");
 
 test("render the loading while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: true,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, isLoading: true }),
   );
 
   render(<Leaderboard />);
@@ -29,15 +22,7 @@ test("render the loading while fetching members", () => {
 describe("error occurred while fetching members", () => {
   test("render the error message", () => {
     vi.mocked(useMembers).mockReturnValue(
-      mock({
-        error: new Error(),
-
-        isLoading: false,
-        members: [],
-        totalCohorts: 0,
-        filter: { name: "", cohort: null },
-        setFilter: vi.fn(),
-      }),
+      mock({ ...mockUseMembers, error: new Error() }),
     );
 
     render(<Leaderboard />);
@@ -54,15 +39,7 @@ describe("error occurred while fetching members", () => {
 
   test("render the report issue link", () => {
     vi.mocked(useMembers).mockReturnValue(
-      mock({
-        error: new Error(),
-
-        isLoading: false,
-        members: [],
-        totalCohorts: 0,
-        filter: { name: "", cohort: null },
-        setFilter: vi.fn(),
-      }),
+      mock({ ...mockUseMembers, error: new Error() }),
     );
 
     render(<Leaderboard />);
@@ -77,16 +54,7 @@ describe("error occurred while fetching members", () => {
 });
 
 test("render the page title", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
+  vi.mocked(useMembers).mockReturnValue(mock(mockUseMembers));
 
   render(<Leaderboard />);
   const heading = screen.getByRole("heading", { level: 1 });
@@ -94,18 +62,9 @@ test("render the page title", () => {
 });
 
 test("render the member cards", () => {
-  const members = [mockMember(), mockMember(), mockMember()];
+  const members = [createMockMember(), createMockMember(), createMockMember()];
 
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members,
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
+  vi.mocked(useMembers).mockReturnValue(mock({ ...mockUseMembers, members }));
 
   render(<Leaderboard />);
 
@@ -116,14 +75,7 @@ test("render the member cards", () => {
 
 test("render the search bar", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [mockMember()],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, members: [createMockMember()] }),
   );
 
   render(<Leaderboard />);
@@ -133,35 +85,10 @@ test("render the search bar", () => {
 
 test("render the grade creteria", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [mockMember()],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, members: [createMockMember()] }),
   );
 
   render(<Leaderboard />);
 
   expect(screen.getByText(/등급 기준/)).toBeInTheDocument();
 });
-
-function mockMember() {
-  const userName = faker.internet.username();
-  const cohort = faker.number.int({ min: 1, max: 9 });
-  return mock<Member>({
-    id: userName,
-    name: userName,
-    cohorts: [cohort],
-    grade: faker.helpers.arrayElement([
-      "SEED",
-      "SPROUT",
-      "LEAF",
-      "BRANCH",
-      "FRUIT",
-      "TREE",
-    ]),
-  });
-}
