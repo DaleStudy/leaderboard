@@ -33,7 +33,7 @@
   }
 
   .currentPage {
-    color: var(--primary);
+    color: var(--bg-400);
     font-weight: var(--font-weight-bold);
   }
 
