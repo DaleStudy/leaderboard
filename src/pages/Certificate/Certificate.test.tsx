@@ -3,8 +3,10 @@ import userEvent from "@testing-library/user-event";
 import { afterAll, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 
-import type { Member } from "../../api/services/types";
+import type { Member, Problem } from "../../api/services/types";
 import useMembers from "../../hooks/useMembers";
+import { createMockMember, mockUseMembers } from "../../test-utils/useMembers";
+
 import Certificate from "./Certificate";
 import { gradeEmojiMap } from "./constants";
 
@@ -16,14 +18,7 @@ afterAll(() => {
 
 test("render the loading message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: true,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, isLoading: true }),
   );
 
   render(<Certificate />);
@@ -33,14 +28,7 @@ test("render the loading message while fetching members", () => {
 
 test("render the error message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: new Error(),
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, error: new Error() }),
   );
 
   render(<Certificate />);
@@ -49,16 +37,7 @@ test("render the error message while fetching members", () => {
 });
 
 test("display error message if member is not found", () => {
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
+  vi.mocked(useMembers).mockReturnValue(mock(mockUseMembers));
 
   render(<Certificate />);
 
@@ -94,14 +73,7 @@ test("display error message if member is unqualified", () => {
 
 test("render page title", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, members: [createMockMember({ id: "test1" })] }),
   );
 
   location.href = new URL(`?member=test1`, location.href).toString();
@@ -113,28 +85,11 @@ test("render page title", () => {
 
 test("render content id", () => {
   const members = [
-    mock<Member>({
-      id: "test1",
-      name: "테스트1",
-      cohorts: [1],
-    }),
-    mock<Member>({
-      id: "test2",
-      name: "테스트2",
-      cohorts: [2],
-    }),
+    createMockMember({ id: "test1" }),
+    createMockMember({ id: "test2" }),
   ];
 
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members,
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
+  vi.mocked(useMembers).mockReturnValue(mock({ ...mockUseMembers, members }));
 
   members.forEach(({ id, name }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
@@ -146,42 +101,30 @@ test("render content id", () => {
 
 test("render content solved problems, cohort", () => {
   const members = [
-    mock<Member>({
-      solvedProblems: Array(5).fill({}),
-      cohorts: [1],
+    createMockMember({
+      solvedProblems: Array(5).fill(mock<Problem>()),
       id: "test1",
-      name: "테스트1",
+      cohorts: [1],
     }),
-    mock<Member>({
-      solvedProblems: Array(10).fill({}),
-      cohorts: [2],
+    createMockMember({
+      solvedProblems: Array(10).fill(mock<Problem>()),
       id: "test2",
-      name: "테스트2",
+      cohorts: [2],
     }),
-    mock<Member>({
-      solvedProblems: Array(20).fill({}),
-      cohorts: [3],
+    createMockMember({
+      solvedProblems: Array(20).fill(mock<Problem>()),
       id: "test3",
-      name: "테스트3",
+      cohorts: [3],
     }),
-    mock<Member>({
-      solvedProblems: Array(75).fill({}),
-      cohorts: [4],
+    createMockMember({
+      solvedProblems: Array(75).fill(mock<Problem>()),
       id: "test4",
-      name: "테스트4",
+      cohorts: [4],
     }),
   ];
 
-  vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: null,
-      members,
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
-  );
+  vi.mocked(useMembers).mockReturnValue(mock({ ...mockUseMembers, members }));
+
   const cohortSuffix = ["th", "st", "nd", "rd"];
   members.forEach(({ id, solvedProblems, cohorts }) => {
     location.href = new URL(`?member=${id}`, location.href).toString();
@@ -205,12 +148,8 @@ test("render content solved problems, cohort", () => {
 test("render learderboard link", () => {
   vi.mocked(useMembers).mockReturnValue(
     mock({
-      isLoading: false,
-      error: null,
-      members: [mock<Member>({ id: "test1", name: "테스트1", cohorts: [1] })],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
+      ...mockUseMembers,
+      members: [createMockMember({ solvedProblems: [], id: "test1" })],
     }),
   );
 
@@ -308,14 +247,7 @@ test("render LinkedIn link", () => {
 
 test("render the error message while fetching members", () => {
   vi.mocked(useMembers).mockReturnValue(
-    mock({
-      isLoading: false,
-      error: new Error(),
-      members: [],
-      totalCohorts: 0,
-      filter: { name: "", cohort: null },
-      setFilter: vi.fn(),
-    }),
+    mock({ ...mockUseMembers, error: new Error() }),
   );
 
   render(<Certificate />);
