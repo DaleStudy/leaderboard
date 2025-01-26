@@ -35,7 +35,7 @@ export default function Leaderboard() {
   const handleSearch = ({ name, cohort }: Filter): void =>
     setFilter({ name, cohort });
   const scrollToHeading = () => {
-    if (headingRef.current) {
+    if (headingRef.current && window.innerWidth <= 1100) {
       headingRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
