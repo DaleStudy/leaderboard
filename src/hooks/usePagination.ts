@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UsePagination = <Data>(params: {
   totalItems: Data[];
@@ -27,6 +27,10 @@ const usePagination: UsePagination = ({ totalItems, pageSize = 8 }) => {
   const goPrevious = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [totalItems]);
 
   return {
     current: currentPage,

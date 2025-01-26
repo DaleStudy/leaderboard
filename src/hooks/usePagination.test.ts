@@ -88,3 +88,24 @@ test("previous page does not go below 1", () => {
 
   expect(result.current.current).toBe(1);
 });
+
+test("current page resets to 1 when totalItems changes", () => {
+  const items1 = Array.from({ length: 25 }, (_, i) => i + 1);
+  const items2 = Array.from({ length: 10 }, (_, i) => i + 1);
+  const { result, rerender } = renderHook(
+    ({ totalItems }) => usePagination({ totalItems, pageSize: 10 }),
+    { initialProps: { totalItems: items1 } },
+  );
+
+  act(() => {
+    result.current.goNext();
+  });
+
+  expect(result.current.current).toBe(2);
+
+  rerender({ totalItems: items2 });
+
+  expect(result.current.current).toBe(1);
+  expect(result.current.totalPages).toBe(1);
+  expect(result.current.items).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+});
