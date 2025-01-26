@@ -7,12 +7,12 @@ interface PaginationProps {
   onClickNext: () => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+export default function Pagination({
   currentPage,
   totalPages,
   onClickPrevious,
   onClickNext,
-}) => {
+}: PaginationProps) {
   return (
     <nav
       className={styles.container}
@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
       <p
         className={styles.pageInfo}
-        aria-label={`Page ${currentPage} of ${totalPages}`}
+        aria-label={`전체 ${totalPages} 페이지 중 현재 ${currentPage} 페이지`}
       >
         <span aria-label="현재 페이지" className={styles.currentPage}>
           {currentPage}
@@ -51,6 +51,4 @@ const Pagination: React.FC<PaginationProps> = ({
       </button>
     </nav>
   );
-};
-
-export default Pagination;
+}
