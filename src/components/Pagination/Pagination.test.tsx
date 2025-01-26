@@ -22,7 +22,9 @@ describe("Pagination Component", () => {
       />,
     );
 
-    expect(screen.getByLabelText("Page 2 of 5")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("전체 5 페이지 중 현재 2 페이지"),
+    ).toBeInTheDocument();
   });
 
   test("disables previous button on the first page", async () => {
