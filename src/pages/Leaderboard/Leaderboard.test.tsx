@@ -125,7 +125,7 @@ test("calls goPrevious when clicking the previous button", async () => {
   const goPrevious = vi.fn();
   vi.mocked(usePagination).mockReturnValue(
     mock({
-      current: 2,
+      currentPage: 2,
       goPrevious,
       goNext: vi.fn(),
       totalPages: 1,
@@ -150,7 +150,7 @@ test("calls goNext when clicking the next button", async () => {
   const goNext = vi.fn();
   vi.mocked(usePagination).mockReturnValue(
     mock({
-      current: 2,
+      currentPage: 2,
       goNext,
       goPrevious: vi.fn(),
       totalPages: 1,
@@ -167,7 +167,7 @@ test("calls goNext when clicking the next button", async () => {
 });
 
 const dummyPagination = {
-  current: 1,
+  currentPage: 1,
   goNext: vi.fn(),
   goPrevious: vi.fn(),
   totalPages: 1,

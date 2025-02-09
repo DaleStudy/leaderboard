@@ -4,7 +4,7 @@ type UsePagination = <Data>(params: {
   totalItems: Data[];
   pageSize?: number;
 }) => {
-  current: number;
+  currentPage: number;
   totalPages: number;
   items: Data[];
   goNext: () => void;
@@ -33,7 +33,7 @@ const usePagination: UsePagination = ({ totalItems, pageSize = 8 }) => {
   }, [totalItems]);
 
   return {
-    current: currentPage,
+    currentPage,
     totalPages,
     items,
     goNext,

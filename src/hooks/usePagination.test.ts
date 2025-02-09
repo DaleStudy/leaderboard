@@ -5,7 +5,7 @@ import usePagination from "./usePagination";
 test("initial state is set correctly", () => {
   const { result } = renderHook(() => usePagination({ totalItems: [] }));
 
-  expect(result.current.current).toBe(1);
+  expect(result.current.currentPage).toBe(1);
   expect(result.current.totalPages).toBe(0);
   expect(result.current.items).toEqual([]);
 });
@@ -29,13 +29,13 @@ test("next and previous page navigation works", () => {
     result.current.goNext();
   });
 
-  expect(result.current.current).toBe(2);
+  expect(result.current.currentPage).toBe(2);
 
   act(() => {
     result.current.goPrevious();
   });
 
-  expect(result.current.current).toBe(1);
+  expect(result.current.currentPage).toBe(1);
 });
 
 test("items are sliced correctly based on current page", () => {
@@ -73,7 +73,7 @@ test("next page does not exceed totalPages", () => {
     result.current.goNext();
   });
 
-  expect(result.current.current).toBe(3);
+  expect(result.current.currentPage).toBe(3);
 });
 
 test("previous page does not go below 1", () => {
@@ -86,7 +86,7 @@ test("previous page does not go below 1", () => {
     result.current.goPrevious();
   });
 
-  expect(result.current.current).toBe(1);
+  expect(result.current.currentPage).toBe(1);
 });
 
 test("current page resets to 1 when totalItems changes", () => {
@@ -101,11 +101,11 @@ test("current page resets to 1 when totalItems changes", () => {
     result.current.goNext();
   });
 
-  expect(result.current.current).toBe(2);
+  expect(result.current.currentPage).toBe(2);
 
   rerender({ totalItems: items2 });
 
-  expect(result.current.current).toBe(1);
+  expect(result.current.currentPage).toBe(1);
   expect(result.current.totalPages).toBe(1);
   expect(result.current.items).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 });
