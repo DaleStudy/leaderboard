@@ -50,7 +50,7 @@ test("fetch member info successfully and update state", async () => {
   await waitFor(() => expect(result.current.isLoading).toBe(false));
 
   // Validate the updated state
-  expect(result.current.members).toEqual(expectedMembers);
+  expect(new Set(result.current.members)).toEqual(new Set(expectedMembers));
   expect(result.current.totalCohorts).toBe(2);
   expect(result.current.error).toBeNull();
   expect(getMembers).toHaveBeenCalledTimes(1);
@@ -82,9 +82,9 @@ test("handle error when fetching member info fails", async () => {
 
 test("filter members by name and cohort", async () => {
   const expectedMembers: Member[] = [
-    createMockMember({ name: "John Doe", cohorts: [1] }),
-    createMockMember({ name: "Jane Doe", cohorts: [2] }),
-    createMockMember({ name: "Alice Cooper", cohorts: [1] }),
+    createMockMember({ name: "John Doe", cohorts: [1], progress: 100 }),
+    createMockMember({ name: "Jane Doe", cohorts: [2], progress: 90 }),
+    createMockMember({ name: "Alice Cooper", cohorts: [1], progress: 80 }),
   ];
   const [johnDoe1, janeDoe1, aliceCooper2] = expectedMembers;
 
@@ -106,7 +106,9 @@ test("filter members by name and cohort", async () => {
     });
   });
 
-  expect(result.current.members).toEqual([johnDoe1, janeDoe1]);
+  expect(new Set(result.current.members)).toEqual(
+    new Set([janeDoe1, johnDoe1]),
+  );
 
   // Act: Apply cohort filter
   act(() => {
@@ -120,7 +122,7 @@ test("filter members by name and cohort", async () => {
     result.current.setFilter({ name: "John", cohort: 1 });
   });
 
-  expect(result.current.members).toEqual([johnDoe1]);
+  expect(new Set(result.current.members)).toEqual(new Set([johnDoe1]));
 });
 
 test("total cohorts calculated correctly", async () => {
@@ -157,7 +159,7 @@ test("filter members by name case-insensitively", async () => {
   await waitFor(() => expect(result.current.isLoading).toBe(false));
 
   // Initial state
-  expect(result.current.members).toEqual(expectedMembers);
+  expect(new Set(result.current.members)).toEqual(new Set(expectedMembers));
 
   // Act: Apply case-insensitive name filter
   act(() => {
@@ -167,7 +169,7 @@ test("filter members by name case-insensitively", async () => {
     });
   });
 
-  expect(result.current.members).toEqual([johnDoe, janeDoe]);
+  expect(new Set(result.current.members)).toEqual(new Set([johnDoe, janeDoe]));
 
   // Act: Apply case-insensitive name and cohort filter
   act(() => {
@@ -177,7 +179,7 @@ test("filter members by name case-insensitively", async () => {
     });
   });
 
-  expect(result.current.members).toEqual([aliceCooper]);
+  expect(new Set(result.current.members)).toEqual(new Set([aliceCooper]));
 
   // Act: Apply case-insensitive partial name filter
   act(() => {
@@ -187,5 +189,29 @@ test("filter members by name case-insensitively", async () => {
     });
   });
 
-  expect(result.current.members).toEqual([johnDoe]);
+  expect(new Set(result.current.members)).toEqual(new Set([johnDoe]));
+});
+
+test("sort members by progress", async () => {
+  const members: Member[] = [
+    createMockMember({ progress: 100 }),
+    createMockMember({ progress: 50 }),
+    createMockMember({ progress: 75 }),
+  ];
+
+  const getMembers = vi.fn().mockResolvedValue(members);
+
+  const { result } = renderHook(() => useMembers({ getMembers }));
+
+  await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+  expect(result.current.members[0]).toMatchObject({
+    progress: 100,
+  });
+  expect(result.current.members[1]).toMatchObject({
+    progress: 75,
+  });
+  expect(result.current.members[2]).toMatchObject({
+    progress: 50,
+  });
 });

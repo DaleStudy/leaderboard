@@ -60,9 +60,12 @@ const useMembers: UseMembers = function ({ getMembers }) {
         ),
     [filter.cohort, filter.name, members],
   );
+  const sortedMembers = useMemo(() => {
+    return filteredMembers.sort((a, b) => b.progress - a.progress);
+  }, [filteredMembers]);
 
   return {
-    members: filteredMembers,
+    members: sortedMembers,
     totalCohorts,
     isLoading,
     error,
