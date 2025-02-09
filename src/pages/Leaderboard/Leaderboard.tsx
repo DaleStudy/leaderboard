@@ -21,7 +21,7 @@ export default function Leaderboard() {
     setFilter,
   } = useMembers({ getMembers });
   const {
-    current,
+    currentPage,
     goPrevious,
     goNext,
     totalPages,
@@ -79,23 +79,21 @@ export default function Leaderboard() {
           ) : (
             <>
               <ul>
-                {members
-                  .sort((a, b) => b.progress - a.progress)
-                  .map((member) => (
-                    <li key={member.id}>
-                      <Card
-                        id={member.id}
-                        name={member.name}
-                        cohorts={member.cohorts}
-                        grade={member.grade}
-                      />
-                    </li>
-                  ))}
+                {members.map((member) => (
+                  <li key={member.id}>
+                    <Card
+                      id={member.id}
+                      name={member.name}
+                      cohorts={member.cohorts}
+                      grade={member.grade}
+                    />
+                  </li>
+                ))}
               </ul>
 
               <div className={styles.paginationWrapper}>
                 <Pagination
-                  currentPage={current}
+                  currentPage={currentPage}
                   totalPages={totalPages}
                   onClickPrevious={() => {
                     scrollToHeading();
