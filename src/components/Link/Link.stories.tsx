@@ -16,6 +16,21 @@ export default meta;
 
 export const Default: StoryObj<typeof meta> = {};
 
+export const Disabled: StoryObj<typeof meta> = {
+  args: {
+    variant: "primaryButton",
+    disabled: true,
+  },
+  argTypes: {
+    variant: {
+      control: false,
+    },
+    disabled: {
+      control: false,
+    },
+  },
+};
+
 export const PrimaryButton: StoryObj<typeof meta> = {
   args: {
     variant: "primaryButton",
