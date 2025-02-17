@@ -51,8 +51,8 @@
   }
 
   &:not([href]) {
-    color: rgba(22, 11, 70, 0.6);
-    background-color: rgba(22, 11, 70, 0.1);
+    color: var(--text-900);
+    background-color: rgba(22, 11, 70, 0.3);
     text-decoration: revert;
     font-weight: revert;
   }
