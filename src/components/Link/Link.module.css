@@ -30,8 +30,10 @@
   max-height: 30px;
   border-radius: 10px;
 
-  color: var(--bg-100);
-  background-color: var(--bg-400);
+  &:link {
+    color: var(--bg-100);
+    background-color: var(--bg-400);
+  }
 
   &:visited {
     color: var(--bg-100);
@@ -46,6 +48,13 @@
     background-color: var(--bg-400);
     text-decoration: underline;
     font-weight: var(--font-weight-bold);
+  }
+
+  &:not([href]) {
+    color: var(--text-900);
+    background-color: rgba(22, 11, 70, 0.3);
+    text-decoration: revert;
+    font-weight: revert;
   }
 }
 
