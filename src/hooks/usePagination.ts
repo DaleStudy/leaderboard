@@ -11,7 +11,7 @@ type UsePagination = <Data>(params: {
   goPrevious: () => void;
 };
 
-const usePagination: UsePagination = ({ totalItems, pageSize = 8 }) => {
+const usePagination: UsePagination = ({ totalItems, pageSize = 16 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(totalItems.length / pageSize);
