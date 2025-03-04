@@ -238,7 +238,6 @@
   justify-content: space-between;
 
   & a {
-    flex: 1;
     max-height: 45px;
     height: 45px;
     font-size: 15px;
@@ -251,10 +250,10 @@
   & > div {
     flex: 1;
     display: flex;
-    column-gap: 10px;
+    flex-direction: column;
+    row-gap: 10px;
 
     & > button {
-      max-height: 45px;
       height: 45px;
       font-size: 15px;
     }
@@ -276,6 +275,7 @@
 
     & > div {
       flex: none;
+      flex-direction: row;
       column-gap: 15px;
 
       & > button {
