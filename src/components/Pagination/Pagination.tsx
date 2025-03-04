@@ -22,8 +22,8 @@ export default function Pagination({
       <button
         className={styles.button}
         onClick={onClickPrevious}
-        disabled={currentPage === 1}
-        aria-disabled={currentPage === 1}
+        disabled={currentPage <= 1}
+        aria-disabled={currentPage <= 1}
         aria-label="이전 페이지로 이동"
       >
         &lt;
