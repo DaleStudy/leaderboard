@@ -29,7 +29,7 @@ const usePagination: UsePagination = ({ totalItems, pageSize = 16 }) => {
   };
 
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(totalItems.length === 0 ? 0 : 1);
   }, [totalItems]);
 
   return {

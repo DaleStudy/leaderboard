@@ -5,7 +5,7 @@ import usePagination from "./usePagination";
 test("initial state is set correctly", () => {
   const { result } = renderHook(() => usePagination({ totalItems: [] }));
 
-  expect(result.current.currentPage).toBe(1);
+  expect(result.current.currentPage).toBe(0);
   expect(result.current.totalPages).toBe(0);
   expect(result.current.items).toEqual([]);
 });
@@ -108,4 +108,24 @@ test("current page resets to 1 when totalItems changes", () => {
   expect(result.current.currentPage).toBe(1);
   expect(result.current.totalPages).toBe(1);
   expect(result.current.items).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+});
+
+test("current page and total page reset to 0 when totalItems is empty", () => {
+  const items = Array.from({ length: 25 }, (_, i) => i + 1);
+  const { result, rerender } = renderHook(
+    ({ totalItems }) => usePagination({ totalItems, pageSize: 10 }),
+    { initialProps: { totalItems: items } },
+  );
+
+  act(() => {
+    result.current.goNext();
+  });
+
+  expect(result.current.currentPage).toBe(2);
+
+  rerender({ totalItems: [] });
+
+  expect(result.current.currentPage).toBe(0);
+  expect(result.current.totalPages).toBe(0);
+  expect(result.current.items).toEqual([]);
 });
