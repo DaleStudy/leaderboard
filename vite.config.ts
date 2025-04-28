@@ -1,5 +1,4 @@
-/// <reference types="vitest" />
-
+/// <reference types="vitest/config" />
 import { resolve } from "path";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
