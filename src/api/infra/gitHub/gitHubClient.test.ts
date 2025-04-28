@@ -9,7 +9,7 @@ const mockGitHubMembers = mock<GitHubMember[]>();
 const mockGitHubTrees = mock<GitHubTree[]>();
 
 const mockFetch = vi.fn();
-global.fetch = mockFetch;
+global.fetch = mockFetch as unknown as typeof fetch;
 
 beforeEach(() => {
   mockFetch.mockClear();
