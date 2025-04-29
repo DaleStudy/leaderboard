@@ -1,53 +1,56 @@
-import type {
-  GitHubMember,
-  GitHubTeam,
-  GitHubTree,
-  GitHubTreeResponse,
-} from "./types";
+import type { GitHubMember, GitHubTeam, GitHubTree } from "./types";
 
 export function createGitHubClient(token: string) {
-  const request = async (url: string): Promise<unknown> => {
-    const headers: Record<string, string> = {
-      Accept: "application/vnd.github+json",
-    };
-
-    if (token) {
-      headers.Authorization = `token ${token}`;
-    }
-
-    const response = await fetch(url, { headers });
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch url: ${url}, status: ${response.status}, statusText: ${response.statusText}`,
-      );
-    }
-
-    return response.json();
+  const graphqlRequest = async (query: string) => {
+    const response = await fetch(`https://my-graph-qnyr67.fly.dev/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+    return (await response.json()).data;
   };
 
   return {
-    getTeamNames: async (organization: string): Promise<string[]> =>
-      request(`https://api.github.com/orgs/${organization}/teams`).then(
-        (response) => (response as GitHubTeam[]).map((team) => team.name),
-      ),
+    getTeamNames: async (organization: string): Promise<string[]> => {
+      const query = `{
+        teams {
+          name
+        }
+      }`;
+      const teams = (await graphqlRequest(query)).teams;
+      return (teams as GitHubTeam[]).map((team) => team.name);
+    },
 
     getTeamMembers: async (
       organization: string,
       teamName: string,
-    ): Promise<GitHubMember[]> =>
-      request(
-        `https://api.github.com/orgs/${organization}/teams/${teamName}/members?per_page=100`,
-      ).then((response) => response as GitHubMember[]),
+    ): Promise<GitHubMember[]> => {
+      const query = `{
+        team(name: "${teamName}") {
+          members {
+            id
+            login
+          }
+        }
+      }`;
+      const members = (await graphqlRequest(query)).team.members;
+      return members as GitHubMember[];
+    },
 
     getDirectoryTree: async (
       owner: string,
       repo: string,
       treeSha: string,
       recursive = 1,
-    ): Promise<GitHubTree[]> =>
-      request(
-        `https://api.github.com/repos/${owner}/${repo}/git/trees/${treeSha}?recursive=${recursive}`,
-      ).then((response) => (response as GitHubTreeResponse).tree),
+    ): Promise<GitHubTree[]> => {
+      const query = `{
+        gitTrees {
+          path
+          type
+        }
+      }`;
+      const trees = (await graphqlRequest(query)).gitTrees;
+      return trees as GitHubTree[];
+    },
   };
 }

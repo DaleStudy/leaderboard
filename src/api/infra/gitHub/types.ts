@@ -36,12 +36,6 @@ export type GitHubMember = {
   site_admin: boolean;
 };
 
-export type GitHubTreeResponse = {
-  sha: string;
-  url: string;
-  tree: GitHubTree[];
-};
-
 export type GitHubTree = {
   path: string;
   mode: string;
