@@ -1,6 +1,6 @@
 import type { GitHubMember, GitHubTeam, GitHubTree } from "./types";
 
-export function createGitHubClient(token: string) {
+export function createGitHubClient() {
   const graphqlRequest = async (query: string) => {
     const response = await fetch(`https://my-graph-qnyr67.fly.dev/`, {
       method: "POST",
@@ -11,7 +11,7 @@ export function createGitHubClient(token: string) {
   };
 
   return {
-    getTeamNames: async (organization: string): Promise<string[]> => {
+    getTeamNames: async (): Promise<string[]> => {
       const query = `{
         teams {
           name
@@ -21,28 +21,19 @@ export function createGitHubClient(token: string) {
       return (teams as GitHubTeam[]).map((team) => team.name);
     },
 
-    getTeamMembers: async (
-      organization: string,
-      teamName: string,
-    ): Promise<GitHubMember[]> => {
+    getTeamMembers: async (teamName: string): Promise<GitHubMember[]> => {
       const query = `{
-        team(name: "${teamName}") {
-          members {
-            id
-            login
-          }
+        members(teamName: "${teamName}") {
+          id
+          login
+          avatarUrl
         }
       }`;
-      const members = (await graphqlRequest(query)).team.members;
+      const members = (await graphqlRequest(query)).members;
       return members as GitHubMember[];
     },
 
-    getDirectoryTree: async (
-      owner: string,
-      repo: string,
-      treeSha: string,
-      recursive = 1,
-    ): Promise<GitHubTree[]> => {
+    getDirectoryTree: async (): Promise<GitHubTree[]> => {
       const query = `{
         gitTrees {
           path

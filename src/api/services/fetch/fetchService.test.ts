@@ -2,26 +2,11 @@ import { beforeEach, expect, test, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { createGitHubClient } from "../../infra/gitHub/gitHubClient";
 import { createFetchService } from "./fetchService";
-import type { Grade } from "../types";
 import type {
   GitHubMember,
   GitHubTeam,
   GitHubTree,
 } from "../../infra/gitHub/types";
-
-// Mock data
-const dummyConfig = {
-  totalProblemCount: 6,
-  gradeThresholds: [
-    ["TREE", 5],
-    ["FRUIT", 4],
-    ["BRANCH", 3],
-    ["LEAF", 2],
-    ["SPROUT", 1],
-    ["SEED", 0],
-  ] as [Grade, number][],
-  gitHubToken: "test-token",
-};
 
 const mockGitHubMembers = Array.from({ length: 10 }, (_, idx) => ({
   ...mock<GitHubMember>(),
@@ -63,7 +48,7 @@ let fetchService: ReturnType<typeof createFetchService>;
 
 beforeEach(() => {
   vi.clearAllMocks();
-  fetchService = createFetchService(dummyConfig);
+  fetchService = createFetchService();
 });
 
 test("fetchMembers should fetch and transform members correctly", async () => {
@@ -76,13 +61,13 @@ test("fetchMembers should fetch and transform members correctly", async () => {
   const result = await fetchService.fetchMembers();
 
   // Assert
-  expect(mockGetTeamNames).toHaveBeenCalledWith("DaleStudy");
+  expect(mockGetTeamNames).toHaveBeenCalledWith();
   expect(mockGetTeamMembers).toHaveBeenCalledTimes(2); // Only algodale teams
   expect(result).toEqual(
     mockGitHubMembers.map((member) => ({
       id: member.login.toLowerCase(),
       name: member.login,
-      profileUrl: member.avatar_url,
+      profileUrl: member.avatarUrl,
       cohorts: [1, 2],
     })),
   );
@@ -105,7 +90,7 @@ test("fetchMembers should handle duplicate members preferring higher cohort", as
   expect(result[0]).toEqual({
     id: duplicateMember.login.toLowerCase(),
     name: duplicateMember.login,
-    profileUrl: duplicateMember.avatar_url,
+    profileUrl: duplicateMember.avatarUrl,
     cohorts: [1, 2],
   });
 });
@@ -141,7 +126,7 @@ test("fetchMembers should handle duplicate members keeping the latest cohort", a
   expect(result[0]).toEqual({
     id: duplicateMember.login.toLowerCase(),
     name: duplicateMember.login,
-    profileUrl: duplicateMember.avatar_url,
+    profileUrl: duplicateMember.avatarUrl,
     cohorts: [1, 2],
   });
 });
@@ -151,14 +136,10 @@ test("fetchSubmissions should fetch and parse submissions correctly", async () =
   mockGetDirectoryTree.mockResolvedValue(mockGitHubTrees);
 
   // Act
-  const result = await fetchService.fetchSubmissions("test-repo");
+  const result = await fetchService.fetchSubmissions();
 
   // Assert
-  expect(mockGetDirectoryTree).toHaveBeenCalledWith(
-    "DaleStudy",
-    "test-repo",
-    "main",
-  );
+  expect(mockGetDirectoryTree).toHaveBeenCalledWith();
 
   expect(result).toEqual([
     {
@@ -195,7 +176,7 @@ test("fetchSubmissions should filter out invalid submission paths", async () => 
   mockGetDirectoryTree.mockResolvedValue(treeWithInvalidPaths);
 
   // Act
-  const result = await fetchService.fetchSubmissions("test-repo");
+  const result = await fetchService.fetchSubmissions();
 
   // Assert
   expect(result).toHaveLength(3); // invalid path should be filtered out
@@ -222,7 +203,7 @@ test("fetchSubmissions should filter out non-submission files", async () => {
   ]);
 
   // Act
-  const result = await fetchService.fetchSubmissions("test-repo");
+  const result = await fetchService.fetchSubmissions();
 
   // Assert
   expect(result).toHaveLength(3);
