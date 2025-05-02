@@ -1,47 +1,64 @@
-import type { GitHubMember, GitHubTeam, GitHubTree } from "./types";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-export function createGitHubClient() {
-  const graphqlRequest = async (query: string) => {
-    const response = await fetch(`https://my-graph-qnyr67.fly.dev/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
-    });
-    return (await response.json()).data;
-  };
+const client = new ApolloClient({
+  uri: "https://dalestudy.fly.dev/",
+  cache: new InMemoryCache(),
+});
 
-  return {
-    getTeamNames: async (): Promise<string[]> => {
-      const query = `{
+export interface GitHubTeam {
+  name: string;
+}
+
+export async function getTeams() {
+  const { data } = await client.query<{ teams: GitHubTeam[] }>({
+    query: gql`
+      query GetTeams {
         teams {
           name
         }
-      }`;
-      const teams = (await graphqlRequest(query)).teams;
-      return (teams as GitHubTeam[]).map((team) => team.name);
-    },
+      }
+    `,
+  });
+  return data.teams;
+}
 
-    getTeamMembers: async (teamName: string): Promise<GitHubMember[]> => {
-      const query = `{
-        members(teamName: "${teamName}") {
+export interface GitHubMember {
+  login: string;
+  id: number;
+  avatarUrl: string;
+}
+
+export async function getTeamMembers(teamName: string) {
+  const { data } = await client.query<{ members: GitHubMember[] }>({
+    query: gql`
+      query GetTeamMembers($teamName: String!) {
+        members(teamName: $teamName) {
           id
           login
           avatarUrl
         }
-      }`;
-      const members = (await graphqlRequest(query)).members;
-      return members as GitHubMember[];
-    },
+      }
+    `,
+    variables: { teamName },
+  });
+  return data.members;
+}
 
-    getDirectoryTree: async (): Promise<GitHubTree[]> => {
-      const query = `{
+export type GitHubTree = {
+  path: string;
+  type: string;
+};
+
+export async function getGitTrees() {
+  const { data } = await client.query<{ gitTrees: GitHubTree[] }>({
+    query: gql`
+      query GetGitTrees {
         gitTrees {
           path
           type
         }
-      }`;
-      const trees = (await graphqlRequest(query)).gitTrees;
-      return trees as GitHubTree[];
-    },
-  };
+      }
+    `,
+  });
+  return data.gitTrees;
 }
