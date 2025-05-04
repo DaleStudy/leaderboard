@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent } from "@storybook/test";
 import { delay, graphql, HttpResponse } from "msw";
 import Leaderboard from "./Leaderboard";
 
@@ -99,51 +98,5 @@ export const ServerError: StoryObj<typeof meta> = {
         ),
       ],
     },
-  },
-};
-
-export const ByCohort: StoryObj<typeof meta> = {
-  // play: async ({ canvas, step }) => {
-  //   const combobox = await canvas.findByRole("combobox");
-  //   await step("1기 선택", async () => {
-  //     expect(
-  //       await canvas.findByRole("option", { name: "1기" }, { timeout: 10_000 }),
-  //     ).toBeInTheDocument();
-  //     await userEvent.selectOptions(combobox, "1");
-  //     expect(await canvas.findAllByRole("article")).toHaveLength(3);
-  //   });
-  //   await step("2기 선택", async () => {
-  //     expect(
-  //       await canvas.findByRole("option", { name: "2기" }, { timeout: 10_000 }),
-  //     ).toBeInTheDocument();
-  //     await userEvent.selectOptions(combobox, "2");
-  //     expect(await canvas.findAllByRole("article")).toHaveLength(2);
-  //   });
-  // },
-};
-
-export const ByMember: StoryObj<typeof meta> = {
-  play: async ({ canvas, step }) => {
-    const searchbox = await canvas.findByRole("searchbox");
-
-    await step("s 입력", async () => {
-      await userEvent.type(searchbox, "s");
-      // await waitFor(
-      //   () => {
-      //     expect(canvas.getAllByRole("article")).toHaveLength(3);
-      //   },
-      //   { timeout: 12_000 },
-      // );
-    });
-
-    await step("un 입력", async () => {
-      await userEvent.type(searchbox, "un");
-      // await waitFor(
-      //   () => {
-      //     expect(canvas.getAllByRole("article")).toHaveLength(1);
-      //   },
-      //   { timeout: 12_000 },
-      // );
-    });
   },
 };
