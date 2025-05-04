@@ -11,5 +11,4 @@ export const CONFIG: Config = {
     ["SPROUT", 15], // 새싹
     ["SEED", 0], // 씨앗
   ] as [Grade, number][],
-  gitHubToken: import.meta.env.VITE_GITHUB_API_TOKEN,
 } as const;

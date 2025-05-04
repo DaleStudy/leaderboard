@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { delay, http, HttpResponse } from "msw";
+import { delay, graphql, HttpResponse } from "msw";
 
 import Certificate from "./Certificate";
 
@@ -11,19 +11,21 @@ const meta: Meta<typeof Certificate> = {
     },
     msw: {
       handlers: [
-        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
-          HttpResponse.json([{ name: "leetcode02" }]),
+        graphql.query("GetTeams", () =>
+          HttpResponse.json({ data: { teams: [{ name: "leetcode02" }] } }),
         ),
-        http.get(
-          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
-          () =>
-            HttpResponse.json([
-              {
-                login: "Sunjae95",
-                avatar_url:
-                  "https://avatars.githubusercontent.com/u/63578094?v=4",
-              },
-            ]),
+        graphql.query("GetTeamMembers", () =>
+          HttpResponse.json({
+            data: {
+              members: [
+                {
+                  login: "Sunjae95",
+                  avatarUrl:
+                    "https://avatars.githubusercontent.com/u/63578094?v=4",
+                },
+              ],
+            },
+          }),
         ),
       ],
     },
@@ -38,9 +40,7 @@ export const Loading: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [
-        http.get("https://api.github.com/orgs/DaleStudy/teams", async () => {
-          await delay("infinite");
-        }),
+        graphql.query("GetTeams", async () => await delay("infinite")),
       ],
     },
   },
@@ -50,17 +50,17 @@ export const NotFound: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [
-        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
-          HttpResponse.json([{ name: "leetcode02" }]),
+        graphql.query("GetTeams", () =>
+          HttpResponse.json({ data: { teams: [{ name: "leetcode02" }] } }),
         ),
-        http.get(
-          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
-          () => HttpResponse.json([]),
+        graphql.query("GetTeamMembers", () =>
+          HttpResponse.json({
+            data: {
+              members: [],
+            },
+          }),
         ),
       ],
-    },
-    query: {
-      member: "sunjae9",
     },
   },
 };
@@ -69,12 +69,23 @@ export const ServerError: StoryObj<typeof meta> = {
   parameters: {
     msw: {
       handlers: [
-        http.get("https://api.github.com/orgs/DaleStudy/teams", () =>
-          HttpResponse.error(),
+        graphql.query("GetTeams", () =>
+          HttpResponse.json({
+            errors: [
+              {
+                message: `Cannot fetch teams"`,
+              },
+            ],
+          }),
         ),
-        http.get(
-          "https://api.github.com/orgs/DaleStudy/teams/leetcode02/members",
-          () => HttpResponse.error(),
+        graphql.query("GetTeamMembers", () =>
+          HttpResponse.json({
+            errors: [
+              {
+                message: `Cannot fetch team members"`,
+              },
+            ],
+          }),
         ),
       ],
     },
