@@ -1,48 +1,21 @@
 version: 2
 updates:
-  # Enable version updates for npm (compatible with Bun)
-  - package-ecosystem: "npm"
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
     groups:
-      storybook:
-        patterns:
-          - "@storybook/*"
-          - "storybook"
-        update-types:
-          - "minor"
-          - "patch"
-      testing:
-        patterns:
-          - "@testing-library/*"
-          - "vitest*"
-          - "@vitest/*"
-        update-types:
-          - "minor"
-          - "patch"
-      eslint:
-        patterns:
-          - "eslint*"
-          - "@eslint/*"
-          - "typescript-eslint"
-        update-types:
-          - "minor"
-          - "patch"
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
-          - "@types/react*"
-        update-types:
-          - "minor"
-          - "patch"
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
 
-  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github/workflows"
     schedule:
       interval: "weekly"
       day: "monday"
