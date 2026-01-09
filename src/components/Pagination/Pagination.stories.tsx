@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import Pagination from "./Pagination";
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 
 const meta = {
   component: Pagination,
