@@ -7,7 +7,8 @@ import type {
 import styles from "./Link.module.css";
 
 interface LinkProps
-  extends HTMLAttributes<HTMLAnchorElement>,
+  extends
+    HTMLAttributes<HTMLAnchorElement>,
     AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: "text" | "primaryButton" | "secondaryButton";
   disabled?: boolean;

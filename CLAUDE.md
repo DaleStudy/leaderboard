@@ -128,14 +128,12 @@ Navigation uses query parameters (`?member=:id`) for static page compatibility.
 ### Three-Layer Testing
 
 1. **Unit Tests** (Vitest + React Testing Library):
-
    - All `*.test.tsx` files
    - Environment: `happy-dom`
    - Coverage requirement: 70% (lines, functions, statements, branches)
    - Stories excluded from coverage
 
 2. **Component Stories** (Storybook 8.6):
-
    - All `*.stories.tsx` files
    - MSW for GraphQL mocking (setup in `.storybook/preview.ts`)
    - Interactive component playground
