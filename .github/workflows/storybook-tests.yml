@@ -12,6 +12,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bunx playwright install --with-deps
-      - run: bun run test-storybook
-        env:
-          TARGET_URL: "${{ github.event.deployment_status.environment_url }}"
+      - run: bun run build-storybook
+      - run: yes | bunx serve storybook-static -l 6006 &
+      - run: bunx wait-on http://127.0.0.1:6006
+      - run: bun run test-storybook --url http://127.0.0.1:6006 --ci
