@@ -1,82 +1,56 @@
 .footer {
-  background-color: var(--text-900);
-
-  padding: 81px 27px;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 172px 0 99px;
-  }
-
-  section {
-    display: flex;
-    row-gap: 61px;
-
-    flex-direction: column;
-
-    @media (min-width: 768px) {
-      width: 80%;
-      justify-content: space-between;
-
-      flex-direction: row;
-    }
-  }
-
-  p {
-    font-size: 14px;
-    line-height: 18px;
-    color: rgba(253, 253, 255, 0.75);
-    border-top: 1px solid rgba(253, 253, 255, 0.2);
-    margin-bottom: 0;
-
-    margin-top: 20px;
-    padding-top: 20px;
-
-    @media (min-width: 768px) {
-      width: 80%;
-
-      margin-top: 43px;
-      padding-top: 48px;
-    }
-  }
+  background-color: var(--colors-bg-solid-neutral);
+  color: var(--colors-fg-solid-neutral);
 }
 
-.leftMenu {
+.footerTop {
+  padding: 32px;
   display: flex;
-  vertical-align: middle;
-  row-gap: 10px;
-
   flex-direction: column;
-  padding-left: 4px;
+  align-items: stretch;
 
-  li {
-    a,
-    a:visited {
-      color: var(--bg-100);
-    }
-  }
-
-  @media (min-width: 768px) {
-    column-gap: 80px;
+  @media (min-width: 1100px) {
     flex-direction: row;
-    align-items: center;
-    padding-left: 0px;
+    padding: 80px 32px 0 32px;
   }
 }
 
-.rightMenu {
+.footerTopLeftMenu {
   display: flex;
-  align-items: center;
-  column-gap: 40px;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+  @media (min-width: 1100px) {
+    flex-direction: row;
+    gap: 40px;
+  }
+}
 
-  li {
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.footerTopRightMenu {
+  display: flex;
+  align-items: flex-end;
+  @media (max-width: 1100px) {
+    padding: 40px 16px;
+    border-bottom: 1px solid var(--colors-fg-solid-neutral);
+  }
+}
+
+.footerTopLabel {
+  font-size: var(--font-sizes-md);
+  font-weight: var(--font-weights-medium);
+  line-height: var(--line-heights-tight);
+  letter-spacing: var(--letter-spacings-balanced);
+}
+
+.footerBottom {
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  @media (min-width: 1100px) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 60px 32px 40px;
   }
 }

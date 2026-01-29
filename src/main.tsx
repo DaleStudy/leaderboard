@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import "./index.css";
+import "daleui/styles.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

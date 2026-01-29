@@ -6,6 +6,14 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    // React 훅 에러 방지를 위해 React 인스턴스를 한 번만 사용하도록 강제
+    dedupe: ["react", "react-dom"],
+    alias: {
+      react: resolve(__dirname, "node_modules/react"),
+      "react-dom": resolve(__dirname, "node_modules/react-dom"),
+    },
+  },
   build: {
     rollupOptions: {
       input: {
