@@ -1,6 +1,7 @@
 /// <reference lib="dom" />
 
 import "../src/index.css";
+import "daleui/styles.css";
 import type { Preview } from "@storybook/react-vite";
 import { initialize, mswLoader } from "msw-storybook-addon";
 import { useEffect } from "react";
