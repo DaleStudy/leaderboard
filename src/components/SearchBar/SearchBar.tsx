@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import type { Filter } from "../../hooks/useMembers";
 
 import style from "./SearchBar.module.css";
+import { Box, Flex, Select, TextInput } from "daleui";
 
 interface SearchBarProps {
   filter: Filter;
@@ -50,31 +51,29 @@ export default function SearchBar({
   };
 
   return (
-    <section aria-label="검색 창" className={style.searchBar}>
-      <img src="/search-icon.svg" alt="검색 아이콘" />
-
-      <input
+    <Flex as="section" aria-label="검색 창" gap="8">
+      <Box width="8rem" className={style.flexShrink0}>
+        <Select
+          value={filter.cohort?.toString() ?? ""}
+          onChange={handleCohortChange}
+          aria-label="기수 선택"
+        >
+          <option value="">전체 기수</option>
+          {[...Array(totalCohorts)].map((_, index) => (
+            <option key={index} value={(index + 1).toString()}>
+              {index + 1}기
+            </option>
+          ))}
+        </Select>
+      </Box>
+      <TextInput
         type="search"
         value={localName}
         onChange={handleNameChange}
         aria-label="이름 검색"
         placeholder="검색"
+        leadingIcon="search"
       />
-
-      <div role="separator" className="separator"></div>
-
-      <select
-        value={filter.cohort ?? ""}
-        onChange={handleCohortChange}
-        aria-label="기수 선택"
-      >
-        <option value="">전체 기수</option>
-        {[...Array(totalCohorts)].map((_, index) => (
-          <option key={index} value={index + 1}>
-            {index + 1}기
-          </option>
-        ))}
-      </select>
-    </section>
+    </Flex>
   );
 }

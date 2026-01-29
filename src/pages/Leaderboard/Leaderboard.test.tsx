@@ -70,8 +70,8 @@ test("render the page title", () => {
   );
 
   render(<Leaderboard />);
-  const heading = screen.getByRole("heading", { level: 1 });
-  expect(heading).toHaveTextContent("리더보드");
+  const heading = screen.getByRole("heading", { name: "달레 스터디 리더보드" });
+  expect(heading).toBeInTheDocument();
 });
 
 test("render the member cards", () => {

@@ -43,11 +43,11 @@ export default function Footer() {
   ];
 
   return (
-    <Box as="footer" className={styles.footer}>
+    <Box as="footer" aria-label="사이트 푸터" className={styles.footer}>
       <Flex className={styles.footerTop} align="end" justify="between">
         <Flex direction="column" gap="16" align="start">
           <span className={styles.footerTopLabel}>바로가기</span>
-          <HStack gap="40" className={styles.footerTopLeftMenu}>
+          <HStack className={styles.footerTopLeftMenu}>
             {leftMenu.map(({ label, link }) => (
               <Link
                 key={label}
@@ -76,7 +76,7 @@ export default function Footer() {
           ))}
         </HStack>
       </Flex>
-      <HStack align="between" className={styles.footerBottom}>
+      <HStack className={styles.footerBottom}>
         <span>© 2024 DaleStudy. All rights reserved.</span>
         <Icon name="sun" />
       </HStack>
