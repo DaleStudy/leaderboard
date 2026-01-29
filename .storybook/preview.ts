@@ -1,6 +1,11 @@
+/// <reference lib="dom" />
+
 import "../src/index.css";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { initialize, mswLoader } from "msw-storybook-addon";
+import { useEffect } from "react";
+import React from "react";
+import { client } from "../src/api/infra/gitHub/gitHubClient";
 
 // Initialize MSW
 initialize();
@@ -20,6 +25,30 @@ const preview: Preview = {
   tags: ["autodocs"],
   // Provide the MSW addon loader globally
   loaders: [mswLoader],
+  decorators: [
+    (Story, context) => {
+      const QueryParamsDecorator = () => {
+        useEffect(() => {
+          client.cache.reset();
+
+          const queryParams = context.parameters?.query;
+          if (queryParams && typeof queryParams === "object") {
+            const url = new URL(window.location.href);
+            Object.entries(queryParams).forEach(([key, value]) => {
+              if (value) {
+                url.searchParams.set(key, String(value));
+              }
+            });
+            window.history.replaceState({}, "", url.toString());
+          }
+        }, []);
+
+        return React.createElement(Story);
+      };
+
+      return React.createElement(QueryParamsDecorator);
+    },
+  ],
 };
 
 export default preview;

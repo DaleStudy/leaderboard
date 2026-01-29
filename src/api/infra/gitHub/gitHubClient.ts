@@ -5,6 +5,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+export { client };
+
 export interface GitHubTeam {
   name: string;
 }
