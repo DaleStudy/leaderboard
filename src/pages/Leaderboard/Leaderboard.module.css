@@ -12,7 +12,7 @@
   align-items: stretch;
   gap: 32px;
   padding: 16px;
-  
+
   @media (min-width: 1100px) {
     gap: 16px;
     flex-direction: row;
