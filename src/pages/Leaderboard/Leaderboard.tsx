@@ -100,7 +100,7 @@ export default function Leaderboard() {
             className={styles.flex1}
           >
             <div ref={headingRef}>
-              <Heading level={5}>리더보드 찾기</Heading>
+              <Heading level={2}>리더보드 찾기</Heading>
             </div>
             <SearchBar
               filter={filter}
@@ -115,7 +115,7 @@ export default function Leaderboard() {
             gap="8"
             className={styles.flex1}
           >
-            <Heading level={5}>등급 기준표</Heading>
+            <Heading level={2}>등급 기준표</Heading>
             <HStack className={styles.grades}>
               {grades.map((grade) => (
                 <VStack key={grade.grade}>
