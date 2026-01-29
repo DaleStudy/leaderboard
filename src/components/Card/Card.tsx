@@ -19,11 +19,18 @@ export default function CardComponent({ id, name, cohorts, grade }: CardProps) {
         <Card.Body>
           <Card.Title>
             <Flex align="center" gap="4">
-              <Icon name="GitHub" />
+              <Icon name="GitHub" size="lg" />
               <span>{name}</span>
             </Flex>
           </Card.Title>
-          <Card.Description>{cohortString}기</Card.Description>
+          <Card.Description>
+            <Flex align="center" gap="4">
+              <div className={styles.iconWrapper}>
+                <img src="/flag-icon.svg" alt="깃발 아이콘" />
+              </div>
+              {cohortString}기
+            </Flex>
+          </Card.Description>
         </Card.Body>
       </Flex>
       <Flex gap="16" justify="end" className={styles.widthFull}>
