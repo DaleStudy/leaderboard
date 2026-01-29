@@ -1,4 +1,4 @@
-import Link from "../Link/Link";
+import { Box, Link, Flex, HStack, Icon } from "daleui";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -43,35 +43,43 @@ export default function Footer() {
   ];
 
   return (
-    <footer className={styles.footer} aria-label="사이트 푸터">
-      <section>
-        <ul className={styles.leftMenu}>
-          {leftMenu.map(({ label, link }) => (
-            <li key={link}>
+    <Box as="footer" className={styles.footer}>
+      <Flex className={styles.footerTop} align="end" justify="between">
+        <Flex direction="column" gap="16" align="start">
+          <span className={styles.footerTopLabel}>바로가기</span>
+          <HStack gap="40" className={styles.footerTopLeftMenu}>
+            {leftMenu.map(({ label, link }) => (
               <Link
-                variant="text"
+                key={label}
                 href={link}
                 target="_blank"
                 aria-label={label}
+                external
               >
                 {label}
+                <Icon name="externalLink" size="md" />
               </Link>
-            </li>
-          ))}
-        </ul>
-
-        <ul className={styles.rightMenu}>
+            ))}
+          </HStack>
+        </Flex>
+        <HStack gap="32" className={styles.footerTopRightMenu}>
           {rightMenu.map(({ label, link, component }) => (
-            <li key={link}>
-              <Link href={link} target="_blank" aria-label={label}>
-                {component}
-              </Link>
-            </li>
+            <Link
+              key={label}
+              href={link}
+              target="_blank"
+              aria-label={label}
+              external
+            >
+              {component}
+            </Link>
           ))}
-        </ul>
-      </section>
-
-      <p>© 2024 DaleStudy. All rights reserved.</p>
-    </footer>
+        </HStack>
+      </Flex>
+      <HStack align="between" className={styles.footerBottom}>
+        <span>© 2024 DaleStudy. All rights reserved.</span>
+        <Icon name="sun" />
+      </HStack>
+    </Box>
   );
 }
