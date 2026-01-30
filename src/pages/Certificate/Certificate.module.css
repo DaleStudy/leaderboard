@@ -44,9 +44,9 @@
 }
 
 .certificateTitle {
- @media (max-width: 768px) {
-  text-align: center;
- }
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 }
 
 .content {
@@ -77,7 +77,6 @@
   justify-content: center;
   flex-direction: column;
   gap: 40px;
-
 
   .descriptionText {
     text-align: center;
@@ -129,7 +128,6 @@
 
 .buttons {
   margin-top: 15px;
-
 
   @media (min-width: 768px) {
     margin-top: 20px;
