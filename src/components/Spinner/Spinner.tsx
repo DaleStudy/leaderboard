@@ -1,9 +1,10 @@
 import type { HTMLAttributes } from "react";
 import styles from "./Spinner.module.css";
+import { Box } from "daleui";
 
 export default function Spinner(props: HTMLAttributes<SVGElement>) {
   return (
-    <div className={styles.wrapper}>
+    <Box as="div" className={styles.wrapper}>
       <svg
         {...props}
         role="status"
@@ -78,6 +79,6 @@ export default function Spinner(props: HTMLAttributes<SVGElement>) {
           fill="#24EACA"
         />
       </svg>
-    </div>
+    </Box>
   );
 }

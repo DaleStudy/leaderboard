@@ -1,6 +1,6 @@
+import { Card, Flex, Icon } from "daleui";
 import type { Grade } from "../../api/services/types";
 import GradeImage from "../GradeImage/GradeImage";
-import Link from "../Link/Link";
 import styles from "./Card.module.css";
 
 interface CardProps {
@@ -10,42 +10,37 @@ interface CardProps {
   grade: Grade;
 }
 
-export default function Card({ id, name, cohorts, grade }: CardProps) {
+export default function CardComponent({ id, name, cohorts, grade }: CardProps) {
   const cohortString = cohorts.join(", ");
   return (
-    <article className={styles.item} aria-label={`${name}의 카드`}>
-      <GradeImage grade={grade} width={105} height={128} />
-
-      <section className={styles.content}>
-        <div className={styles.nameCohortWrapper}>
-          <section>
-            <div className={styles.iconWrapper}>
-              <img src="/github-icon-in-card.svg" alt="깃허브 아이콘" />
-            </div>
-            <span>{name}</span>
-          </section>
-
-          <section>
-            <div className={styles.iconWrapper}>
-              <img src="/flag-icon.svg" alt="깃발 아이콘" />
-            </div>
-            <span>{cohortString}기</span>
-          </section>
-        </div>
-
-        <section className={styles.links}>
-          <Link href={`/progress?member=${id}`} variant="primaryButton">
-            풀이 현황
-          </Link>
-          <Link
-            href={`/certificate?member=${id}`}
-            variant="primaryButton"
-            disabled={["SEED", "SPROUT", "LEAF"].includes(grade)}
-          >
-            수료증
-          </Link>
-        </section>
-      </section>
-    </article>
+    <Card id={id} tone="brand" outline={true}>
+      <Flex gap="16">
+        <GradeImage grade={grade} width={105} height={128} />
+        <Card.Body>
+          <Card.Title>
+            <Flex align="center" gap="4">
+              <Icon name="GitHub" size="lg" />
+              <span>{name}</span>
+            </Flex>
+          </Card.Title>
+          <Card.Description>
+            <Flex align="center" gap="4">
+              <div className={styles.iconWrapper}>
+                <img src="/flag-icon.svg" alt="깃발 아이콘" />
+              </div>
+              {cohortString}기
+            </Flex>
+          </Card.Description>
+        </Card.Body>
+      </Flex>
+      <Flex gap="16" justify="end" className={styles.widthFull}>
+        <Card.Link href={`/progress?member=${id}`} external>
+          풀이 현황
+        </Card.Link>
+        {!["SEED", "SPROUT", "LEAF"].includes(grade) && (
+          <Card.Link href={`/certificate?member=${id}`}>수료증</Card.Link>
+        )}
+      </Flex>
+    </Card>
   );
 }

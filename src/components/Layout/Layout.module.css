@@ -1,0 +1,9 @@
+.container {
+  background-color: var(--colors-bg-brand);
+}
+
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: var(--colors-app-bg);
+}
