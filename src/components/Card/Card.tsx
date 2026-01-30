@@ -38,9 +38,7 @@ export default function CardComponent({ id, name, cohorts, grade }: CardProps) {
           풀이 현황
         </Card.Link>
         {!["SEED", "SPROUT", "LEAF"].includes(grade) && (
-          <Card.Link href={`/certificate?member=${id}`} external>
-            수료증
-          </Card.Link>
+          <Card.Link href={`/certificate?member=${id}`}>수료증</Card.Link>
         )}
       </Flex>
     </Card>
