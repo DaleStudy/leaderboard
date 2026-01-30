@@ -1,10 +1,19 @@
+import {
+  Heading,
+  Button,
+  Text,
+  Link,
+  Icon,
+  HStack,
+  VStack,
+  Box,
+  Flex,
+} from "daleui";
 import { getMembers } from "../../api/getMembers";
 import Signature from "../../assets/signature.png";
 import useMembers from "../../hooks/useMembers";
 
-import Button from "../../components/Button/Button";
 import Layout from "../../components/Layout/Layout";
-import Link from "../../components/Link/Link";
 import NotFound from "../../components/NotFound/NotFound";
 import Unqualified from "../../components/Unqualified/Unqualified";
 import Spinner from "../../components/Spinner/Spinner";
@@ -78,79 +87,108 @@ export default function Certificate() {
 
   return (
     <Layout>
-      <main className={styles.certificate}>
-        <section>
+      <Box as="main" className={styles.certificate}>
+        <Box as="section">
           <Meta
             title={`${member.name}의 수료증`}
             description="수료증을 발급받아보세요!"
             url={window.location.href}
           />
+          <Button
+            tone="neutral"
+            variant="ghost"
+            leftIcon="chevronLeft"
+            size="lg"
+            onClick={() => (window.location.href = "/")}
+            className={styles.backButton}
+          >
+            리더보드로 돌아가기
+          </Button>
 
-          <h1>수료증</h1>
+          <Heading
+            level={4}
+            tone="neutral"
+            align="left"
+            className={styles.certificateTitle}
+          >
+            수료증
+          </Heading>
 
-          <div className={styles.mobileButtonWrapper}>
-            <Link variant="secondaryButton" href="/">
-              리더보드로 돌아가기
-            </Link>
-          </div>
-
-          <section className={styles.content}>
-            <div className={styles.description}>
-              <img src="/logo-in-certificate.svg" alt="수료증 로고"></img>
-              <h2>CERTIFICATE OF ACHIEVEMENT</h2>
-              <h3>DaleStudy</h3>
-              <h4>{member.name}</h4>
-
-              <p>{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.cohorts.at(-1)}${cohortSuffix?.[member.cohorts.at(-1) ?? 0] ?? "th"} DaleStudy.`}</p>
-
-              <img className={styles.signature} src={Signature} alt="서명" />
-              <h5>Dale Seo</h5>
-              <span>DaleStudy Organizer</span>
-            </div>
-
-            <img
-              className={`${styles.cornerAccent} ${styles.top} ${styles.left}`}
-              src="/top-left-corner-accent.svg"
-              alt="좌상단 모서리 테두리"
-            />
-            <img
-              className={`${styles.cornerAccent} ${styles.bottom} ${styles.left}`}
-              src="/bottom-left-corner-accent.svg"
-              alt="좌하단 모서리 테두리"
-            />
-            <img
-              className={`${styles.cornerAccent} ${styles.top} ${styles.right}`}
-              src="/top-right-corner-accent.svg"
-              alt="우상단 모서리 테두리"
-            />
-            <img
-              className={`${styles.cornerAccent} ${styles.bottom} ${styles.right}`}
-              src="/bottom-right-corner-accent.svg"
-              alt="우하단 모서리 테두리"
-            />
-          </section>
-
-          <section className={styles.buttons}>
-            <Link variant="secondaryButton" href="/">
-              리더보드로 돌아가기
-            </Link>
-
-            <div>
-              <Button
-                variant="primary"
-                size="large"
-                onClick={() => window.print()}
+          <Flex gap="16" align="center" justify="center" direction="column">
+            {/* 수료증 */}
+            <Box as="div" className={styles.content}>
+              <Box
+                as="div"
+                width="70%"
+                height="80%"
+                className={styles.description}
               >
-                출력
-              </Button>
+                <VStack gap="16">
+                  <Heading level={5} tone="brand" align="center">
+                    CERTIFICATE OF ACHIEVEMENT
+                  </Heading>
+                  <Text size="sm" tone="success">
+                    DaleStudy
+                  </Text>
+                </VStack>
 
-              <Link variant="primaryButton" href={linkedInURL} target="_blank">
-                링크드인 공유
-              </Link>
-            </div>
-          </section>
-        </section>
-      </main>
+                <Link href="/" tone="brand" underline={false} size="lg">
+                  {member.name}
+                  <Icon name="externalLink" size="sm" tone="brand" />
+                </Link>
+
+                <Text
+                  size="sm"
+                  tone="neutral"
+                  className={styles.descriptionText}
+                >{`For successfully completing ${member.solvedProblems.length === 75 ? "all" : member.solvedProblems.length} problems\nin the LeetCode Blind 75 and contributing\nto knowledge sharing in the ${member.cohorts.at(-1)}${cohortSuffix?.[member.cohorts.at(-1) ?? 0] ?? "th"} DaleStudy.`}</Text>
+                <VStack gap="16">
+                  <HStack gap="16">
+                    <img
+                      className={styles.signature}
+                      src={Signature}
+                      alt="서명"
+                    />
+                    <Box as="div" className={styles.signatureDivider}></Box>
+                    <Text size="lg" tone="info">
+                      Dale Seo
+                    </Text>
+                  </HStack>
+                  <Text size="sm" tone="neutral">
+                    DaleStudy Organizer
+                  </Text>
+                </VStack>
+              </Box>
+            </Box>
+
+            {/* 출력 & 링크드인 공유 버튼 */}
+            <Box as="div" className={styles.buttons}>
+              <HStack gap="16">
+                <Button
+                  tone="neutral"
+                  variant="solid"
+                  size="lg"
+                  fullWidth={false}
+                  onClick={() => window.print()}
+                >
+                  출력
+                </Button>
+
+                <Button
+                  tone="neutral"
+                  variant="solid"
+                  rightIcon="externalLink"
+                  size="lg"
+                  fullWidth={false}
+                  onClick={() => window.open(linkedInURL, "_blank")}
+                >
+                  링크드인 공유
+                </Button>
+              </HStack>
+            </Box>
+          </Flex>
+        </Box>
+      </Box>
     </Layout>
   );
 }
