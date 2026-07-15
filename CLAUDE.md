@@ -48,7 +48,7 @@ bun run test src/components/Card/Card.test.tsx
 ### Data Flow
 
 ```
-GitHub GraphQL API (https://dalestudy.fly.dev/)
+GitHub GraphQL API (https://graphql.daleseo.workers.dev/)
   ↓ gitHubClient.ts (Apollo Client)
   ↓ fetchService.ts (extract teams, members, submissions)
   ↓ processService.ts (calculate progress & grades)
@@ -178,7 +178,7 @@ export const Default: StoryObj<typeof Card> = {
 
 ### Apollo Client Configuration
 
-- **Endpoint**: `https://dalestudy.fly.dev/`
+- **Endpoint**: `https://graphql.daleseo.workers.dev/`
 - **Cache**: InMemoryCache (default policies)
 - **Location**: `src/api/infra/gitHub/gitHubClient.ts`
 
