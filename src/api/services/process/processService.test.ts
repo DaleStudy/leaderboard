@@ -114,15 +114,19 @@ test.each([
   ["to-lower-case", "two-sum"],
   ["two-sum", "to-lower-case"],
 ])("ignore unregistered submissions in order %s, %s", (first, second) => {
+  // Arrange
   const processService = createMockProcessService({ totalProblemCount: 75 });
+  const memberIdentity = mockMemberIdentity;
   const submissions = [first, second].map((problemTitle) => ({
     ...mockSubmission,
-    memberId: mockMemberIdentity.id,
+    memberId: memberIdentity.id,
     problemTitle,
   }));
 
-  const members = processService.getMembers([mockMemberIdentity], submissions);
+  // Act
+  const members = processService.getMembers([memberIdentity], submissions);
 
+  // Assert
   expect(members).toHaveLength(1);
   expect(members[0].solvedProblems).toEqual([
     problems.find((problem) => problem.title === "two-sum"),
@@ -132,19 +136,21 @@ test.each([
 });
 
 test("remove member with only unregistered submissions", () => {
+  // Arrange
   const processService = createMockProcessService();
+  const memberIdentity = mockMemberIdentity;
+  const submissions = [
+    {
+      ...mockSubmission,
+      memberId: memberIdentity.id,
+      problemTitle: "to-lower-case",
+    },
+  ];
 
-  const members = processService.getMembers(
-    [mockMemberIdentity],
-    [
-      {
-        ...mockSubmission,
-        memberId: mockMemberIdentity.id,
-        problemTitle: "to-lower-case",
-      },
-    ],
-  );
+  // Act
+  const members = processService.getMembers([memberIdentity], submissions);
 
+  // Assert
   expect(members).toHaveLength(0);
 });
 
