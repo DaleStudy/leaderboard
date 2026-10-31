@@ -43,8 +43,9 @@ const updateSubmissions = (
 ): void => {
   submissions.forEach((submission) => {
     const member = memberMap[submission.memberId];
+    const problem = problemMap[submission.problemTitle];
 
-    if (!member) {
+    if (!member || !problem) {
       return;
     }
 
@@ -56,7 +57,7 @@ const updateSubmissions = (
       return;
     }
 
-    member.solvedProblems.push(problemMap[submission.problemTitle]);
+    member.solvedProblems.push(problem);
   });
 };
 
